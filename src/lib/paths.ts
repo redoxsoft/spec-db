@@ -6,13 +6,31 @@ const KIND_FOLDER: Record<ResourceKind, string> = {
   pipeline: 'pipelines',
 }
 
+const DEFAULT_GITHUB_TREE_BASE =
+  'https://github.com/redoxsoft/spec-db/tree/main'
+
 /**
- * GitHub tree URL for View Source.
- * Override with VITE_GITHUB_TREE_BASE (…/tree/main, no trailing slash).
+ * GitHub tree base (…/tree/main).
+ * Override with VITE_GITHUB_TREE_BASE (no trailing slash).
  */
+export function githubTreeBase(): string {
+  return (
+    import.meta.env.VITE_GITHUB_TREE_BASE?.trim() || DEFAULT_GITHUB_TREE_BASE
+  ).replace(/\/$/, '')
+}
+
+/** Repo root URL derived from the tree base. */
+export function githubRepoUrl(): string {
+  return githubTreeBase().replace(/\/tree\/[^/]+$/, '')
+}
+
+/** Path under the GitHub tree (e.g. docs, CONTRIBUTING.md). */
+export function githubTreePath(relativePath: string): string {
+  const path = relativePath.replace(/^\//, '')
+  return `${githubTreeBase()}/${path}`
+}
+
+/** GitHub tree URL for View Source on a catalog resource. */
 export function githubResourceUrl(kind: ResourceKind, slug: string): string {
-  const base =
-    import.meta.env.VITE_GITHUB_TREE_BASE?.trim() ||
-    'https://github.com/redoxsoft/spec-db/tree/main'
-  return `${base.replace(/\/$/, '')}/resources/${KIND_FOLDER[kind]}/${slug}`
+  return githubTreePath(`resources/${KIND_FOLDER[kind]}/${slug}`)
 }
