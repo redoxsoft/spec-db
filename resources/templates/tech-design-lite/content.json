@@ -1,0 +1,95 @@
+{
+  "schemaVersion": "1",
+  "guidance": "Keep the design sketch short and actionable. Name real components and interfaces. Prefer explicit sequencing for rollout. Call out only material risks. Use code blocks or compact tables for schemas when helpful. Do not expand into a full RFC unless the user asks.",
+  "outline": [
+    {
+      "key": "context",
+      "title": "Context",
+      "guidance": "Frame the change before diving into components.",
+      "children": [
+        {
+          "key": "background",
+          "title": "Background",
+          "guidance": "Briefly summarize the system being touched, the change goal, and any hard constraints."
+        }
+      ]
+    },
+    {
+      "key": "system-components",
+      "title": "System Components",
+      "guidance": "Group the services or modules involved. Prefer content in the children.",
+      "children": [
+        {
+          "key": "component",
+          "title": "Component",
+          "guidance": "Title each instance with the service/module/UI name, not \"Component\".",
+          "cardinality": {
+            "min": 1,
+            "max": null
+          },
+          "children": [
+            {
+              "key": "responsibilities",
+              "title": "Responsibilities",
+              "guidance": "What this component owns and must guarantee."
+            },
+            {
+              "key": "interfaces",
+              "title": "Interfaces",
+              "guidance": "How it talks to other parts (APIs, events, props, queues). Prefer short bullet lists or a tiny table."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "data-models",
+      "title": "Data Models",
+      "guidance": "Group entities being stored or changed. Prefer content in the children.",
+      "children": [
+        {
+          "key": "entity",
+          "title": "Entity",
+          "guidance": "Title each instance with the entity name, not \"Entity\".",
+          "cardinality": {
+            "min": 1,
+            "max": null
+          },
+          "children": [
+            {
+              "key": "attributes",
+              "title": "Attributes",
+              "guidance": "Key fields and types being stored or changed. Use a small table when there are several fields."
+            },
+            {
+              "key": "relationships",
+              "title": "Relationships",
+              "guidance": "How this entity links to existing data."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "rollout-strategy",
+      "title": "Rollout Strategy",
+      "guidance": "Describe how the change ships safely.",
+      "children": [
+        {
+          "key": "deployment-steps",
+          "title": "Deployment Steps",
+          "guidance": "Numbered sequencing (e.g., migrate, deploy backend, flip flag). Include rollback only if non-obvious."
+        },
+        {
+          "key": "risks",
+          "title": "Risks",
+          "guidance": "Bullet list of material implementation or operational risks and mitigations. Omit if none.",
+          "cardinality": {
+            "min": 0,
+            "max": 1
+          }
+        }
+      ]
+    }
+  ]
+}

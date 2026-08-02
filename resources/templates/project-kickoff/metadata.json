@@ -1,0 +1,17 @@
+{
+  "slug": "project-kickoff",
+  "kind": "template",
+  "title": "Project Kickoff & Alignment",
+  "summary": "Get cross-functional teams aligned before a new initiative starts.",
+  "tags": [
+    "domain.product",
+    "use-case.planning"
+  ],
+  "createdAt": "2026-08-02",
+  "updatedAt": "2026-08-02",
+  "schemaVersion": "1",
+  "authors": [
+    "Spec DB"
+  ],
+  "license": "CC-BY-4.0"
+}

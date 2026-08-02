@@ -1,0 +1,18 @@
+{
+  "slug": "feature-spec-lite",
+  "kind": "template",
+  "title": "Feature Spec - Lite",
+  "summary": "A streamlined way to define what to build and why, without heavy enterprise PRD boilerplate.",
+  "tags": [
+    "domain.product",
+    "use-case.specification"
+  ],
+  "createdAt": "2026-08-02",
+  "updatedAt": "2026-08-02",
+  "schemaVersion": "1",
+  "authors": [
+    "Spec DB"
+  ],
+  "license": "CC-BY-4.0",
+  "featured": true
+}

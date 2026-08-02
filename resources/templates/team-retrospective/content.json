@@ -1,0 +1,109 @@
+{
+  "schemaVersion": "1",
+  "guidance": "Keep feedback specific and kind. Separate wins, friction, and kudos. Action items must be concrete process/tooling changes with owners—not vague aspirations. Do not invent feedback the team did not raise.",
+  "outline": [
+    {
+      "key": "cycle-context",
+      "title": "Cycle Context",
+      "guidance": "Frame the period being reviewed.",
+      "children": [
+        {
+          "key": "focus-area",
+          "title": "Focus Area",
+          "guidance": "Main theme or goal of the recent work period."
+        }
+      ]
+    },
+    {
+      "key": "what-went-well",
+      "title": "What Went Well",
+      "guidance": "Celebrate wins worth keeping.",
+      "children": [
+            {
+              "key": "win",
+              "title": "Win",
+              "guidance": "Title each instance with the win in a short phrase, not \"Win\".",
+              "cardinality": {
+                "min": 1,
+                "max": null
+              },
+              "children": [
+                {
+                  "key": "win-detail",
+                  "title": "Detail",
+                  "guidance": "What worked and why the team should keep doing it."
+                }
+              ]
+            }
+      ]
+    },
+    {
+      "key": "what-could-be-better",
+      "title": "What Could Be Better",
+      "guidance": "Surface friction without blame.",
+      "children": [
+            {
+              "key": "friction",
+              "title": "Friction",
+              "guidance": "Title each instance with the friction point, not \"Friction\".",
+              "cardinality": {
+                "min": 1,
+                "max": null
+              },
+              "children": [
+                {
+                  "key": "friction-detail",
+                  "title": "Detail",
+                  "guidance": "What hurt, who it affected, and why it matters."
+                }
+              ]
+            }
+      ]
+    },
+    {
+      "key": "kudos",
+      "title": "Kudos",
+      "guidance": "Optional shout-outs. Wrapper is always present; add zero or more shout-outs.",
+      "children": [
+        {
+          "key": "shout-out",
+          "title": "Shout-out",
+          "guidance": "Title each instance with the person or team name. Describe the recognition in this section body.",
+          "cardinality": {
+            "min": 0,
+            "max": null
+          },
+          "children": []
+        }
+      ]
+    },
+    {
+      "key": "action-items",
+      "title": "Action Items",
+      "guidance": "Concrete process or tooling changes for next cycle.",
+      "children": [
+        {
+          "key": "action",
+          "title": "Action",
+          "guidance": "Title each instance with the improvement step, not \"Action\".",
+          "cardinality": {
+            "min": 1,
+            "max": null
+          },
+          "children": [
+            {
+              "key": "improvement-step",
+              "title": "Improvement Step",
+              "guidance": "Concrete change to process or tooling."
+            },
+            {
+              "key": "owner",
+              "title": "Owner",
+              "guidance": "Who champions it next cycle."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

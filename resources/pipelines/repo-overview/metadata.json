@@ -1,0 +1,13 @@
+{
+  "slug": "repo-overview",
+  "kind": "pipeline",
+  "title": "Repo Overview",
+  "summary": "Analyze a git repository and produce a short structured overview for onboarding or triage.",
+  "tags": ["domain.engineering", "use-case.discovery"],
+  "createdAt": "2026-08-02",
+  "updatedAt": "2026-08-02",
+  "schemaVersion": "1",
+  "authors": ["Spec DB"],
+  "license": "CC-BY-4.0",
+  "featured": true
+}

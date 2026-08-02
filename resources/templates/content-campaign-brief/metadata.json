@@ -1,0 +1,17 @@
+{
+  "slug": "content-campaign-brief",
+  "kind": "template",
+  "title": "Content / Campaign Brief",
+  "summary": "Outline an article, video, or social campaign before production.",
+  "tags": [
+    "domain.marketing",
+    "use-case.execution"
+  ],
+  "createdAt": "2026-08-02",
+  "updatedAt": "2026-08-02",
+  "schemaVersion": "1",
+  "authors": [
+    "Spec DB"
+  ],
+  "license": "CC-BY-4.0"
+}

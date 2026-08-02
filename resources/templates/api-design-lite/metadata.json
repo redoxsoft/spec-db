@@ -1,0 +1,17 @@
+{
+  "slug": "api-design-lite",
+  "kind": "template",
+  "title": "API Design - Lite",
+  "summary": "Lightweight contract for adding or changing an API endpoint.",
+  "tags": [
+    "domain.engineering",
+    "use-case.specification"
+  ],
+  "createdAt": "2026-08-02",
+  "updatedAt": "2026-08-02",
+  "schemaVersion": "1",
+  "authors": [
+    "Spec DB"
+  ],
+  "license": "CC-BY-4.0"
+}

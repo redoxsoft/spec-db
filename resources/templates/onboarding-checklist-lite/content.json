@@ -1,0 +1,79 @@
+{
+  "schemaVersion": "1",
+  "guidance": "Optimize for clarity and momentum. Contacts should explain when to reach out. Tasks need a clear action plus resources (links). Avoid dumping the entire company wiki—keep week-one scoped.",
+  "outline": [
+    {
+      "key": "welcome-objectives",
+      "title": "Welcome & Objectives",
+      "guidance": "Set week-one success criteria and context.",
+      "children": [
+        {
+          "key": "success-looks-like",
+          "title": "Success Looks Like",
+          "guidance": "What good looks like by end of week one."
+        },
+        {
+          "key": "start-context",
+          "title": "Start Context",
+          "guidance": "Start date or cohort context, plus any role-specific framing."
+        }
+      ]
+    },
+    {
+      "key": "key-contacts",
+      "title": "Key Contacts",
+      "guidance": "People the newcomer should know.",
+      "children": [
+        {
+          "key": "person",
+          "title": "Person",
+          "guidance": "Title each instance with the person's name, not \"Person\".",
+          "cardinality": {
+            "min": 1,
+            "max": null
+          },
+          "children": [
+            {
+              "key": "who-they-are",
+              "title": "Who They Are",
+              "guidance": "Name and role."
+            },
+            {
+              "key": "why-talk-to-them",
+              "title": "Why Talk To Them",
+              "guidance": "Questions they can answer or help they provide."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "first-week-checklist",
+      "title": "First Week Checklist",
+      "guidance": "Scoped tasks for week one.",
+      "children": [
+        {
+          "key": "task",
+          "title": "Task",
+          "guidance": "Title each instance with the task action, not \"Task\".",
+          "cardinality": {
+            "min": 1,
+            "max": null
+          },
+          "children": [
+            {
+              "key": "action-item",
+              "title": "Action Item",
+              "guidance": "What to read, configure, or complete."
+            },
+            {
+              "key": "resources",
+              "title": "Resources",
+              "guidance": "Links or documents needed. Prefer bullets with URLs."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

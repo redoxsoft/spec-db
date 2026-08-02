@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Spec DB — Host mock</title>
+    <style>
+      :root {
+        color-scheme: light;
+        font-family: ui-sans-serif, system-ui, sans-serif;
+      }
+      body {
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+        background: #0f172a;
+        color: #e2e8f0;
+      }
+      header {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 0.75rem 1rem;
+        padding: 0.75rem 1rem;
+        border-bottom: 1px solid #334155;
+        background: #1e293b;
+      }
+      h1 {
+        margin: 0;
+        font-size: 0.95rem;
+        font-weight: 600;
+      }
+      label {
+        font-size: 0.75rem;
+        color: #94a3b8;
+      }
+      select,
+      button {
+        font: inherit;
+        font-size: 0.8rem;
+        border-radius: 0.375rem;
+        border: 1px solid #475569;
+        background: #0f172a;
+        color: #e2e8f0;
+        padding: 0.35rem 0.6rem;
+      }
+      button {
+        cursor: pointer;
+        background: #2563eb;
+        border-color: #2563eb;
+      }
+      button.secondary {
+        background: transparent;
+        border-color: #475569;
+      }
+      main {
+        flex: 1;
+        display: grid;
+        grid-template-rows: 1fr minmax(10rem, 30%);
+        min-height: 0;
+      }
+      iframe {
+        width: 100%;
+        height: 100%;
+        border: 0;
+        background: #fff;
+      }
+      #log-wrap {
+        display: flex;
+        flex-direction: column;
+        min-height: 0;
+        border-top: 1px solid #334155;
+        background: #020617;
+      }
+      #log-wrap header {
+        border: 0;
+        padding: 0.5rem 1rem;
+      }
+      #log {
+        margin: 0;
+        padding: 0.75rem 1rem 1rem;
+        overflow: auto;
+        flex: 1;
+        font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+        font-size: 0.75rem;
+        line-height: 1.45;
+        white-space: pre-wrap;
+        word-break: break-word;
+      }
+      .meta {
+        font-size: 0.7rem;
+        color: #64748b;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Host mock (SpecX / WorkX stand-in)</h1>
+      <div>
+        <label for="preset">Embed preset</label><br />
+        <select id="preset">
+          <option value="pipeline">WorkX — kinds=pipeline</option>
+          <option value="spec-template">SpecX — kinds=spec,template</option>
+          <option value="all">All kinds</option>
+        </select>
+      </div>
+      <button type="button" id="reload">Reload iframe</button>
+      <button type="button" class="secondary" id="clear">Clear log</button>
+      <span class="meta" id="src-label"></span>
+    </header>
+    <main>
+      <iframe id="frame" title="Spec DB embed"></iframe>
+      <div id="log-wrap">
+        <header>
+          <h1>postMessage log</h1>
+          <span class="meta">Listening for type <code>spec-db:import:requested</code></span>
+        </header>
+        <pre id="log">Waiting for Import from the iframe…</pre>
+      </div>
+    </main>
+    <script>
+      const IMPORT_TYPE = 'spec-db:import:requested'
+      const presetEl = document.getElementById('preset')
+      const frame = document.getElementById('frame')
+      const logEl = document.getElementById('log')
+      const srcLabel = document.getElementById('src-label')
+      let lines = []
+
+      function kindsQuery(preset) {
+        if (preset === 'pipeline') return 'kinds=pipeline'
+        if (preset === 'spec-template') return 'kinds=spec,template'
+        return ''
+      }
+
+      function iframeSrc(preset) {
+        const params = new URLSearchParams({ embed: 'true' })
+        const kinds = kindsQuery(preset)
+        if (kinds) {
+          const value = kinds.split('=')[1]
+          params.set('kinds', value)
+        }
+        return `/?${params.toString()}`
+      }
+
+      function loadFrame() {
+        const src = iframeSrc(presetEl.value)
+        frame.src = src
+        srcLabel.textContent = `iframe src: ${src}`
+      }
+
+      function appendLog(entry) {
+        if (lines.length === 1 && lines[0].startsWith('Waiting')) lines = []
+        lines.unshift(entry)
+        logEl.textContent = lines.join('\n\n')
+      }
+
+      window.addEventListener('message', (event) => {
+        if (event.source !== frame.contentWindow) return
+        const data = event.data
+        if (!data || data.type !== IMPORT_TYPE) return
+
+        appendLog(
+          [
+            `[${new Date().toISOString()}] origin=${event.origin}`,
+            JSON.stringify(data, null, 2),
+            'Host would: POST import API with { kind, slug } → BE fetches /generated/packages/{kind}/{slug}.json → map → create',
+          ].join('\n'),
+        )
+      })
+
+      document.getElementById('reload').addEventListener('click', loadFrame)
+      document.getElementById('clear').addEventListener('click', () => {
+        lines = ['Log cleared.']
+        logEl.textContent = lines[0]
+      })
+      presetEl.addEventListener('change', loadFrame)
+
+      loadFrame()
+    </script>
+  </body>
+</html>

@@ -1,0 +1,8 @@
+# Static-asset headers for Cloudflare Workers (copied to dist/ on build).
+# frame-ancestors: Spec DB itself + Redoxsoft product hosts + local iframe testing.
+# Prefer CSP over X-Frame-Options (omit XFO so hosts can frame this origin).
+
+/*
+  Content-Security-Policy: frame-ancestors 'self' https://*.redoxsoft.com http://localhost:* http://127.0.0.1:*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin

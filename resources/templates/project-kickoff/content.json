@@ -1,0 +1,79 @@
+{
+  "schemaVersion": "1",
+  "guidance": "Optimize for shared understanding, not a detailed plan. Make the why crisp, milestones outcome-based, and risks actionable. Avoid status-report filler and invented dates when unknown—mark unknowns clearly.",
+  "outline": [
+    {
+      "key": "objective",
+      "title": "Objective",
+      "guidance": "Align on why this initiative exists and who is involved.",
+      "children": [
+        {
+          "key": "the-why",
+          "title": "The Why",
+          "guidance": "Primary business or product goal for doing this now."
+        },
+        {
+          "key": "stakeholders",
+          "title": "Stakeholders",
+          "guidance": "Who is involved, who decides, and who must stay informed. Use a short bullet list or table (Name / Role / Involvement)."
+        }
+      ]
+    },
+    {
+      "key": "milestones",
+      "title": "Milestones",
+      "guidance": "Group outcome-based phases for the initiative.",
+      "children": [
+        {
+          "key": "phase",
+          "title": "Phase",
+          "guidance": "Title each instance with the phase or milestone name, not \"Phase\".",
+          "cardinality": {
+            "min": 1,
+            "max": null
+          },
+          "children": [
+            {
+              "key": "deliverables",
+              "title": "Deliverables",
+              "guidance": "What is produced in this phase."
+            },
+            {
+              "key": "target-timeline",
+              "title": "Target Timeline",
+              "guidance": "Rough completion expectation. Say \"TBD\" rather than inventing dates."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "risks-unknowns",
+      "title": "Risks & Unknowns",
+      "guidance": "Surface blockers early with owners for mitigation.",
+      "children": [
+        {
+          "key": "risk",
+          "title": "Risk",
+          "guidance": "Title each instance with the risk itself, not \"Risk\".",
+          "cardinality": {
+            "min": 1,
+            "max": null
+          },
+          "children": [
+            {
+              "key": "impact",
+              "title": "Impact",
+              "guidance": "What could go wrong or block the project."
+            },
+            {
+              "key": "mitigation",
+              "title": "Mitigation",
+              "guidance": "How the team will de-risk or handle it."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

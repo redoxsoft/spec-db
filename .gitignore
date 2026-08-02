@@ -1,0 +1,26 @@
+# dependencies
+node_modules/
+
+# build
+dist/
+
+# generated catalog (CI / npm run index)
+public/generated/
+
+# Pagefind (search HTML + bundle)
+public/search-docs/
+public/pagefind/
+dist/search-docs/
+dist/pagefind/
+
+# editor / OS
+.DS_Store
+*.local
+.vscode/*
+!.vscode/extensions.json
+
+# logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*

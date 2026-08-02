@@ -1,0 +1,86 @@
+{
+  "schemaVersion": "1",
+  "guidance": "Stay blameless and factual. Focus on user impact, timeline, root cause, and preventive actions. Prefer timestamps and concrete systems over narrative blame. Keep action items owned and specific.",
+  "outline": [
+    {
+      "key": "incident-summary",
+      "title": "Incident Summary",
+      "guidance": "Summarize user impact and severity.",
+      "children": [
+        {
+          "key": "user-impact",
+          "title": "User Impact",
+          "guidance": "What users experienced, severity, and roughly how long it lasted."
+        }
+      ]
+    },
+    {
+      "key": "timeline-of-events",
+      "title": "Timeline of Events",
+      "guidance": "Chronological events during the incident.",
+      "children": [
+        {
+          "key": "event",
+          "title": "Event",
+          "guidance": "Title each instance with a short event label, not \"Event\".",
+          "cardinality": {
+            "min": 1,
+            "max": null
+          },
+          "children": [
+            {
+              "key": "timestamp",
+              "title": "Timestamp",
+              "guidance": "When this event occurred (include timezone if known)."
+            },
+            {
+              "key": "action-taken",
+              "title": "Action Taken",
+              "guidance": "What the system or team did at that moment."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "root-cause-prevention",
+      "title": "Root Cause & Prevention",
+      "guidance": "Explain failure and preventive follow-ups.",
+      "children": [
+        {
+          "key": "what-went-wrong",
+          "title": "What Went Wrong",
+          "guidance": "Core technical or process failure (systems and conditions, not people)."
+        },
+        {
+          "key": "follow-ups",
+          "title": "Follow-ups",
+          "guidance": "Owned actions that prevent recurrence.",
+          "children": [
+            {
+              "key": "follow-up",
+              "title": "Follow-up",
+              "guidance": "Title each instance with the follow-up action, not \"Follow-up\".",
+              "cardinality": {
+                "min": 1,
+                "max": null
+              },
+              "children": [
+                {
+                  "key": "owner",
+                  "title": "Owner",
+                  "guidance": "Who owns completing it."
+                },
+                {
+                  "key": "intent",
+                  "title": "Intent",
+                  "guidance": "How this prevents the same failure."
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

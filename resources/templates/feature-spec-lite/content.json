@@ -1,0 +1,72 @@
+{
+  "schemaVersion": "1",
+  "guidance": "Produce a short, implementation-ready feature brief. Keep scenarios concrete and testable. Prefer measurable success metrics over vague goals. Challenge fuzzy scope. Do not invent backlog fluff or version/changelog sections.",
+  "outline": [
+    {
+      "key": "overview",
+      "title": "Overview",
+      "guidance": "Group the problem statement and success metrics. Prefer content in the children.",
+      "children": [
+        {
+          "key": "the-problem",
+          "title": "The Problem",
+          "guidance": "State the core user pain or inefficiency in 2–4 sentences. Name who hurts and what breaks today."
+        },
+        {
+          "key": "success-metrics",
+          "title": "Success Metrics",
+          "guidance": "List 1–3 measurable outcomes that prove the feature worked. Prefer numbers or clear qualitative thresholds."
+        }
+      ]
+    },
+    {
+      "key": "user-scenarios",
+      "title": "User Scenarios",
+      "guidance": "Group concrete, testable scenarios. Prefer content in the children.",
+      "children": [
+        {
+          "key": "scenario",
+          "title": "Scenario",
+          "guidance": "Title each instance with the user goal or scenario name, not \"Scenario\".",
+          "cardinality": {
+            "min": 1,
+            "max": null
+          },
+          "children": [
+            {
+              "key": "intent",
+              "title": "Intent",
+              "guidance": "What the user is trying to accomplish in this scenario."
+            },
+            {
+              "key": "acceptance-criteria",
+              "title": "Acceptance Criteria",
+              "guidance": "Bullet list of specific, testable done-conditions for this scenario."
+            },
+            {
+              "key": "edge-cases",
+              "title": "Edge Cases",
+              "guidance": "Bullet list of failure modes, missing data, permissions, or empty states that matter here. Omit if none are known.",
+              "cardinality": {
+                "min": 0,
+                "max": 1
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "out-of-scope",
+      "title": "Out of Scope",
+      "guidance": "Capture what is intentionally deferred.",
+      "children": [
+        {
+          "key": "exclusions",
+          "title": "Exclusions",
+          "guidance": "Bullet list of what is intentionally deferred or ignored for this iteration."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "slug": "incident-post-mortem-lite",
+  "kind": "template",
+  "title": "Incident Post-Mortem - Lite",
+  "summary": "Blameless capture of what broke, how it was fixed, and how to prevent recurrence.",
+  "tags": [
+    "domain.engineering",
+    "use-case.execution"
+  ],
+  "createdAt": "2026-08-02",
+  "updatedAt": "2026-08-02",
+  "schemaVersion": "1",
+  "authors": [
+    "Spec DB"
+  ],
+  "license": "CC-BY-4.0"
+}

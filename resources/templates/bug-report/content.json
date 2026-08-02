@@ -1,0 +1,67 @@
+{
+  "schemaVersion": "1",
+  "guidance": "Maximize reproducibility. Contrast expected vs actual clearly. Steps must be an ordered sequence a stranger can follow. Environment details must be concrete. Evidence is links or pasted log snippets only—there is no file-attachment block type. Do not speculate on root cause unless asked.",
+  "outline": [
+    {
+      "key": "issue-summary",
+      "title": "Issue Summary",
+      "guidance": "Contrast expected and actual behavior.",
+      "children": [
+        {
+          "key": "expected-behavior",
+          "title": "Expected Behavior",
+          "guidance": "What the system should have done."
+        },
+        {
+          "key": "actual-behavior",
+          "title": "Actual Behavior",
+          "guidance": "What the system did instead."
+        }
+      ]
+    },
+    {
+      "key": "reproduction-steps",
+      "title": "Reproduction Steps",
+      "guidance": "Ordered steps a stranger can follow.",
+      "children": [
+        {
+          "key": "step",
+          "title": "Step",
+          "guidance": "Title each instance with the step action, not \"Step\".",
+          "cardinality": {
+            "min": 1,
+            "max": null
+          },
+          "children": [
+            {
+              "key": "action",
+              "title": "Action",
+              "guidance": "Exact click, input, or command for this step."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "environment",
+      "title": "Environment",
+      "guidance": "Where the bug was observed.",
+      "children": [
+        {
+          "key": "context",
+          "title": "Context",
+          "guidance": "Browser/OS/device/app build or other environment facts where observed."
+        },
+        {
+          "key": "evidence",
+          "title": "Evidence",
+          "guidance": "Optional links to screenshots/recordings or pasted log snippets. Prefer bullets with URLs; code block for logs.",
+          "cardinality": {
+            "min": 0,
+            "max": 1
+          }
+        }
+      ]
+    }
+  ]
+}

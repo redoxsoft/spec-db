@@ -1,0 +1,127 @@
+{
+  "schemaVersion": "1",
+  "guidance": "Challenge vague assumptions. Converge on problem-solution fit, who it is for, how to validate, and what to cut from the first version. Prefer crisp statements over brainstorm dumps. Do not expand into a full PRD.",
+  "outline": [
+    {
+      "key": "core-concept",
+      "title": "Core Concept",
+      "guidance": "State the problem and proposed solution crisply.",
+      "children": [
+        {
+          "key": "problem-statement",
+          "title": "Problem Statement",
+          "guidance": "Exact user pain or inefficiency this idea targets."
+        },
+        {
+          "key": "proposed-solution",
+          "title": "Proposed Solution",
+          "guidance": "Core insight and what makes the approach unique."
+        }
+      ]
+    },
+    {
+      "key": "target-audience",
+      "title": "Target Audience",
+      "guidance": "Group personas this idea serves.",
+      "children": [
+        {
+          "key": "persona",
+          "title": "Persona",
+          "guidance": "Title each instance with persona name or role, not \"Persona\".",
+          "cardinality": {
+            "min": 1,
+            "max": null
+          },
+          "children": [
+            {
+              "key": "needs-context",
+              "title": "Needs & Context",
+              "guidance": "What this persona is trying to achieve and why it is urgent."
+            },
+            {
+              "key": "current-workarounds",
+              "title": "Current Workarounds",
+              "guidance": "How they hack a solution today and where it breaks down."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "validation-path",
+      "title": "Validation Path",
+      "guidance": "Group experiments that will prove or kill the idea.",
+      "children": [
+        {
+          "key": "experiment",
+          "title": "Experiment",
+          "guidance": "Title each instance with the experiment name, not \"Experiment\".",
+          "cardinality": {
+            "min": 1,
+            "max": null
+          },
+          "children": [
+            {
+              "key": "signal-needed",
+              "title": "Signal Needed",
+              "guidance": "Qualitative or quantitative signal required to learn."
+            },
+            {
+              "key": "success-threshold",
+              "title": "Success Threshold",
+              "guidance": "Minimum result that justifies building further."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "mvp-scope",
+      "title": "MVP Scope",
+      "guidance": "Define what is cut from the first version.",
+      "children": [
+        {
+          "key": "cutline",
+          "title": "Cutline",
+          "guidance": "What is explicitly left out of the first version to validate faster."
+        }
+      ]
+    },
+    {
+      "key": "open-risks",
+      "title": "Open Risks",
+      "guidance": "Assumptions still in play. Wrapper is always present; omit risks when none.",
+      "children": [
+        {
+          "key": "risk",
+          "title": "Risk",
+          "guidance": "Title each instance with the assumption or risk itself.",
+          "cardinality": {
+            "min": 0,
+            "max": null
+          },
+          "children": [
+            {
+              "key": "why-it-matters",
+              "title": "Why It Matters",
+              "guidance": "What goes wrong if this is false.",
+              "cardinality": {
+                "min": 0,
+                "max": 1
+              }
+            },
+            {
+              "key": "how-to-de-risk",
+              "title": "How To De-risk",
+              "guidance": "Signal, decision, or investigation that reduces uncertainty.",
+              "cardinality": {
+                "min": 0,
+                "max": 1
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

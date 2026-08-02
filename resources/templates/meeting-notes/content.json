@@ -1,0 +1,79 @@
+{
+  "schemaVersion": "1",
+  "guidance": "Capture decisions and owners, not a transcript. Keep notes terse. Every action item must be concrete and owned. Prefer bullets. Do not invent decisions that were not made—write \"None\" when empty.",
+  "outline": [
+    {
+      "key": "context",
+      "title": "Context",
+      "guidance": "Frame the meeting goal and attendees.",
+      "children": [
+        {
+          "key": "objective",
+          "title": "Objective",
+          "guidance": "The single goal of this meeting in one or two sentences."
+        },
+        {
+          "key": "attendees",
+          "title": "Attendees",
+          "guidance": "Who was present (names/roles)."
+        }
+      ]
+    },
+    {
+      "key": "discussion-topics",
+      "title": "Discussion Topics",
+      "guidance": "Group topics covered in the meeting.",
+      "children": [
+        {
+          "key": "topic",
+          "title": "Topic",
+          "guidance": "Title each instance with the topic name, not \"Topic\".",
+          "cardinality": {
+            "min": 1,
+            "max": null
+          },
+          "children": [
+            {
+              "key": "key-notes",
+              "title": "Key Notes",
+              "guidance": "Important context or updates for this topic. Bullets preferred."
+            },
+            {
+              "key": "decisions-made",
+              "title": "Decisions Made",
+              "guidance": "Finalized agreements for this topic, or \"None\"."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "action-items",
+      "title": "Action Items",
+      "guidance": "Owned next steps from the meeting.",
+      "children": [
+        {
+          "key": "task",
+          "title": "Task",
+          "guidance": "Title each instance with the action verb phrase, not \"Task\".",
+          "cardinality": {
+            "min": 1,
+            "max": null
+          },
+          "children": [
+            {
+              "key": "next-steps",
+              "title": "Next Steps",
+              "guidance": "What specifically needs to happen next."
+            },
+            {
+              "key": "owner",
+              "title": "Owner",
+              "guidance": "Who drives it (one primary owner)."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

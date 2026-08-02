@@ -1,0 +1,88 @@
+{
+  "schemaVersion": "1",
+  "guidance": "Keep the contract deterministic and skim-friendly. Use code blocks for example payloads/schemas. Prefer explicit status codes and trigger conditions. Do not invent auth or pagination details unless stated or clearly required. Avoid full platform-wide API catalogs.",
+  "outline": [
+    {
+      "key": "context",
+      "title": "Context",
+      "guidance": "Frame why this API change is needed.",
+      "children": [
+        {
+          "key": "objective",
+          "title": "Objective",
+          "guidance": "Product or technical need that requires this API change."
+        }
+      ]
+    },
+    {
+      "key": "endpoints",
+      "title": "Endpoints",
+      "guidance": "Group endpoint contracts. Prefer content in the children.",
+      "children": [
+        {
+          "key": "endpoint",
+          "title": "Endpoint",
+          "guidance": "Title each instance with METHOD and path, e.g. \"POST /v1/users\".",
+          "cardinality": {
+            "min": 1,
+            "max": null
+          },
+          "children": [
+            {
+              "key": "route-method",
+              "title": "Route & Method",
+              "guidance": "HTTP method and path, plus a one-line purpose."
+            },
+            {
+              "key": "request-payload",
+              "title": "Request Payload",
+              "guidance": "Expected input schema or example. Prefer a code block."
+            },
+            {
+              "key": "response-payload",
+              "title": "Response Payload",
+              "guidance": "Success output schema or example. Prefer a code block."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "error-handling",
+      "title": "Error Handling",
+      "guidance": "Group error states for this API change.",
+      "children": [
+        {
+          "key": "error-state",
+          "title": "Error State",
+          "guidance": "Title each instance with status code and short label, e.g. \"404 Not Found\".",
+          "cardinality": {
+            "min": 1,
+            "max": null
+          },
+          "children": [
+            {
+              "key": "status-code",
+              "title": "Status Code",
+              "guidance": "HTTP error code."
+            },
+            {
+              "key": "trigger",
+              "title": "Trigger",
+              "guidance": "Specific condition that causes this error."
+            },
+            {
+              "key": "error-body",
+              "title": "Error Body",
+              "guidance": "Example error payload if the API returns a structured body. Prefer a code block.",
+              "cardinality": {
+                "min": 0,
+                "max": 1
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

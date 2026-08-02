@@ -1,0 +1,115 @@
+{
+  "schemaVersion": "1",
+  "guidance": "Center the report's needs. Capture blockers and support asks clearly. Action items must be owned. Keep notes concise. Do not invent personal details or performance judgments.",
+  "outline": [
+    {
+      "key": "check-in",
+      "title": "Check-In",
+      "guidance": "Pulse on the report's current state.",
+      "children": [
+        {
+          "key": "current-mood",
+          "title": "Current Mood",
+          "guidance": "Short pulse on energy, workload, or burnout risk—in the report's words when possible."
+        },
+        {
+          "key": "top-of-mind",
+          "title": "Top of Mind",
+          "guidance": "Most pressing topic the report wants to discuss."
+        }
+      ]
+    },
+    {
+      "key": "discussion-topics",
+      "title": "Discussion Topics",
+      "guidance": "Agenda items for this sync.",
+      "children": [
+        {
+          "key": "agenda-item",
+          "title": "Agenda Item",
+          "guidance": "Title each instance with the topic, not \"Agenda Item\".",
+          "cardinality": {
+            "min": 1,
+            "max": null
+          },
+          "children": [
+            {
+              "key": "notes",
+              "title": "Notes",
+              "guidance": "Key points discussed. Bullets preferred."
+            },
+            {
+              "key": "decisions",
+              "title": "Decisions",
+              "guidance": "Agreements made, or \"None\"."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "roadblocks-support",
+      "title": "Roadblocks & Support",
+      "guidance": "Blockers the manager can help with. Wrapper is always present; omit blockers when none.",
+      "children": [
+        {
+          "key": "blocker",
+          "title": "Blocker",
+          "guidance": "Title each instance with the blocker name.",
+          "cardinality": {
+            "min": 0,
+            "max": null
+          },
+          "children": [
+            {
+              "key": "the-issue",
+              "title": "The Issue",
+              "guidance": "What is slowing the report down.",
+              "cardinality": {
+                "min": 0,
+                "max": 1
+              }
+            },
+            {
+              "key": "how-i-can-help",
+              "title": "How I Can Help",
+              "guidance": "What the manager will do to unblock.",
+              "cardinality": {
+                "min": 0,
+                "max": 1
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "action-items",
+      "title": "Action Items",
+      "guidance": "Owned follow-ups before the next sync.",
+      "children": [
+        {
+          "key": "task",
+          "title": "Task",
+          "guidance": "Title each instance with the next step, not \"Task\".",
+          "cardinality": {
+            "min": 1,
+            "max": null
+          },
+          "children": [
+            {
+              "key": "next-steps",
+              "title": "Next Steps",
+              "guidance": "What happens before the next sync."
+            },
+            {
+              "key": "owner",
+              "title": "Owner",
+              "guidance": "Who owns it."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

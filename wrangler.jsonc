@@ -1,0 +1,15 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "spec-db",
+  "compatibility_date": "2026-07-31",
+  // Static SPA — connect this GitHub repo in the Cloudflare dashboard (Workers).
+  // Build command: npm ci && npm run build
+  // Deploy/output: dist/ (Wrangler uploads assets.directory)
+  "assets": {
+    "directory": "./dist",
+    "not_found_handling": "single-page-application",
+  },
+  "observability": {
+    "enabled": true,
+  },
+}

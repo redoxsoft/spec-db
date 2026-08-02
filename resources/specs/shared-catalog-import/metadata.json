@@ -1,0 +1,14 @@
+{
+  "slug": "shared-catalog-import",
+  "kind": "spec",
+  "title": "Shared Catalog Import",
+  "summary": "Sample filled spec showing how Spec DB packages flow into SpecX/WorkX via kind + slug handoff.",
+  "tags": ["domain.product", "use-case.specification"],
+  "createdAt": "2026-08-02",
+  "updatedAt": "2026-08-02",
+  "schemaVersion": "1",
+  "authors": ["Spec DB"],
+  "license": "CC-BY-4.0",
+  "featured": true,
+  "templateSlug": "feature-spec-lite"
+}

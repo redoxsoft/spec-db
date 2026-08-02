@@ -1,0 +1,128 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "packageVersion": {
+      "type": "string",
+      "const": "1"
+    },
+    "slug": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1
+    },
+    "summary": {
+      "type": "string",
+      "minLength": 1
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "updatedAt": {
+      "type": "string",
+      "minLength": 1
+    },
+    "schemaVersion": {
+      "type": "string",
+      "const": "1"
+    },
+    "kind": {
+      "type": "string",
+      "const": "pipeline"
+    },
+    "pipeline": {
+      "type": "object",
+      "properties": {
+        "inputVarDefinitions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "key": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "^\\S+$"
+              },
+              "description": {
+                "type": "string"
+              },
+              "suggestedDefault": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "key"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "iteratorFields": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "steps": {
+          "minItems": 1,
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "key": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+              },
+              "name": {
+                "type": "string",
+                "minLength": 1
+              },
+              "instructions": {
+                "type": "string"
+              },
+              "iteratorFields": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            },
+            "required": [
+              "key",
+              "name",
+              "instructions",
+              "iteratorFields"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "inputVarDefinitions",
+        "iteratorFields",
+        "steps"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "packageVersion",
+    "slug",
+    "title",
+    "summary",
+    "schemaVersion",
+    "kind",
+    "pipeline"
+  ],
+  "additionalProperties": false
+}

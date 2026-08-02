@@ -1,0 +1,17 @@
+{
+  "slug": "user-guide-lite",
+  "kind": "template",
+  "title": "User Guide / How-To - Lite",
+  "summary": "Knowledge-base article that helps a user complete one specific task.",
+  "tags": [
+    "domain.product",
+    "use-case.execution"
+  ],
+  "createdAt": "2026-08-02",
+  "updatedAt": "2026-08-02",
+  "schemaVersion": "1",
+  "authors": [
+    "Spec DB"
+  ],
+  "license": "CC-BY-4.0"
+}

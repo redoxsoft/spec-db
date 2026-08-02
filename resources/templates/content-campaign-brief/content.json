@@ -1,0 +1,97 @@
+{
+  "schemaVersion": "1",
+  "guidance": "One core message. Outline sections should each argue one point with evidence. Assets and distribution need enough detail to produce and publish. Do not draft the full content unless asked—brief for production.",
+  "outline": [
+    {
+      "key": "overview",
+      "title": "Overview",
+      "guidance": "Audience and core message for the piece.",
+      "children": [
+        {
+          "key": "target-audience",
+          "title": "Target Audience",
+          "guidance": "Who this content is for."
+        },
+        {
+          "key": "core-message",
+          "title": "Core Message",
+          "guidance": "Single most important takeaway."
+        }
+      ]
+    },
+    {
+      "key": "outline",
+      "title": "Outline",
+      "guidance": "Section-by-section arguments before drafting.",
+      "children": [
+        {
+          "key": "section",
+          "title": "Section",
+          "guidance": "Title each instance with the section heading, not \"Section\".",
+          "cardinality": {
+            "min": 1,
+            "max": null
+          },
+          "children": [
+            {
+              "key": "key-argument",
+              "title": "Key Argument",
+              "guidance": "Main point of this section."
+            },
+            {
+              "key": "supporting-evidence",
+              "title": "Supporting Evidence",
+              "guidance": "Data, quotes, or examples to include."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "assets-needed",
+      "title": "Assets Needed",
+      "guidance": "Creative assets required for production.",
+      "children": [
+        {
+          "key": "creative-asset",
+          "title": "Creative Asset",
+          "guidance": "Title each instance with the asset name, e.g. \"Hero image\".",
+          "cardinality": {
+            "min": 1,
+            "max": null
+          },
+          "children": [
+            {
+              "key": "description",
+              "title": "Description",
+              "guidance": "What to create and any constraints (size, tone, must-include)."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "distribution",
+      "title": "Distribution",
+      "guidance": "Where and when the content publishes.",
+      "children": [
+        {
+          "key": "channel",
+          "title": "Channel",
+          "guidance": "Title each instance with the platform, not \"Channel\".",
+          "cardinality": {
+            "min": 1,
+            "max": null
+          },
+          "children": [
+            {
+              "key": "platform-timing",
+              "title": "Platform & Timing",
+              "guidance": "Where it posts and when."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,48 @@
+{
+  "name": "spec-db",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "tsx scripts/index.ts && tsx scripts/pagefind-index.ts --root public && vite",
+    "validate": "tsx scripts/validate.ts",
+    "check": "tsx scripts/validate.ts",
+    "index": "tsx scripts/index.ts",
+    "pagefind": "tsx scripts/pagefind-index.ts --root public",
+    "schema:json": "tsx scripts/emit-json-schema.ts",
+    "build": "npm run validate && npm run index && tsc -b && vite build && tsx scripts/pagefind-index.ts --root dist",
+    "smoke": "tsx scripts/smoke-dist.ts",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "lucide-react": "^1.28.0",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1",
+    "react-router-dom": "^7.18.2",
+    "zod": "^4.4.3"
+  },
+  "devDependencies": {
+    "@shikijs/rehype": "^4.4.1",
+    "@tailwindcss/typography": "^0.5.20",
+    "@tailwindcss/vite": "^4.1.11",
+    "@types/node": "^26.1.2",
+    "@types/react": "^19.1.9",
+    "@types/react-dom": "^19.1.7",
+    "@vitejs/plugin-react": "^4.7.0",
+    "mdast-util-to-string": "^4.0.0",
+    "pagefind": "^1.5.2",
+    "rehype-sanitize": "^6.0.0",
+    "rehype-stringify": "^10.0.1",
+    "remark-gfm": "^4.0.1",
+    "remark-github-blockquote-alert": "^2.1.0",
+    "remark-parse": "^11.0.0",
+    "remark-rehype": "^11.1.2",
+    "shiki": "^4.4.1",
+    "tailwindcss": "^4.1.11",
+    "tsx": "^4.23.1",
+    "typescript": "~5.8.3",
+    "unified": "^11.0.5",
+    "unist-util-visit": "^5.1.0",
+    "vite": "^7.0.6"
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "slug": "tech-design-lite",
+  "kind": "template",
+  "title": "Tech Design - Lite",
+  "summary": "A simple architectural sketch for engineering work before writing code.",
+  "tags": [
+    "domain.engineering",
+    "use-case.specification"
+  ],
+  "createdAt": "2026-08-02",
+  "updatedAt": "2026-08-02",
+  "schemaVersion": "1",
+  "authors": [
+    "Spec DB"
+  ],
+  "license": "CC-BY-4.0"
+}

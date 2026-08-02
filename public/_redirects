@@ -1,0 +1,4 @@
+# Optional SPA fallback for hosts that honor _redirects.
+# Cloudflare Workers also use wrangler.jsonc assets.not_found_handling = single-page-application.
+# Existing files (generated/, pagefind/, host-mock.html, assets) are served first.
+/*    /index.html   200

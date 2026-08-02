@@ -1,0 +1,78 @@
+{
+  "schemaVersion": "1",
+  "guidance": "Write so a trained newcomer can execute without tribal knowledge. Steps are ordered and concrete. Call out failure-prone details per step. Checklist items are binary verifications. Avoid policy essays—stay procedural.",
+  "outline": [
+    {
+      "key": "purpose-scope",
+      "title": "Purpose & Scope",
+      "guidance": "Why this process exists and who owns it.",
+      "children": [
+        {
+          "key": "why-it-matters",
+          "title": "Why It Matters",
+          "guidance": "Why this process exists and what fails if done incorrectly."
+        },
+        {
+          "key": "who-owns-this",
+          "title": "Who Owns This",
+          "guidance": "Role responsible for executing it."
+        }
+      ]
+    },
+    {
+      "key": "step-by-step-process",
+      "title": "Step-by-Step Process",
+      "guidance": "Ordered procedural steps.",
+      "children": [
+        {
+          "key": "step",
+          "title": "Step",
+          "guidance": "Title each instance with the step action, not \"Step\".",
+          "cardinality": {
+            "min": 1,
+            "max": null
+          },
+          "children": [
+            {
+              "key": "action-required",
+              "title": "Action Required",
+              "guidance": "Specific task to perform."
+            },
+            {
+              "key": "watch-outs",
+              "title": "Watch Outs",
+              "guidance": "Common mistakes or important details for this step. Omit if none.",
+              "cardinality": {
+                "min": 0,
+                "max": 1
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "quality-checklist",
+      "title": "Quality Checklist",
+      "guidance": "Binary verifications before the process is complete.",
+      "children": [
+        {
+          "key": "verification",
+          "title": "Verification",
+          "guidance": "Title each instance with the check item, not \"Verification\".",
+          "cardinality": {
+            "min": 1,
+            "max": null
+          },
+          "children": [
+            {
+              "key": "review-item",
+              "title": "Review Item",
+              "guidance": "What to confirm before the process is complete."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

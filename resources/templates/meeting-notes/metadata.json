@@ -1,0 +1,17 @@
+{
+  "slug": "meeting-notes",
+  "kind": "template",
+  "title": "Meeting Notes & Action Items",
+  "summary": "Structured notes for syncs, decision meetings, or client calls.",
+  "tags": [
+    "domain.business",
+    "use-case.execution"
+  ],
+  "createdAt": "2026-08-02",
+  "updatedAt": "2026-08-02",
+  "schemaVersion": "1",
+  "authors": [
+    "Spec DB"
+  ],
+  "license": "CC-BY-4.0"
+}

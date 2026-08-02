@@ -1,0 +1,17 @@
+{
+  "slug": "client-proposal-sow-lite",
+  "kind": "template",
+  "title": "Client Proposal / Statement of Work - Lite",
+  "summary": "Pitch scope, deliverables, and investment for a client engagement.",
+  "tags": [
+    "domain.business",
+    "use-case.planning"
+  ],
+  "createdAt": "2026-08-02",
+  "updatedAt": "2026-08-02",
+  "schemaVersion": "1",
+  "authors": [
+    "Spec DB"
+  ],
+  "license": "CC-BY-4.0"
+}

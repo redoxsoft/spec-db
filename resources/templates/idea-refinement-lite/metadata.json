@@ -1,0 +1,17 @@
+{
+  "slug": "idea-refinement-lite",
+  "kind": "template",
+  "title": "Idea Refinement - Lite",
+  "summary": "Turn a raw concept into a testable shape before committing to a full spec.",
+  "tags": [
+    "domain.product",
+    "use-case.discovery"
+  ],
+  "createdAt": "2026-08-02",
+  "updatedAt": "2026-08-02",
+  "schemaVersion": "1",
+  "authors": [
+    "Spec DB"
+  ],
+  "license": "CC-BY-4.0"
+}

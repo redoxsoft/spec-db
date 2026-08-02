@@ -1,0 +1,87 @@
+{
+  "schemaVersion": "1",
+  "guidance": "One task per guide. Steps must be actionable and ordered. Pair each action with an expected outcome. Troubleshooting is optional—include only common, real issues. Prefer numbered lists for steps.",
+  "outline": [
+    {
+      "key": "overview",
+      "title": "Overview",
+      "guidance": "State the goal and prerequisites.",
+      "children": [
+        {
+          "key": "the-goal",
+          "title": "The Goal",
+          "guidance": "What the user will achieve by following this guide."
+        },
+        {
+          "key": "prerequisites",
+          "title": "Prerequisites",
+          "guidance": "What they need to know, have, or configure first. Bullets preferred."
+        }
+      ]
+    },
+    {
+      "key": "step-by-step-instructions",
+      "title": "Step-by-Step Instructions",
+      "guidance": "Ordered actions with expected outcomes.",
+      "children": [
+        {
+          "key": "step",
+          "title": "Step",
+          "guidance": "Title each instance with the step action, not \"Step\".",
+          "cardinality": {
+            "min": 1,
+            "max": null
+          },
+          "children": [
+            {
+              "key": "action",
+              "title": "Action",
+              "guidance": "Specific click, command, or input required."
+            },
+            {
+              "key": "expected-outcome",
+              "title": "Expected Outcome",
+              "guidance": "What the system should show or do in response."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "troubleshooting",
+      "title": "Troubleshooting",
+      "guidance": "Common issues. Wrapper is always present; omit instances when none.",
+      "children": [
+        {
+          "key": "common-issue",
+          "title": "Common Issue",
+          "guidance": "Title each instance with the error or symptom, not \"Common Issue\".",
+          "cardinality": {
+            "min": 0,
+            "max": null
+          },
+          "children": [
+            {
+              "key": "the-problem",
+              "title": "The Problem",
+              "guidance": "What the user sees or experiences.",
+              "cardinality": {
+                "min": 0,
+                "max": 1
+              }
+            },
+            {
+              "key": "the-solution",
+              "title": "The Solution",
+              "guidance": "How to fix it and get back on track.",
+              "cardinality": {
+                "min": 0,
+                "max": 1
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

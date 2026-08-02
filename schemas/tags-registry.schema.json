@@ -1,0 +1,88 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "schemaVersion": {
+      "type": "string",
+      "const": "1"
+    },
+    "tags": {
+      "minItems": 1,
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "displayName": {
+            "type": "string",
+            "minLength": 1
+          },
+          "description": {
+            "type": "string",
+            "minLength": 1
+          },
+          "applicableKinds": {
+            "minItems": 1,
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "spec",
+                "template",
+                "pipeline"
+              ]
+            }
+          },
+          "ui": {
+            "type": "string",
+            "enum": [
+              "facet",
+              "category",
+              "folder",
+              "badge",
+              "hidden"
+            ]
+          },
+          "parentId": {
+            "type": "string",
+            "minLength": 1
+          },
+          "order": {
+            "type": "number"
+          },
+          "aliases": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "active",
+              "deprecated"
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "displayName",
+          "description",
+          "applicableKinds",
+          "ui",
+          "status"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "tags"
+  ],
+  "additionalProperties": false
+}

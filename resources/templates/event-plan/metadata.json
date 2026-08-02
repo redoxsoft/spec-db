@@ -1,0 +1,17 @@
+{
+  "slug": "event-plan",
+  "kind": "template",
+  "title": "Event Plan & Run of Show",
+  "summary": "Organize an offsite, webinar, meetup, or similar event.",
+  "tags": [
+    "domain.marketing",
+    "use-case.execution"
+  ],
+  "createdAt": "2026-08-02",
+  "updatedAt": "2026-08-02",
+  "schemaVersion": "1",
+  "authors": [
+    "Spec DB"
+  ],
+  "license": "CC-BY-4.0"
+}

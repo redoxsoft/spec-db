@@ -1,0 +1,103 @@
+{
+  "schemaVersion": "1",
+  "tags": [
+    {
+      "id": "domain",
+      "displayName": "Domain",
+      "description": "Primary product or functional domain for browse grouping.",
+      "applicableKinds": ["spec", "template", "pipeline"],
+      "ui": "category",
+      "order": 1,
+      "status": "active"
+    },
+    {
+      "id": "domain.engineering",
+      "displayName": "Engineering",
+      "description": "Engineering systems, architecture, and delivery work.",
+      "applicableKinds": ["spec", "template", "pipeline"],
+      "ui": "facet",
+      "parentId": "domain",
+      "order": 1,
+      "status": "active"
+    },
+    {
+      "id": "domain.product",
+      "displayName": "Product",
+      "description": "Product management, requirements, and discovery.",
+      "applicableKinds": ["spec", "template", "pipeline"],
+      "ui": "facet",
+      "parentId": "domain",
+      "order": 2,
+      "status": "active"
+    },
+    {
+      "id": "domain.marketing",
+      "displayName": "Marketing",
+      "description": "Go-to-market, messaging, and launch content.",
+      "applicableKinds": ["spec", "template", "pipeline"],
+      "ui": "facet",
+      "parentId": "domain",
+      "order": 3,
+      "status": "active"
+    },
+    {
+      "id": "domain.business",
+      "displayName": "Business",
+      "description": "Commercial, operational, and team process work across the organization.",
+      "applicableKinds": ["spec", "template", "pipeline"],
+      "ui": "facet",
+      "parentId": "domain",
+      "order": 4,
+      "status": "active"
+    },
+    {
+      "id": "use-case",
+      "displayName": "Use Case",
+      "description": "Lifecycle stage this resource supports.",
+      "applicableKinds": ["spec", "template", "pipeline"],
+      "ui": "category",
+      "order": 2,
+      "status": "active"
+    },
+    {
+      "id": "use-case.specification",
+      "displayName": "Specification",
+      "description": "Defining exactly what to build, change, or contract.",
+      "applicableKinds": ["spec", "template", "pipeline"],
+      "ui": "facet",
+      "parentId": "use-case",
+      "order": 1,
+      "status": "active"
+    },
+    {
+      "id": "use-case.discovery",
+      "displayName": "Discovery",
+      "description": "Researching problems, users, and ideas before committing to build.",
+      "applicableKinds": ["spec", "template", "pipeline"],
+      "ui": "facet",
+      "parentId": "use-case",
+      "order": 2,
+      "status": "active"
+    },
+    {
+      "id": "use-case.planning",
+      "displayName": "Planning",
+      "description": "Kickoffs, roadmaps, proposals, and preparing for work.",
+      "applicableKinds": ["spec", "template", "pipeline"],
+      "ui": "facet",
+      "parentId": "use-case",
+      "order": 3,
+      "status": "active"
+    },
+    {
+      "id": "use-case.execution",
+      "displayName": "Execution",
+      "description": "Day-to-day delivery, coordination, follow-through, and operational closure.",
+      "applicableKinds": ["spec", "template", "pipeline"],
+      "ui": "facet",
+      "parentId": "use-case",
+      "order": 4,
+      "status": "active"
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "slug": "team-retrospective",
+  "kind": "template",
+  "title": "Team Retrospective",
+  "summary": "Cadence template for teams to reflect, celebrate, and improve how they work.",
+  "tags": [
+    "domain.business",
+    "use-case.execution"
+  ],
+  "createdAt": "2026-08-02",
+  "updatedAt": "2026-08-02",
+  "schemaVersion": "1",
+  "authors": [
+    "Spec DB"
+  ],
+  "license": "CC-BY-4.0"
+}

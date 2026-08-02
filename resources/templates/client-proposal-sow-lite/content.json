@@ -1,0 +1,101 @@
+{
+  "schemaVersion": "1",
+  "guidance": "Be clear on inclusions and exclusions. Keep commercial language professional and specific. Prefer compact tables for timeline and investment when listing several items. Do not invent legal terms, payment schedules, or rates the user did not provide.",
+  "outline": [
+    {
+      "key": "project-summary",
+      "title": "Project Summary",
+      "guidance": "Frame client goals and your approach.",
+      "children": [
+        {
+          "key": "client-goals",
+          "title": "Client Goals",
+          "guidance": "What the client is ultimately trying to achieve."
+        },
+        {
+          "key": "our-approach",
+          "title": "Our Approach",
+          "guidance": "Brief summary of how the work will solve their problem."
+        }
+      ]
+    },
+    {
+      "key": "deliverables",
+      "title": "Deliverables",
+      "guidance": "Group what the client receives.",
+      "children": [
+        {
+          "key": "deliverable",
+          "title": "Deliverable",
+          "guidance": "Title each instance with the deliverable or phase name.",
+          "cardinality": {
+            "min": 1,
+            "max": null
+          },
+          "children": [
+            {
+              "key": "what-you-get",
+              "title": "What You Get",
+              "guidance": "Specific output or service provided."
+            },
+            {
+              "key": "exclusions",
+              "title": "Exclusions",
+              "guidance": "What is explicitly not included. Omit if none.",
+              "cardinality": {
+                "min": 0,
+                "max": 1
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "timeline",
+      "title": "Timeline",
+      "guidance": "Group milestones and target dates.",
+      "children": [
+        {
+          "key": "milestone",
+          "title": "Milestone",
+          "guidance": "Title each instance with the milestone name.",
+          "cardinality": {
+            "min": 1,
+            "max": null
+          },
+          "children": [
+            {
+              "key": "target-date",
+              "title": "Target Date",
+              "guidance": "When this milestone is reached, or a relative window if dates are unset."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "investment-breakdown",
+      "title": "Investment Breakdown",
+      "guidance": "Group commercial line items.",
+      "children": [
+        {
+          "key": "line-item",
+          "title": "Line Item",
+          "guidance": "Title each instance with the service line name.",
+          "cardinality": {
+            "min": 1,
+            "max": null
+          },
+          "children": [
+            {
+              "key": "service-cost",
+              "title": "Service Cost",
+              "guidance": "Price or pricing basis for this part. Use a small table if multiple components share one line."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

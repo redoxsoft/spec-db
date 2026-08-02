@@ -1,0 +1,106 @@
+{
+  "schemaVersion": "1",
+  "guidance": "Make the run of show executable on the day. Roles need clear ownership and a reachable contact. Checklist items need status, not just names. Keep logistics complete but short.",
+  "outline": [
+    {
+      "key": "event-overview",
+      "title": "Event Overview",
+      "guidance": "Goal and logistics for the event.",
+      "children": [
+        {
+          "key": "the-goal",
+          "title": "The Goal",
+          "guidance": "Primary purpose or vibe of the event."
+        },
+        {
+          "key": "logistics",
+          "title": "Logistics",
+          "guidance": "Date, time, timezone, and location or link."
+        }
+      ]
+    },
+    {
+      "key": "key-personnel",
+      "title": "Key Personnel",
+      "guidance": "People who own the day.",
+      "children": [
+        {
+          "key": "role",
+          "title": "Role",
+          "guidance": "Title each instance with role or person name, not \"Role\".",
+          "cardinality": {
+            "min": 1,
+            "max": null
+          },
+          "children": [
+            {
+              "key": "responsibilities",
+              "title": "Responsibilities",
+              "guidance": "What this person owns on the day."
+            },
+            {
+              "key": "contact-info",
+              "title": "Contact Info",
+              "guidance": "How to reach them in an emergency."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "run-of-show",
+      "title": "Run of Show",
+      "guidance": "Timed schedule blocks for the event.",
+      "children": [
+        {
+          "key": "schedule-block",
+          "title": "Schedule Block",
+          "guidance": "Title each instance with time + activity label, not \"Schedule Block\".",
+          "cardinality": {
+            "min": 1,
+            "max": null
+          },
+          "children": [
+            {
+              "key": "time-activity",
+              "title": "Time & Activity",
+              "guidance": "When it happens and what is happening."
+            },
+            {
+              "key": "owner",
+              "title": "Owner",
+              "guidance": "Who runs this segment."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "equipment-vendors",
+      "title": "Equipment & Vendors",
+      "guidance": "Vendors and gear checklist. Wrapper is always present; omit items when none.",
+      "children": [
+        {
+          "key": "item",
+          "title": "Item",
+          "guidance": "Title each instance with the vendor or equipment name.",
+          "cardinality": {
+            "min": 0,
+            "max": null
+          },
+          "children": [
+            {
+              "key": "status",
+              "title": "Status",
+              "guidance": "Needs ordering, confirmed, or ready—plus any critical note.",
+              "cardinality": {
+                "min": 0,
+                "max": 1
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

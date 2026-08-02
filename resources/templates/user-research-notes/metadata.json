@@ -1,0 +1,17 @@
+{
+  "slug": "user-research-notes",
+  "kind": "template",
+  "title": "User Research / Interview Notes",
+  "summary": "Standardize feedback from customer calls, usability tests, or sales conversations.",
+  "tags": [
+    "domain.product",
+    "use-case.discovery"
+  ],
+  "createdAt": "2026-08-02",
+  "updatedAt": "2026-08-02",
+  "schemaVersion": "1",
+  "authors": [
+    "Spec DB"
+  ],
+  "license": "CC-BY-4.0"
+}

@@ -1,0 +1,17 @@
+{
+  "slug": "one-on-one-sync",
+  "kind": "template",
+  "title": "1:1 Manager & Direct Report Sync",
+  "summary": "Recurring agenda for managers and reports focused on alignment, not status theater.",
+  "tags": [
+    "domain.business",
+    "use-case.execution"
+  ],
+  "createdAt": "2026-08-02",
+  "updatedAt": "2026-08-02",
+  "schemaVersion": "1",
+  "authors": [
+    "Spec DB"
+  ],
+  "license": "CC-BY-4.0"
+}

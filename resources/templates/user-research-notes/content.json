@@ -1,0 +1,63 @@
+{
+  "schemaVersion": "1",
+  "guidance": "Separate observation from interpretation. Prefer direct quotes for evidence. Themes should be patterns, not one-off remarks. Recommendations must be actionable for product/design. Do not anonymize poorly—avoid unnecessary PII.",
+  "outline": [
+    {
+      "key": "participant-profile",
+      "title": "Participant Profile",
+      "guidance": "Capture who was interviewed and how they work today.",
+      "children": [
+        {
+          "key": "background",
+          "title": "Background",
+          "guidance": "Role, company context or segment, and relevant use case."
+        },
+        {
+          "key": "current-workarounds",
+          "title": "Current Workarounds",
+          "guidance": "How they solve the problem today and where it breaks."
+        }
+      ]
+    },
+    {
+      "key": "key-themes",
+      "title": "Key Themes",
+      "guidance": "Group patterns observed across the conversation.",
+      "children": [
+        {
+          "key": "theme",
+          "title": "Theme",
+          "guidance": "Title each instance with the theme name, not \"Theme\".",
+          "cardinality": {
+            "min": 1,
+            "max": null
+          },
+          "children": [
+            {
+              "key": "observations",
+              "title": "Observations",
+              "guidance": "What was noticed that supports this theme."
+            },
+            {
+              "key": "notable-quotes",
+              "title": "Notable Quotes",
+              "guidance": "Direct quotes that show pain or delight. Use a short bullet list."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "actionable-takeaways",
+      "title": "Actionable Takeaways",
+      "guidance": "Translate research into product/design action.",
+      "children": [
+        {
+          "key": "recommendations",
+          "title": "Recommendations",
+          "guidance": "What product/design should do with this information. Prefer prioritized bullets."
+        }
+      ]
+    }
+  ]
+}
