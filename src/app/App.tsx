@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import {
   BrowserRouter,
   Navigate,
@@ -6,15 +6,27 @@ import {
   Routes,
   useSearchParams,
 } from 'react-router-dom'
+import type { CatalogLiteItem, ResourceKind } from '../catalog'
 import { CatalogMain } from '../features/catalog/CatalogMain'
 import { CatalogSidebar } from '../features/catalog/CatalogSidebar'
 import { MobileFiltersDrawer } from '../features/catalog/MobileFiltersDrawer'
 import { useCatalog } from '../features/catalog/useCatalog'
 import { DetailModal } from '../features/detail/DetailModal'
 import { cn } from '../lib/cn'
+import {
+  importItemKey,
+  type SpecDbImportItem,
+} from '../lib/importHandoff'
+import { getKindStyles } from '../lib/kindStyles'
 import { AppHeader } from './AppHeader'
 import { DemoBar, EmbedDevExit } from './DemoBar'
 import { useRuntimeChrome } from './useRuntimeChrome'
+
+function batchImportTarget(kinds: ResourceKind[]): string {
+  const targets = new Set(kinds.map((kind) => getKindStyles(kind).importTarget))
+  if (targets.size === 1) return [...targets][0]!
+  return 'host'
+}
 
 function CatalogShell() {
   const {
@@ -38,6 +50,39 @@ function CatalogShell() {
     useRuntimeChrome()
   const [selectedSlug, setSelectedSlug] = useState<string | null>(null)
   const [filtersOpen, setFiltersOpen] = useState(false)
+  const [selectedByKey, setSelectedByKey] = useState<
+    Record<string, SpecDbImportItem>
+  >({})
+
+  const selectedItems = useMemo(
+    () => Object.values(selectedByKey),
+    [selectedByKey],
+  )
+  const selectedKeys = useMemo(
+    () => new Set(Object.keys(selectedByKey)),
+    [selectedByKey],
+  )
+
+  useEffect(() => {
+    if (!embed) setSelectedByKey({})
+  }, [embed])
+
+  function toggleSelected(item: CatalogLiteItem) {
+    const entry: SpecDbImportItem = { kind: item.kind, slug: item.slug }
+    const key = importItemKey(entry)
+    setSelectedByKey((prev) => {
+      if (prev[key]) {
+        const next = { ...prev }
+        delete next[key]
+        return next
+      }
+      return { ...prev, [key]: entry }
+    })
+  }
+
+  function clearSelection() {
+    setSelectedByKey({})
+  }
 
   const filterPanelProps = {
     tags,
@@ -88,6 +133,14 @@ function CatalogShell() {
           onRemoveTag={removeTag}
           onClearFilters={clearFilters}
           onOpenFilters={() => setFiltersOpen(true)}
+          selectionEnabled={embed}
+          selectedKeys={selectedKeys}
+          selectedItems={selectedItems}
+          batchImportTarget={batchImportTarget(
+            selectedItems.map((item) => item.kind),
+          )}
+          onToggleSelected={toggleSelected}
+          onClearSelection={clearSelection}
         />
       </main>
       <MobileFiltersDrawer

@@ -1,4 +1,4 @@
-import { MoreVertical, Star } from 'lucide-react'
+import { Star } from 'lucide-react'
 import { cn } from '../../lib/cn'
 import { getKindStyles } from '../../lib/kindStyles'
 import type { CatalogLiteItem } from '../../catalog'
@@ -6,6 +6,10 @@ import type { CatalogLiteItem } from '../../catalog'
 type ResourceCardProps = {
   item: CatalogLiteItem
   onSelect: (slug: string) => void
+  /** Embed multi-select: show checkbox and selected chrome. */
+  selectionEnabled?: boolean
+  selected?: boolean
+  onToggleSelected?: () => void
 }
 
 function formatUpdated(date: string): string {
@@ -45,70 +49,97 @@ function TemplateOutline({ outline }: { outline: string[] }) {
   )
 }
 
-export function ResourceCard({ item, onSelect }: ResourceCardProps) {
+export function ResourceCard({
+  item,
+  onSelect,
+  selectionEnabled = false,
+  selected = false,
+  onToggleSelected,
+}: ResourceCardProps) {
   const styles = getKindStyles(item.kind)
   const Icon = styles.icon
 
   return (
-    <button
-      type="button"
-      onClick={() => onSelect(item.slug)}
-      className="flex h-full w-full cursor-pointer flex-col rounded-2xl border border-ui-border bg-ui-card p-6 text-left shadow-card transition-all duration-200 hover:shadow-card-hover"
+    <div
+      className={cn(
+        'relative flex h-full w-full flex-col rounded-2xl border bg-ui-card shadow-card transition-all duration-200',
+        selected
+          ? 'border-brand-500 ring-2 ring-brand-100'
+          : 'border-ui-border hover:shadow-card-hover',
+      )}
     >
-      <div className="mb-4 flex items-start justify-between">
-        <div
-          className={cn(
-            'flex h-10 w-10 items-center justify-center rounded-xl border shadow-sm',
-            styles.bg,
-            styles.color,
-            styles.border,
-          )}
-        >
-          <Icon className="h-5 w-5" aria-hidden />
-        </div>
-        <div className="flex items-center gap-1">
-          {item.featured ? (
-            <span
-              className="inline-flex items-center gap-1 rounded-md bg-amber-50 px-2 py-1 text-[10px] font-semibold tracking-wide text-amber-700 uppercase"
-              title="Featured"
+      <button
+        type="button"
+        onClick={() => onSelect(item.slug)}
+        className="flex h-full w-full cursor-pointer flex-col p-6 text-left"
+      >
+        <div className="mb-4 flex items-center gap-3">
+          <div className="relative shrink-0">
+            <div
+              className={cn(
+                'flex h-10 w-10 items-center justify-center rounded-xl border shadow-sm',
+                styles.bg,
+                styles.color,
+                styles.border,
+              )}
             >
-              <Star className="h-3 w-3 fill-current" aria-hidden />
-              Featured
-            </span>
+              <Icon className="h-5 w-5" aria-hidden />
+            </div>
+            {item.featured ? (
+              <span
+                className="absolute -right-1 -bottom-1 flex h-4 w-4 items-center justify-center rounded-full bg-amber-100 text-amber-600 ring-2 ring-white"
+                title="Featured"
+              >
+                <Star className="h-2.5 w-2.5 fill-current" aria-hidden />
+              </span>
+            ) : null}
+          </div>
+
+          <h3 className="min-w-0 flex-1 line-clamp-2 text-lg leading-tight font-semibold text-gray-900">
+            {item.title}
+          </h3>
+
+          {selectionEnabled ? (
+            <label
+              className="flex h-8 w-8 shrink-0 cursor-pointer items-center justify-center rounded-md"
+              onClick={(event) => event.stopPropagation()}
+              onKeyDown={(event) => event.stopPropagation()}
+            >
+              <input
+                type="checkbox"
+                checked={selected}
+                onChange={() => onToggleSelected?.()}
+                aria-label={`Select ${item.title}`}
+                className="h-4 w-4 rounded border-gray-300 text-brand-600 focus:ring-brand-500"
+              />
+            </label>
           ) : null}
-          <span className="p-1 text-gray-400">
-            <MoreVertical className="h-4 w-4" aria-hidden />
-          </span>
         </div>
-      </div>
 
-      <h3 className="mb-2 text-lg leading-tight font-semibold text-gray-900">
-        {item.title}
-      </h3>
+        {item.kind === 'template' && item.outline ? (
+          <>
+            <p className="mb-6 flex-1 text-sm text-gray-500">{item.summary}</p>
+            <TemplateOutline outline={item.outline} />
+          </>
+        ) : null}
 
-      {item.kind === 'template' && item.outline ? (
-        <>
-          <p className="mb-6 flex-1 text-sm text-gray-500">{item.summary}</p>
-          <TemplateOutline outline={item.outline} />
-        </>
-      ) : null}
+        {item.kind === 'spec' ? (
+          <p className="mb-6 line-clamp-4 flex-1 text-sm leading-relaxed text-gray-500 italic">
+            {item.summary}
+          </p>
+        ) : null}
 
-      {item.kind === 'spec' ? (
-        <p className="mb-6 line-clamp-4 flex-1 text-sm leading-relaxed text-gray-500 italic">
-          {item.summary}
-        </p>
-      ) : null}
+        {item.kind === 'pipeline' ? (
+          <p className="mb-6 flex-1 text-sm leading-relaxed text-gray-500">
+            {item.summary}
+          </p>
+        ) : null}
 
-      {item.kind === 'pipeline' ? (
-        <p className="mb-6 flex-1 text-sm leading-relaxed text-gray-500">
-          {item.summary}
-        </p>
-      ) : null}
-
-      <div className="mt-auto flex items-center justify-between pt-5 text-xs font-medium text-gray-400">
-        <span>{item.stats}</span>
-        <span>Updated {formatUpdated(item.updatedAt)}</span>
-      </div>
-    </button>
+        <div className="mt-auto flex items-center justify-between pt-5 text-xs font-medium text-gray-400">
+          <span>{item.stats}</span>
+          <span>Updated {formatUpdated(item.updatedAt)}</span>
+        </div>
+      </button>
+    </div>
   )
 }

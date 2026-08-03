@@ -1,0 +1,20 @@
+{
+  "schemaVersion": "1",
+  "inputVarDefinitions": [
+    {
+      "key": "PROJECT_NAME",
+      "description": "Exact human project name used as SpecX document title prefix",
+      "suggestedDefault": ""
+    }
+  ],
+  "iteratorFields": [],
+  "steps": [
+    { "key": "select-milestone", "name": "Select the milestone" },
+    { "key": "load-context-and-inspect-changes", "name": "Load context and inspect changes" },
+    { "key": "implement-milestone", "name": "Implement the milestone" },
+    { "key": "verify-milestone", "name": "Verify the milestone" },
+    { "key": "update-milestone-status", "name": "Update milestone status" },
+    { "key": "report-handoff", "name": "Report handoff" },
+    { "key": "generate-next-step-handoff", "name": "Generate next-step handoff" }
+  ]
+}

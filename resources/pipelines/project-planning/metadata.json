@@ -1,0 +1,18 @@
+{
+  "slug": "project-planning",
+  "kind": "pipeline",
+  "title": "Project Planning",
+  "summary": "Convert requirements into an ordered SpecX milestones document for a named project.",
+  "tags": ["domain.engineering", "use-case.planning"],
+  "createdAt": "2026-08-03",
+  "updatedAt": "2026-08-03",
+  "schemaVersion": "1",
+  "authors": ["Spec DB"],
+  "license": "CC-BY-4.0",
+  "featured": true,
+  "relatedSlugs": [
+    "planning-rules",
+    "pipeline-operating-contract",
+    "milestone-builder"
+  ]
+}

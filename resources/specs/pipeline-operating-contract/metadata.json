@@ -1,0 +1,18 @@
+{
+  "slug": "pipeline-operating-contract",
+  "kind": "spec",
+  "title": "Pipeline Operating Contract",
+  "summary": "Shared operating rules for Project Discovery, Scaffolding, Planning, and Milestone Builder pipelines using SpecX specs.",
+  "tags": ["domain.engineering", "use-case.specification"],
+  "createdAt": "2026-08-03",
+  "updatedAt": "2026-08-03",
+  "schemaVersion": "1",
+  "authors": ["Spec DB"],
+  "license": "CC-BY-4.0",
+  "relatedSlugs": [
+    "project-discovery",
+    "project-scaffolding",
+    "project-planning",
+    "milestone-builder"
+  ]
+}

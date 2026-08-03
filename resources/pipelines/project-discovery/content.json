@@ -1,0 +1,20 @@
+{
+  "schemaVersion": "1",
+  "inputVarDefinitions": [
+    {
+      "key": "PROJECT_NAME",
+      "description": "Exact human project name used as SpecX document title prefix",
+      "suggestedDefault": ""
+    }
+  ],
+  "iteratorFields": [],
+  "steps": [
+    { "key": "resolve-context", "name": "Resolve context" },
+    { "key": "run-architecture-decisions", "name": "Run architecture decisions" },
+    { "key": "derive-and-validate-architecture", "name": "Derive and validate architecture" },
+    { "key": "write-decision-artifact", "name": "Write decision artifact" },
+    { "key": "generate-architecture-rules", "name": "Generate architecture rules" },
+    { "key": "verify-handoff", "name": "Verify handoff" },
+    { "key": "generate-next-phase-handoff", "name": "Generate next-phase handoff" }
+  ]
+}

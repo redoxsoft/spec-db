@@ -52,7 +52,7 @@ async function main() {
   const packageSamples = [
     'generated/packages/template/feature-spec-lite.json',
     'generated/packages/pipeline/repo-overview.json',
-    'generated/packages/spec/shared-catalog-import.json',
+    'generated/packages/spec/discovery-rules.json',
   ]
   for (const rel of packageSamples) {
     const raw = await readFile(path.join(DIST, rel), 'utf8')

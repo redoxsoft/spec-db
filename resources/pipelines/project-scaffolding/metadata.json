@@ -1,0 +1,18 @@
+{
+  "slug": "project-scaffolding",
+  "kind": "pipeline",
+  "title": "Project Scaffolding",
+  "summary": "Create and verify a blank runnable project from a locked SpecX decision matrix for a named project.",
+  "tags": ["domain.engineering", "use-case.execution"],
+  "createdAt": "2026-08-03",
+  "updatedAt": "2026-08-03",
+  "schemaVersion": "1",
+  "authors": ["Spec DB"],
+  "license": "CC-BY-4.0",
+  "featured": true,
+  "relatedSlugs": [
+    "scaffolding-rules",
+    "pipeline-operating-contract",
+    "project-planning"
+  ]
+}

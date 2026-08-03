@@ -17,9 +17,13 @@ Local mock (dev server or preview):
 
 `kinds` is a **host allowlist** (comma-separated). It is distinct from the user browse filter `kind`.
 
-## Import contract (Spec DB → host)
+## Import contract
 
-When the user clicks **Import** with `embed=true`, Spec DB posts to `window.parent`:
+Source of truth for TypeScript shapes: [`src/lib/importHandoff.ts`](../src/lib/importHandoff.ts). Identity only — no bodies, no `contentUrl`, no workspace/auth, no host policy fields.
+
+### Spec DB → host: single item (compat)
+
+When the user clicks **Import** in the detail modal with `embed=true`, Spec DB posts to `window.parent`:
 
 ```json
 {
@@ -29,15 +33,81 @@ When the user clicks **Import** with `embed=true`, Spec DB posts to `window.pare
 }
 ```
 
-Host responsibilities (same for SpecX and WorkX):
+Hosts may treat this as a one-item batch (`batchId` generated on the host if needed).
+
+### Spec DB → host: batch (embed-only)
+
+With `embed=true`, the catalog supports multi-select + **Import (N)**. Spec DB posts one message:
+
+```json
+{
+  "type": "spec-db:import:batch-requested",
+  "batchId": "550e8400-e29b-41d4-a716-446655440000",
+  "items": [
+    { "kind": "pipeline", "slug": "project-discovery" },
+    { "kind": "pipeline", "slug": "milestone-builder" }
+  ]
+}
+```
+
+Rules:
+
+- `items.length >= 1`; order is the import order.
+- `batchId` is Spec DB–generated; hosts echo it in progress/completed.
+- Host kind allowlist still wins (WorkX: `pipeline`; SpecX: `spec` \| `template`).
+- Batch multi-select is **embed-only**. Standalone keeps detail-modal / deep-link **single** import (`kind` + `slug`).
+
+### Host → Spec DB: progress + completed (recommended)
+
+Hosts should emit these while running a batch so Spec DB can later clear selection / show per-item status. Spec DB UI does **not** consume them yet (fire-and-forget after Import (N)).
+
+```ts
+type SpecDbImportBatchProgress = {
+  type: 'spec-db:import:batch-progress'
+  batchId: string
+  index: number // 0-based
+  total: number
+  item: { kind: 'pipeline' | 'spec' | 'template'; slug: string }
+  status: 'started' | 'succeeded' | 'failed' | 'skipped'
+  attempt?: number // 1-based; optional
+  error?: { code?: string; message: string }
+}
+
+type SpecDbImportBatchCompleted = {
+  type: 'spec-db:import:batch-completed'
+  batchId: string
+  results: Array<{
+    item: { kind: 'pipeline' | 'spec' | 'template'; slug: string }
+    status: 'succeeded' | 'failed' | 'skipped'
+    error?: { code?: string; message: string }
+  }>
+}
+```
+
+Do not put host resource ids (pipeline id, document id) in these messages. Spec DB validates parent origin when it starts listening.
+
+### Host responsibilities
 
 1. Listen for `message` and check `event.origin` against the Spec DB origin allowlist.
-2. Call the host backend with `{ kind, slug }` (never a client-supplied content URL).
-3. Backend builds the package URL from a trusted Spec DB base env, e.g.  
+2. Accept `batch-requested` and/or legacy `import:requested`.
+3. Call the host backend **one item at a time** with `{ kind, slug }` (never a client-supplied content URL).
+4. Backend builds the package URL from a trusted Spec DB base env, e.g.  
    `{SPEC_DB_BASE_URL}/generated/packages/{kind}/{slug}.json`, then fetches, validates, maps, and creates.
-4. Continue auth / workspace / create inside SpecX or WorkX.
+5. Continue auth / workspace / create inside SpecX or WorkX.
+6. Optionally `postMessage` progress/completed back to the Spec DB iframe (`event.source`).
 
 Spec DB does **not** send full document bodies over `postMessage`. Hosts must not fetch arbitrary client-supplied URLs.
+
+### Host policy conventions (not in the message)
+
+| Policy | Suggested default |
+|--------|-------------------|
+| Execution | Sequential — one BE call at a time |
+| Continue on failure | `true` — record failure, import next |
+| Retries | Retry transient errors; no retry on kind/validation failures |
+| Idempotency | One `clientRequestId` per item; **reuse across retries** of that item |
+| Concurrent batches | Ignore or queue; never parallelize items in a batch |
+| Standalone `/import` | Batch is **embed-only**; deep link stays single `kind` + `slug` |
 
 ### Package URL shape (host BE)
 
@@ -63,12 +133,12 @@ JSON Schema mirrors: [`schemas/template-package.schema.json`](../schemas/templat
 
 ### Standalone (no iframe)
 
-Without `embed=true`, Import opens a host deep link in a new tab:
+Without `embed=true`, Import opens a host deep link in a new tab (single item only):
 
 - Specs / templates → `VITE_SPECX_IMPORT_BASE` (default `https://specx.redoxsoft.com/import`)
 - Pipelines → `VITE_WORKX_IMPORT_BASE` (default `https://workx.redoxsoft.com/import`)
 
-Query params: `kind`, `slug` only.
+Query params: `kind`, `slug` only. No multi-slug batch deep link.
 
 ## Origins & framing
 
@@ -79,6 +149,7 @@ Query params: `kind`, `slug` only.
 | Host CSP | Allow Spec DB origin in `frame-src` / `child-src` |
 | `postMessage` target | Spec DB uses `ancestorOrigins` / `document.referrer` (host parent) — not `*` in production if avoidable |
 | Host receive check | Validate `event.origin` is the Spec DB site |
+| Spec DB receive check | Validate `event.origin` is the embedding parent (when listening for progress/completed) |
 
 ## View Source
 

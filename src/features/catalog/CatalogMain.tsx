@@ -4,7 +4,9 @@ import type {
   ResourceKind,
   TagsRegistry,
 } from '../../catalog'
+import type { SpecDbImportItem } from '../../lib/importHandoff'
 import { ActiveFilterChips } from './ActiveFilterChips'
+import { BatchImportBar } from './BatchImportBar'
 import {
   coerceKindFilter,
   hasActiveFilters,
@@ -28,6 +30,13 @@ type CatalogMainProps = {
   onRemoveTag: (tagId: string) => void
   onClearFilters: () => void
   onOpenFilters: () => void
+  /** Embed-only multi-select. */
+  selectionEnabled?: boolean
+  selectedKeys?: ReadonlySet<string>
+  selectedItems?: SpecDbImportItem[]
+  batchImportTarget?: string
+  onToggleSelected?: (item: CatalogLiteItem) => void
+  onClearSelection?: () => void
 }
 
 function catalogSubtitle(allowedKinds: ResourceKind[]): string {
@@ -121,6 +130,12 @@ export function CatalogMain({
   onRemoveTag,
   onClearFilters,
   onOpenFilters,
+  selectionEnabled = false,
+  selectedKeys,
+  selectedItems = [],
+  batchImportTarget = 'Workspace',
+  onToggleSelected,
+  onClearSelection,
 }: CatalogMainProps) {
   const empty = items.length === 0
   const filterCount = activeFilterCount(filters, allowedKinds)
@@ -129,7 +144,7 @@ export function CatalogMain({
 
   return (
     <section className="relative flex-1 overflow-y-auto bg-ui-bg">
-      <div className="mx-auto max-w-6xl p-6 md:p-8 lg:p-10">
+      <div className="mx-auto flex min-h-full max-w-6xl flex-col p-6 md:p-8 lg:p-10">
         <div className="mb-8 flex items-start justify-between gap-4">
           <div className="min-w-0">
             <h1 className="text-3xl font-bold tracking-tight text-gray-900">
@@ -207,17 +222,26 @@ export function CatalogMain({
                     : 'grid auto-rows-max grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3'
                 }
               >
-                {items.map((item, index) => (
-                  <div
-                    key={item.slug}
-                    className="catalog-card-enter h-full"
-                    style={{
-                      animationDelay: `${Math.min(index, 8) * 40}ms`,
-                    }}
-                  >
-                    <ResourceCard item={item} onSelect={onSelect} />
-                  </div>
-                ))}
+                {items.map((item, index) => {
+                  const key = `${item.kind}:${item.slug}`
+                  return (
+                    <div
+                      key={item.slug}
+                      className="catalog-card-enter h-full"
+                      style={{
+                        animationDelay: `${Math.min(index, 8) * 40}ms`,
+                      }}
+                    >
+                      <ResourceCard
+                        item={item}
+                        onSelect={onSelect}
+                        selectionEnabled={selectionEnabled}
+                        selected={selectedKeys?.has(key) ?? false}
+                        onToggleSelected={() => onToggleSelected?.(item)}
+                      />
+                    </div>
+                  )
+                })}
               </div>
             ) : searching ? (
               <CatalogSkeleton />
@@ -260,6 +284,15 @@ export function CatalogMain({
             )}
           </>
         )}
+
+        {selectionEnabled && onClearSelection ? (
+          <BatchImportBar
+            items={selectedItems}
+            importTarget={batchImportTarget}
+            onClear={onClearSelection}
+            onSent={onClearSelection}
+          />
+        ) : null}
       </div>
     </section>
   )

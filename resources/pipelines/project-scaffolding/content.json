@@ -1,0 +1,20 @@
+{
+  "schemaVersion": "1",
+  "inputVarDefinitions": [
+    {
+      "key": "PROJECT_NAME",
+      "description": "Exact human project name used as SpecX document title prefix",
+      "suggestedDefault": ""
+    }
+  ],
+  "iteratorFields": [],
+  "steps": [
+    { "key": "inspect-workspace", "name": "Inspect the workspace" },
+    { "key": "verify-prerequisites", "name": "Verify prerequisites" },
+    { "key": "create-scaffold", "name": "Create the scaffold" },
+    { "key": "add-project-documentation", "name": "Add project documentation" },
+    { "key": "verify-scaffold", "name": "Verify the scaffold" },
+    { "key": "report-handoff", "name": "Report handoff" },
+    { "key": "generate-next-phase-handoff", "name": "Generate next-phase handoff" }
+  ]
+}

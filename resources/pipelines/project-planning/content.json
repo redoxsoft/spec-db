@@ -1,0 +1,20 @@
+{
+  "schemaVersion": "1",
+  "inputVarDefinitions": [
+    {
+      "key": "PROJECT_NAME",
+      "description": "Exact human project name used as SpecX document title prefix",
+      "suggestedDefault": ""
+    }
+  ],
+  "iteratorFields": [],
+  "steps": [
+    { "key": "resolve-current-state", "name": "Resolve current state" },
+    { "key": "build-requirement-map", "name": "Build the requirement map" },
+    { "key": "design-milestones", "name": "Design milestones" },
+    { "key": "validate-the-plan", "name": "Validate the plan" },
+    { "key": "write-milestones-artifact", "name": "Write the milestones artifact" },
+    { "key": "report-handoff", "name": "Report handoff" },
+    { "key": "generate-next-phase-handoff", "name": "Generate next-phase handoff" }
+  ]
+}

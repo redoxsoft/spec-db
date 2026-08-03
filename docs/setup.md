@@ -80,27 +80,33 @@ Adjust names if needed, but **do not** introduce `packages/*` workspaces.
 - **Breadth-first:** Prefer finishing the current phased-plan milestone over deepening unrelated layers.
 - **Prototype-driven UI:** New screens should look like `docs/internal/prototype.html`, not a generic admin template.
 - **Type safety:** Zod at the boundary (generated JSON / metadata). Avoid `any`.
-- **Embed-safe:** Assume iframe + fixed host height; scroll internally; Import uses feature detection (`embed` → `postMessage` with `kind` + `slug`).
+- **Embed-safe:** Assume iframe + fixed host height; scroll internally; Import uses feature detection (`embed` → `postMessage` with `kind` + `slug`, or batch identities).
 - **Content rules:** No media in resources; flat pipelines; tags max depth 2; template outline SpecX invariants — enforce in `validate`, don’t special-case in UI.
 - **Tests:** Skip automated tests for MVP unless a milestone explicitly adds them. Rely on `validate` + manual click-through.
 - **Dependencies:** Add a library only when a milestone needs it (avoid speculative installs).
 
 ## Import handoff (do not overbuild)
 
-Implemented in `src/lib/importHandoff.ts` + `ImportButton`. See [embed.md](embed.md).
+Implemented in `src/lib/importHandoff.ts`, detail `ImportButton`, and embed `BatchImportBar`. See [embed.md](embed.md).
 
 ```ts
-// embed (?embed=true)
+// embed detail Import (?embed=true)
 parent.postMessage(
   { type: 'spec-db:import:requested', kind, slug },
   targetOrigin // ancestorOrigins or referrer; avoid '*' in prod
 )
 
-// standalone
+// embed multi-select Import (N)
+parent.postMessage(
+  { type: 'spec-db:import:batch-requested', batchId, items: [{ kind, slug }, ...] },
+  targetOrigin
+)
+
+// standalone (single item only)
 window.open(hostImportUrl, '_blank') // SpecX/WorkX base + kind, slug
 ```
 
-Local host stand-in: `public/host-mock.html` → `/host-mock.html`. Spec DB does not implement auth or workspace pickers.
+Local host stand-in: `public/host-mock.html` → `/host-mock.html` (logs single + batch). Spec DB does not implement auth or workspace pickers, and does not yet listen for host progress/completed.
 
 ## Mental model
 

@@ -245,7 +245,7 @@ Prose for this section…
 - Optional `metadata.templateSlug` must reference an existing template.
 - No `![](…)` or other media embeds.
 - Import packaging converts markdown to typed blocks (`paragraph`, lists, `code_block`, `callout`, `table`, `divider`). Unsupported constructs degrade to paragraph; structural errors fail `npm run check`.
-- See `resources/specs/shared-catalog-import/` for a package-friendly example.
+- See `resources/specs/discovery-rules/` for a package-friendly example.
 
 ---
 

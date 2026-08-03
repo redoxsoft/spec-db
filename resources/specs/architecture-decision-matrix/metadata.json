@@ -1,0 +1,16 @@
+{
+  "slug": "architecture-decision-matrix",
+  "kind": "spec",
+  "title": "Architecture Decision Matrix",
+  "summary": "Deterministic local-first stack selection questionnaire and rule engine for Project Discovery.",
+  "tags": ["domain.engineering", "use-case.discovery"],
+  "createdAt": "2026-08-03",
+  "updatedAt": "2026-08-03",
+  "schemaVersion": "1",
+  "authors": ["Spec DB"],
+  "license": "CC-BY-4.0",
+  "relatedSlugs": [
+    "project-discovery",
+    "discovery-rules"
+  ]
+}

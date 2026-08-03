@@ -114,13 +114,18 @@
       <div id="log-wrap">
         <header>
           <h1>postMessage log</h1>
-          <span class="meta">Listening for type <code>spec-db:import:requested</code></span>
+          <span class="meta"
+            >Listening for
+            <code>spec-db:import:requested</code> and
+            <code>spec-db:import:batch-requested</code></span
+          >
         </header>
         <pre id="log">Waiting for Import from the iframe…</pre>
       </div>
     </main>
     <script>
       const IMPORT_TYPE = 'spec-db:import:requested'
+      const BATCH_TYPE = 'spec-db:import:batch-requested'
       const presetEl = document.getElementById('preset')
       const frame = document.getElementById('frame')
       const logEl = document.getElementById('log')
@@ -155,16 +160,34 @@
         logEl.textContent = lines.join('\n\n')
       }
 
+      function hostNote(data) {
+        if (data.type === BATCH_TYPE) {
+          const n = Array.isArray(data.items) ? data.items.length : 0
+          return (
+            `Host would: run ${n} sequential import(s) for batchId=${data.batchId}` +
+            ' → each POST import API with { kind, slug } → BE fetches' +
+            ' /generated/packages/{kind}/{slug}.json → map → create' +
+            ' (optional: emit batch-progress / batch-completed to iframe)'
+          )
+        }
+        return (
+          'Host would: POST import API with { kind, slug } → BE fetches' +
+          ' /generated/packages/{kind}/{slug}.json → map → create'
+        )
+      }
+
       window.addEventListener('message', (event) => {
         if (event.source !== frame.contentWindow) return
         const data = event.data
-        if (!data || data.type !== IMPORT_TYPE) return
+        if (!data || (data.type !== IMPORT_TYPE && data.type !== BATCH_TYPE)) {
+          return
+        }
 
         appendLog(
           [
             `[${new Date().toISOString()}] origin=${event.origin}`,
             JSON.stringify(data, null, 2),
-            'Host would: POST import API with { kind, slug } → BE fetches /generated/packages/{kind}/{slug}.json → map → create',
+            hostNote(data),
           ].join('\n'),
         )
       })

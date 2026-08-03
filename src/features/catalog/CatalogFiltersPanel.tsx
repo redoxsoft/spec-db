@@ -1,24 +1,42 @@
-import {
-  ChevronDown,
-  FileText,
-  Layers,
-  Layout,
-  Search,
-  Workflow,
-} from 'lucide-react'
+import { ChevronDown, Layers, Search, type LucideIcon } from 'lucide-react'
 import { cn } from '../../lib/cn'
+import { getKindStyles } from '../../lib/kindStyles'
 import type { ResourceKind, TagsRegistry } from '../../catalog'
 import type { CatalogFilters, KindFilter } from './filterCatalog'
+
+function kindFilter(
+  id: ResourceKind,
+  label: string,
+): {
+  id: KindFilter
+  label: string
+  icon: LucideIcon
+  iconClassName: string
+} {
+  const styles = getKindStyles(id)
+  return {
+    id,
+    label,
+    icon: styles.icon,
+    iconClassName: styles.color,
+  }
+}
 
 const KIND_FILTERS: {
   id: KindFilter
   label: string
-  icon: typeof Layers
+  icon: LucideIcon
+  iconClassName: string
 }[] = [
-  { id: 'all', label: 'All Resources', icon: Layers },
-  { id: 'template', label: 'Templates', icon: Layout },
-  { id: 'spec', label: 'Specs', icon: FileText },
-  { id: 'pipeline', label: 'Pipelines', icon: Workflow },
+  {
+    id: 'all',
+    label: 'All Resources',
+    icon: Layers,
+    iconClassName: 'text-gray-500',
+  },
+  kindFilter('template', 'Templates'),
+  kindFilter('spec', 'Specs'),
+  kindFilter('pipeline', 'Pipelines'),
 ]
 
 const TAG_GROUPS = [
@@ -96,7 +114,7 @@ export function CatalogFiltersPanel({
             Resource Type
           </h2>
           <div className="space-y-1">
-            {kindOptions.map(({ id, label, icon: Icon }) => {
+            {kindOptions.map(({ id, label, icon: Icon, iconClassName }) => {
               const selected = filters.kind === id
               return (
                 <button
@@ -111,7 +129,10 @@ export function CatalogFiltersPanel({
                   )}
                 >
                   <span className="flex items-center gap-2">
-                    <Icon className="h-4 w-4" aria-hidden />
+                    <Icon
+                      className={cn('h-4 w-4', iconClassName)}
+                      aria-hidden
+                    />
                     {label}
                   </span>
                 </button>

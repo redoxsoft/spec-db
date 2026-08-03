@@ -1,0 +1,17 @@
+{
+  "slug": "planning-rules",
+  "kind": "spec",
+  "title": "Planning Rules",
+  "summary": "Rules for converting requirements into an ordered SpecX milestones document.",
+  "tags": ["domain.engineering", "use-case.planning"],
+  "createdAt": "2026-08-03",
+  "updatedAt": "2026-08-03",
+  "schemaVersion": "1",
+  "authors": ["Spec DB"],
+  "license": "CC-BY-4.0",
+  "relatedSlugs": [
+    "project-planning",
+    "pipeline-operating-contract",
+    "milestone-builder"
+  ]
+}
