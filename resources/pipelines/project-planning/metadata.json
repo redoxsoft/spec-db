@@ -4,6 +4,7 @@
   "title": "Project Planning",
   "summary": "Convert requirements into an ordered SpecX milestones document for a named project.",
   "tags": ["domain.engineering", "use-case.planning"],
+  "collections": ["builder"],
   "createdAt": "2026-08-03",
   "updatedAt": "2026-08-03",
   "schemaVersion": "1",

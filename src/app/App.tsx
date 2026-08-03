@@ -43,6 +43,8 @@ function CatalogShell() {
     setQuery,
     toggleTag,
     removeTag,
+    addCollection,
+    removeCollection,
     clearFilters,
     prepareSearch,
   } = useCatalog()
@@ -131,8 +133,10 @@ function CatalogShell() {
           onClearKind={() => setKind('all')}
           onClearQuery={() => setQuery('')}
           onRemoveTag={removeTag}
+          onRemoveCollection={removeCollection}
           onClearFilters={clearFilters}
           onOpenFilters={() => setFiltersOpen(true)}
+          onAddCollection={addCollection}
           selectionEnabled={embed}
           selectedKeys={selectedKeys}
           selectedItems={selectedItems}

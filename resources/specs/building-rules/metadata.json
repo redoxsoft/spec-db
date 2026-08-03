@@ -4,6 +4,7 @@
   "title": "Building Rules",
   "summary": "Rules for implementing one eligible milestone at a time via the Milestone Builder pipeline.",
   "tags": ["domain.engineering", "use-case.execution"],
+  "collections": ["builder"],
   "createdAt": "2026-08-03",
   "updatedAt": "2026-08-03",
   "schemaVersion": "1",

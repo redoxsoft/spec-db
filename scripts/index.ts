@@ -134,6 +134,9 @@ async function buildTemplateDetail(resource: DiskResource): Promise<ResourceDeta
     title: resource.meta.title,
     summary: resource.meta.summary,
     tags: resource.meta.tags,
+    ...(resource.meta.collections?.length
+      ? { collections: resource.meta.collections }
+      : {}),
     updatedAt,
     stats: `${sections.length} Sections`,
     featured: resource.meta.featured,
@@ -156,6 +159,9 @@ async function buildSpecDetail(resource: DiskResource): Promise<ResourceDetail> 
     title: resource.meta.title,
     summary: resource.meta.summary,
     tags: resource.meta.tags,
+    ...(resource.meta.collections?.length
+      ? { collections: resource.meta.collections }
+      : {}),
     updatedAt,
     stats: `${Math.max(h2Titles.length, 1)} Sections`,
     featured: resource.meta.featured,
@@ -190,6 +196,9 @@ async function buildPipelineDetail(resource: DiskResource): Promise<ResourceDeta
     title: resource.meta.title,
     summary: resource.meta.summary,
     tags: resource.meta.tags,
+    ...(resource.meta.collections?.length
+      ? { collections: resource.meta.collections }
+      : {}),
     updatedAt,
     stats: `Steps: ${tasks.length}`,
     featured: resource.meta.featured,
@@ -206,6 +215,9 @@ function toLite(detail: ResourceDetail): CatalogLiteItem {
     title: detail.title,
     summary: detail.summary,
     tags: detail.tags,
+    ...(detail.collections?.length
+      ? { collections: detail.collections }
+      : {}),
     updatedAt: detail.updatedAt,
     stats: detail.stats,
     featured: detail.featured,

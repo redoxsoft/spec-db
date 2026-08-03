@@ -36,6 +36,8 @@ function stripTags(html: string): string {
 function bodyText(detail: ResourceDetail): string {
   const parts: string[] = [detail.summary]
 
+  if (detail.collections?.length) parts.push(detail.collections.join(' '))
+
   if (detail.outline?.length) parts.push(detail.outline.join(' '))
 
   if (detail.templateGuidance) parts.push(detail.templateGuidance)

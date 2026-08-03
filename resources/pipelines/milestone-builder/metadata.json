@@ -4,6 +4,7 @@
   "title": "Milestone Builder",
   "summary": "Implement the next eligible milestone and update the SpecX milestones document for a named project.",
   "tags": ["domain.engineering", "use-case.execution"],
+  "collections": ["builder"],
   "createdAt": "2026-08-03",
   "updatedAt": "2026-08-03",
   "schemaVersion": "1",

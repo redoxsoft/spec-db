@@ -7,6 +7,7 @@ export type CatalogFilters = {
   kind: KindFilter
   q: string
   tags: string[]
+  collections: string[]
 }
 
 export const KIND_TITLES: Record<KindFilter, string> = {
@@ -14,6 +15,12 @@ export const KIND_TITLES: Record<KindFilter, string> = {
   template: 'Templates',
   spec: 'Specs',
   pipeline: 'Pipelines',
+}
+
+const KIND_SORT_ORDER: Record<ResourceKind, number> = {
+  template: 0,
+  spec: 1,
+  pipeline: 2,
 }
 
 export function coerceKindFilter(
@@ -26,9 +33,39 @@ export function coerceKindFilter(
   return 'all'
 }
 
+function sortByKindThenSlug(items: CatalogLiteItem[]): CatalogLiteItem[] {
+  return [...items].sort((a, b) => {
+    const kindDelta = KIND_SORT_ORDER[a.kind] - KIND_SORT_ORDER[b.kind]
+    if (kindDelta !== 0) return kindDelta
+    return a.slug.localeCompare(b.slug)
+  })
+}
+
+/** Group items in display order: templates → specs → pipelines (empty groups omitted). */
+export function groupCatalogByKind(
+  items: CatalogLiteItem[],
+): { kind: ResourceKind; title: string; items: CatalogLiteItem[] }[] {
+  const groups: Record<ResourceKind, CatalogLiteItem[]> = {
+    template: [],
+    spec: [],
+    pipeline: [],
+  }
+  for (const item of items) {
+    groups[item.kind].push(item)
+  }
+  return ALL_RESOURCE_KINDS.filter((kind) => groups[kind].length > 0).map(
+    (kind) => ({
+      kind,
+      title: KIND_TITLES[kind],
+      items: groups[kind],
+    }),
+  )
+}
+
 /**
  * Filter catalog by kind/tags/allowlist.
- * Text (`q`) is applied via `searchSlugs` from Pagefind — not in-memory title match.
+ * Search (`q`) is applied via `searchSlugs` from Pagefind — not in-memory title match.
+ * Results are ordered templates → specs → pipelines, then by slug.
  */
 export function filterCatalog(
   items: CatalogLiteItem[],
@@ -39,7 +76,7 @@ export function filterCatalog(
   const kind = coerceKindFilter(filters.kind, allowedKinds)
   const hasQuery = filters.q.trim().length > 0
 
-  return items.filter((item) => {
+  const filtered = items.filter((item) => {
     if (!allowedKinds.includes(item.kind)) return false
 
     if (kind !== 'all' && item.kind !== kind) return false
@@ -55,8 +92,19 @@ export function filterCatalog(
       return false
     }
 
+    if (
+      filters.collections.length > 0 &&
+      !filters.collections.every((id) =>
+        (item.collections ?? []).includes(id),
+      )
+    ) {
+      return false
+    }
+
     return true
   })
+
+  return sortByKindThenSlug(filtered)
 }
 
 export function hasActiveFilters(
@@ -69,7 +117,8 @@ export function hasActiveFilters(
   return (
     kindIsUserChoice ||
     filters.q.trim().length > 0 ||
-    filters.tags.length > 0
+    filters.tags.length > 0 ||
+    filters.collections.length > 0
   )
 }
 

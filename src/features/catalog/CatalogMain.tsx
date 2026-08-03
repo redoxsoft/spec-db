@@ -9,6 +9,7 @@ import { ActiveFilterChips } from './ActiveFilterChips'
 import { BatchImportBar } from './BatchImportBar'
 import {
   coerceKindFilter,
+  groupCatalogByKind,
   hasActiveFilters,
   type CatalogFilters,
 } from './filterCatalog'
@@ -28,8 +29,10 @@ type CatalogMainProps = {
   onClearKind: () => void
   onClearQuery: () => void
   onRemoveTag: (tagId: string) => void
+  onRemoveCollection: (id: string) => void
   onClearFilters: () => void
   onOpenFilters: () => void
+  onAddCollection: (id: string) => void
   /** Embed-only multi-select. */
   selectionEnabled?: boolean
   selectedKeys?: ReadonlySet<string>
@@ -67,6 +70,7 @@ function activeFilterCount(
   if (allowedKinds.length > 1 && filters.kind !== 'all') count += 1
   if (filters.q.trim()) count += 1
   count += filters.tags.length
+  count += filters.collections.length
   return count
 }
 
@@ -128,8 +132,10 @@ export function CatalogMain({
   onClearKind,
   onClearQuery,
   onRemoveTag,
+  onRemoveCollection,
   onClearFilters,
   onOpenFilters,
+  onAddCollection,
   selectionEnabled = false,
   selectedKeys,
   selectedItems = [],
@@ -141,6 +147,36 @@ export function CatalogMain({
   const filterCount = activeFilterCount(filters, allowedKinds)
   const showClearEmpty = hasActiveFilters(filters, allowedKinds)
   const comingSoon = empty && isComingSoonKind(filters, allowedKinds)
+  const showKindGroups =
+    coerceKindFilter(filters.kind, allowedKinds) === 'all' &&
+    allowedKinds.length > 1
+  const kindGroups = showKindGroups ? groupCatalogByKind(items) : null
+  const gridClass = searching
+    ? 'grid auto-rows-max grid-cols-1 gap-6 opacity-60 transition-opacity md:grid-cols-2 lg:grid-cols-3'
+    : 'grid auto-rows-max grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3'
+
+  function renderCard(item: CatalogLiteItem, index: number) {
+    const key = `${item.kind}:${item.slug}`
+    return (
+      <div
+        key={item.slug}
+        className="catalog-card-enter h-full"
+        style={{
+          animationDelay: `${Math.min(index, 8) * 40}ms`,
+        }}
+      >
+        <ResourceCard
+          item={item}
+          onSelect={onSelect}
+          activeCollections={filters.collections}
+          onAddCollection={onAddCollection}
+          selectionEnabled={selectionEnabled}
+          selected={selectedKeys?.has(key) ?? false}
+          onToggleSelected={() => onToggleSelected?.(item)}
+        />
+      </div>
+    )
+  }
 
   return (
     <section className="relative flex-1 overflow-y-auto bg-ui-bg">
@@ -174,6 +210,7 @@ export function CatalogMain({
           onClearKind={onClearKind}
           onClearQuery={onClearQuery}
           onRemoveTag={onRemoveTag}
+          onRemoveCollection={onRemoveCollection}
           onClearAll={onClearFilters}
         />
 
@@ -214,35 +251,32 @@ export function CatalogMain({
                 </p>
               </div>
             ) : !empty ? (
-              <div
-                key={items.map((item) => item.slug).join('|')}
-                className={
-                  searching
-                    ? 'grid auto-rows-max grid-cols-1 gap-6 opacity-60 transition-opacity md:grid-cols-2 lg:grid-cols-3'
-                    : 'grid auto-rows-max grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3'
-                }
-              >
-                {items.map((item, index) => {
-                  const key = `${item.kind}:${item.slug}`
-                  return (
-                    <div
-                      key={item.slug}
-                      className="catalog-card-enter h-full"
-                      style={{
-                        animationDelay: `${Math.min(index, 8) * 40}ms`,
-                      }}
-                    >
-                      <ResourceCard
-                        item={item}
-                        onSelect={onSelect}
-                        selectionEnabled={selectionEnabled}
-                        selected={selectedKeys?.has(key) ?? false}
-                        onToggleSelected={() => onToggleSelected?.(item)}
-                      />
-                    </div>
-                  )
-                })}
-              </div>
+              kindGroups ? (
+                <div
+                  key={items.map((item) => item.slug).join('|')}
+                  className="space-y-10"
+                >
+                  {kindGroups.map((group) => (
+                    <section key={group.kind}>
+                      <h2 className="mb-4 text-xs font-bold tracking-wider text-gray-400 uppercase">
+                        {group.title}
+                      </h2>
+                      <div className={gridClass}>
+                        {group.items.map((item, index) =>
+                          renderCard(item, index),
+                        )}
+                      </div>
+                    </section>
+                  ))}
+                </div>
+              ) : (
+                <div
+                  key={items.map((item) => item.slug).join('|')}
+                  className={gridClass}
+                >
+                  {items.map((item, index) => renderCard(item, index))}
+                </div>
+              )
             ) : searching ? (
               <CatalogSkeleton />
             ) : comingSoon ? (

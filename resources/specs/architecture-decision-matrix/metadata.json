@@ -4,6 +4,7 @@
   "title": "Architecture Decision Matrix",
   "summary": "Deterministic local-first stack selection questionnaire and rule engine for Project Discovery.",
   "tags": ["domain.engineering", "use-case.discovery"],
+  "collections": ["builder"],
   "createdAt": "2026-08-03",
   "updatedAt": "2026-08-03",
   "schemaVersion": "1",

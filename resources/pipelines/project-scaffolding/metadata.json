@@ -4,6 +4,7 @@
   "title": "Project Scaffolding",
   "summary": "Create and verify a blank runnable project from a locked SpecX decision matrix for a named project.",
   "tags": ["domain.engineering", "use-case.execution"],
+  "collections": ["builder"],
   "createdAt": "2026-08-03",
   "updatedAt": "2026-08-03",
   "schemaVersion": "1",

@@ -47,6 +47,21 @@ export const metadataSchema = z
     title: z.string().min(1),
     summary: z.string().min(1),
     tags: z.array(z.string().min(1)),
+    collections: z
+      .array(
+        z
+          .string()
+          .regex(
+            /^[a-z0-9]+(?:-[a-z0-9]+)*$/,
+            'collection id must be lowercase kebab-case',
+          ),
+      )
+      .max(2)
+      .refine(
+        (ids) => new Set(ids).size === ids.length,
+        'collections must be unique',
+      )
+      .optional(),
     authors: z.array(z.string().min(1)).optional(),
     license: z.string().min(1).optional(),
     createdAt: z.string().min(1).optional(),

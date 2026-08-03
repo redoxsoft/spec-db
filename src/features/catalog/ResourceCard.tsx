@@ -6,17 +6,12 @@ import type { CatalogLiteItem } from '../../catalog'
 type ResourceCardProps = {
   item: CatalogLiteItem
   onSelect: (slug: string) => void
+  activeCollections?: readonly string[]
+  onAddCollection?: (id: string) => void
   /** Embed multi-select: show checkbox and selected chrome. */
   selectionEnabled?: boolean
   selected?: boolean
   onToggleSelected?: () => void
-}
-
-function formatUpdated(date: string): string {
-  return new Date(date).toLocaleDateString('en-GB', {
-    day: 'numeric',
-    month: 'short',
-  })
 }
 
 function TemplateOutline({ outline }: { outline: string[] }) {
@@ -52,12 +47,15 @@ function TemplateOutline({ outline }: { outline: string[] }) {
 export function ResourceCard({
   item,
   onSelect,
+  activeCollections = [],
+  onAddCollection,
   selectionEnabled = false,
   selected = false,
   onToggleSelected,
 }: ResourceCardProps) {
   const styles = getKindStyles(item.kind)
   const Icon = styles.icon
+  const collections = item.collections?.slice(0, 2) ?? []
 
   return (
     <div
@@ -71,7 +69,7 @@ export function ResourceCard({
       <button
         type="button"
         onClick={() => onSelect(item.slug)}
-        className="flex h-full w-full cursor-pointer flex-col p-6 text-left"
+        className="flex min-h-0 w-full flex-1 cursor-pointer flex-col p-6 pb-0 text-left"
       >
         <div className="mb-4 flex items-center gap-3">
           <div className="relative shrink-0">
@@ -134,12 +132,34 @@ export function ResourceCard({
             {item.summary}
           </p>
         ) : null}
-
-        <div className="mt-auto flex items-center justify-between pt-5 text-xs font-medium text-gray-400">
-          <span>{item.stats}</span>
-          <span>Updated {formatUpdated(item.updatedAt)}</span>
-        </div>
       </button>
+
+      <div className="flex items-center justify-between gap-3 px-6 pt-5 pb-6 text-xs font-medium text-gray-400">
+        <span className="shrink-0">{item.stats}</span>
+        {collections.length > 0 ? (
+          <div className="flex min-w-0 flex-wrap justify-end gap-1.5">
+            {collections.map((id) => {
+              const active = activeCollections.includes(id)
+              return (
+                <button
+                  key={id}
+                  type="button"
+                  onClick={() => onAddCollection?.(id)}
+                  className={cn(
+                    'inline-flex max-w-full truncate rounded-md px-2 py-1 text-[11px] font-medium transition-colors',
+                    active
+                      ? 'bg-brand-600 text-white hover:bg-brand-700'
+                      : 'bg-gray-100 text-gray-600 hover:bg-gray-200 hover:text-gray-800',
+                  )}
+                  title={`Filter by ${id}`}
+                >
+                  {id}
+                </button>
+              )
+            })}
+          </div>
+        ) : null}
+      </div>
     </div>
   )
 }

@@ -4,6 +4,7 @@
   "title": "Scaffolding Rules",
   "summary": "Rules for creating and verifying a blank runnable project from a locked SpecX decision matrix.",
   "tags": ["domain.engineering", "use-case.execution"],
+  "collections": ["builder"],
   "createdAt": "2026-08-03",
   "updatedAt": "2026-08-03",
   "schemaVersion": "1",

@@ -41,6 +41,7 @@ export type CatalogLiteItem = {
   title: string
   summary: string
   tags: string[]
+  collections?: string[]
   updatedAt: string
   stats: string
   featured?: boolean

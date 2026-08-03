@@ -4,6 +4,7 @@
   "title": "Project Discovery",
   "summary": "Lock a local-first stack into SpecX decision and mandatory architecture-rules specs from a project requirements SpecX spec.",
   "tags": ["domain.engineering", "use-case.discovery"],
+  "collections": ["builder"],
   "createdAt": "2026-08-03",
   "updatedAt": "2026-08-03",
   "schemaVersion": "1",

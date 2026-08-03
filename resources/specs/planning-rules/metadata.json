@@ -4,6 +4,7 @@
   "title": "Planning Rules",
   "summary": "Rules for converting requirements into an ordered SpecX milestones document.",
   "tags": ["domain.engineering", "use-case.planning"],
+  "collections": ["builder"],
   "createdAt": "2026-08-03",
   "updatedAt": "2026-08-03",
   "schemaVersion": "1",

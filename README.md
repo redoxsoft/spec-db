@@ -51,7 +51,7 @@ Search uses Pagefind over generated resource text. `npm run dev` indexes into `p
 
 - **Embed** (`?embed=true`): Import sends `postMessage` `{ type: 'spec-db:import:requested', kind, slug }` to the parent.
 - **Standalone**: Import opens SpecX/WorkX import URL with `kind` + `slug` only. Hosts fetch packages from `{base}/generated/packages/{kind}/{slug}.json`.
-- **Packages:** templates, specs, and pipelines under `/generated/packages/{kind}/{slug}.json` (samples: `feature-spec-lite`, `discovery-rules`, `repo-overview`).
+- **Packages:** templates, specs, and pipelines under `/generated/packages/{kind}/{slug}.json` (samples: `feature-spec-lite`, `discovery-rules`, `project-discovery`).
 - **Host mock:** with the dev server running, open [/host-mock.html](http://localhost:7876/host-mock.html) (WorkX / SpecX `kinds=` presets).
 - Details: [docs/embed.md](docs/embed.md). Env knobs: [.env.example](.env.example).
 

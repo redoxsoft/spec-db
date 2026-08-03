@@ -52,6 +52,7 @@ Every resource needs a `metadata.json`. Validate against [`schemas/metadata.sche
   "title": "Human title",
   "summary": "One or two sentences for catalog cards.",
   "tags": ["domain.product", "use-case.specification"],
+  "collections": ["builder"],
   "createdAt": "2026-08-02",
   "updatedAt": "2026-08-02",
   "schemaVersion": "1",
@@ -66,6 +67,7 @@ Every resource needs a `metadata.json`. Validate against [`schemas/metadata.sche
 | `kind` | `"template"` \| `"spec"` \| `"pipeline"` |
 | `summary` | Required; short card blurb |
 | `tags` | Must exist in `tags/tags.json`, active, applicable to this kind |
+| `collections` | Optional; free-form kebab-case ids (e.g. `builder`); max 2; no registry; shown as chips on cards |
 | `schemaVersion` | Always `"1"` |
 | `templateSlug` | Specs only; must point at an existing template |
 | `relatedSlugs` | Optional; each must resolve to a catalog slug |

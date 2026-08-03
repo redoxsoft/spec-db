@@ -40,6 +40,7 @@ function readFilters(params: URLSearchParams): CatalogFilters {
     kind: parseKind(params.get('kind')),
     q: params.get('q') ?? '',
     tags: params.getAll('tag'),
+    collections: params.getAll('collection'),
   }
 }
 
@@ -61,6 +62,9 @@ function writeFilters(
   params.delete('tag')
   for (const tag of next.tags) params.append('tag', tag)
 
+  params.delete('collection')
+  for (const id of next.collections) params.append('collection', id)
+
   return params
 }
 
@@ -81,6 +85,8 @@ export function useCatalog(): {
   setQuery: (q: string) => void
   toggleTag: (tagId: string) => void
   removeTag: (tagId: string) => void
+  addCollection: (id: string) => void
+  removeCollection: (id: string) => void
   clearFilters: () => void
   prepareSearch: () => void
 } {
@@ -292,6 +298,15 @@ export function useCatalog(): {
     removeTag: (tagId) => {
       update({ tags: committed.tags.filter((id) => id !== tagId) })
     },
+    addCollection: (id) => {
+      if (committed.collections.includes(id)) return
+      update({ collections: [...committed.collections, id] })
+    },
+    removeCollection: (id) => {
+      update({
+        collections: committed.collections.filter((c) => c !== id),
+      })
+    },
     clearFilters: () => {
       setDraftQuery('')
       setSearchParams(
@@ -300,6 +315,7 @@ export function useCatalog(): {
           next.delete('kind')
           next.delete('q')
           next.delete('tag')
+          next.delete('collection')
           return next
         },
         { replace: true },

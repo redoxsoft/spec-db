@@ -4,6 +4,7 @@
   "title": "Pipeline Operating Contract",
   "summary": "Shared operating rules for Project Discovery, Scaffolding, Planning, and Milestone Builder pipelines using SpecX specs.",
   "tags": ["domain.engineering", "use-case.specification"],
+  "collections": ["builder"],
   "createdAt": "2026-08-03",
   "updatedAt": "2026-08-03",
   "schemaVersion": "1",

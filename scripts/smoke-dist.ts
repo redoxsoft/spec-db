@@ -51,7 +51,7 @@ async function main() {
 
   const packageSamples = [
     'generated/packages/template/feature-spec-lite.json',
-    'generated/packages/pipeline/repo-overview.json',
+    'generated/packages/pipeline/project-discovery.json',
     'generated/packages/spec/discovery-rules.json',
   ]
   for (const rel of packageSamples) {
