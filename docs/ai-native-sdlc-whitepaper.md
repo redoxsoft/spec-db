@@ -1,6 +1,6 @@
 # Building Predictable Software Delivery with AI: An AI-Native SDLC
 
-**Author:** Redoxsoft Architecture & Product Team  
+**Author:** [Redoxsoft](https://redoxsoft.com) Architecture & Product Team  
 
 ---
 
@@ -22,9 +22,9 @@ AI adoption becomes reliable only when organizational intent is explicit, access
 
 | Foundation | Purpose | Redoxsoft Product |
 |------------|---------|-------------------|
-| Specifications | Define what needs to be built. | SpecX |
-| Rules and Context | Define how work should be done. | SpecX |
-| Process Orchestration | Define how work moves from request to completion. | WorkX |
+| Specifications | Define what needs to be built. | [SpecX](https://specx.redoxsoft.com) |
+| Rules and Context | Define how work should be done. | [SpecX](https://specx.redoxsoft.com) |
+| Process Orchestration | Define how work moves from request to completion. | [WorkX](https://workx.redoxsoft.com) |
 
 Together, these foundations help organizations create an environment where AI agents can operate with the same understanding of requirements, standards, and delivery processes as experienced team members.
 
@@ -124,8 +124,8 @@ To complete this vision, Redoxsoft's roadmap includes a streamlined AI-First Tas
 
 | Product | Role in the AI SDLC |
 |---------|---------------------|
-| SpecX | The structured knowledge layer (Intent & Rules). |
-| WorkX | The orchestration layer (Process & Execution). |
+| [SpecX](https://specx.redoxsoft.com) | The structured knowledge layer (Intent & Rules). |
+| [WorkX](https://workx.redoxsoft.com) | The orchestration layer (Process & Execution). |
 | AI Task Manager (Roadmap) | The state layer (Tracking execution, PRs, and system-wide state). |
 
 The organizations that succeed will make their knowledge structured, their rules reusable, and their workflows observable. By combining structured specifications, shared organizational context, and stateful execution pipelines, Redoxsoft helps teams move from isolated AI productivity gains to predictable, scalable, and fully governed software delivery.
