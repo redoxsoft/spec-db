@@ -22,7 +22,8 @@ The decision SpecX spec must record:
 - explicit `none` values where a layer is not used;
 - assumptions made from the requirements SpecX spec;
 - unsupported requests, unresolved questions, and deferred decisions;
-- the source requirements SpecX spec and Architecture Decision Matrix revision.
+- the source requirements SpecX spec and Architecture Decision Matrix revision;
+- locked absolute `project_root` (filesystem path where Scaffolding will create the app).
 
 Do not add technologies merely because they are commonly used. Every technology in the locked architecture must come from a user decision or an explicitly triggered rule.
 
@@ -62,4 +63,5 @@ Discovery is complete only when:
 - the architecture matrix validates;
 - prerequisites are generated from rules rather than intuition;
 - the mandatory architecture-rules SpecX spec is completed and validated;
+- SpecX spec `${PROJECT_NAME} - Decision Matrix` records an absolute `project_root` that Scaffolding can use without guessing;
 - the next workflow can locate the required SpecX specs without guessing.

@@ -21,6 +21,8 @@ Before editing, read:
 
 Confirm the selected milestone's scope and definition of done. Do not implement neighboring or speculative features.
 
+Use absolute `project_root` from SpecX spec `${PROJECT_NAME} - Decision Matrix` as the only implementation root. Hard-stop if it is missing. If the agent cwd differs, switch/open that root before editing.
+
 ## Implementation behavior <!-- key: implementation-behavior -->
 
 1. Inspect current workspace changes and preserve unrelated work.

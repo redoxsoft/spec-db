@@ -2,13 +2,20 @@
   "slug": "milestone-builder",
   "kind": "pipeline",
   "title": "Milestone Builder",
-  "summary": "Implement the next eligible milestone and update the SpecX milestones document for a named project.",
-  "tags": ["domain.engineering", "use-case.execution"],
-  "collections": ["builder"],
+  "summary": "Discovery > Scaffolding > Planning > Build\n\nThis is the Build phase. Implement the next eligible milestone and update the SpecX milestones document.\n\nAgent instruction: Run Milestone Builder for `Your Project Name`",
+  "tags": [
+    "domain.engineering",
+    "use-case.execution"
+  ],
+  "collections": [
+    "builder"
+  ],
   "createdAt": "2026-08-03",
-  "updatedAt": "2026-08-03",
+  "updatedAt": "2026-08-04",
   "schemaVersion": "1",
-  "authors": ["Spec DB"],
+  "authors": [
+    "Spec DB"
+  ],
   "license": "CC-BY-4.0",
   "featured": true,
   "relatedSlugs": [

@@ -16,6 +16,15 @@ Scaffolding may create:
 
 Scaffolding must not implement product features, authentication flows, business workflows, or milestone work. Do not create SpecX milestone or feature-spec documents in this pipeline.
 
+## Project root gate <!-- key: project-root-gate -->
+
+Before writing project files:
+
+1. Read absolute `project_root` from SpecX spec `${PROJECT_NAME} - Decision Matrix`.
+2. Hard-stop if `project_root` is missing, relative, or otherwise invalid.
+3. Work only under that path (create the directory and/or move the agent root as needed).
+4. Do not invent a different root or ask the user for a path. If the locked path is unusable, report a blocker.
+
 ## Prerequisite gate <!-- key: prerequisite-gate -->
 
 Before writing project files:

@@ -3,12 +3,19 @@
   "kind": "spec",
   "title": "Scaffolding Rules",
   "summary": "Rules for creating and verifying a blank runnable project from a locked SpecX decision matrix.",
-  "tags": ["domain.engineering", "use-case.execution"],
-  "collections": ["builder"],
+  "tags": [
+    "domain.engineering",
+    "use-case.execution"
+  ],
+  "collections": [
+    "builder"
+  ],
   "createdAt": "2026-08-03",
-  "updatedAt": "2026-08-03",
+  "updatedAt": "2026-08-04",
   "schemaVersion": "1",
-  "authors": ["Spec DB"],
+  "authors": [
+    "Spec DB"
+  ],
   "license": "CC-BY-4.0",
   "relatedSlugs": [
     "project-scaffolding",

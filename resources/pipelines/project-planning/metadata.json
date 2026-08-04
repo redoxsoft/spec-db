@@ -2,13 +2,20 @@
   "slug": "project-planning",
   "kind": "pipeline",
   "title": "Project Planning",
-  "summary": "Convert requirements into an ordered SpecX milestones document for a named project.",
-  "tags": ["domain.engineering", "use-case.planning"],
-  "collections": ["builder"],
+  "summary": "Discovery > Scaffolding > Planning > Build\n\nThis is the Planning phase. Convert requirements into an ordered SpecX milestones document.\n\nAgent instruction: Run Project Planning for `Your Project Name`",
+  "tags": [
+    "domain.engineering",
+    "use-case.planning"
+  ],
+  "collections": [
+    "builder"
+  ],
   "createdAt": "2026-08-03",
-  "updatedAt": "2026-08-03",
+  "updatedAt": "2026-08-04",
   "schemaVersion": "1",
-  "authors": ["Spec DB"],
+  "authors": [
+    "Spec DB"
+  ],
   "license": "CC-BY-4.0",
   "featured": true,
   "relatedSlugs": [

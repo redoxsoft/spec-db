@@ -2,13 +2,20 @@
   "slug": "project-discovery",
   "kind": "pipeline",
   "title": "Project Discovery",
-  "summary": "Lock a local-first stack into SpecX decision and mandatory architecture-rules specs from a project requirements SpecX spec.",
-  "tags": ["domain.engineering", "use-case.discovery"],
-  "collections": ["builder"],
+  "summary": "Discovery > Scaffolding > Planning > Build\n\nThis is the Discovery phase. Lock a local-first stack into SpecX Decision Matrix and Architecture Rules from the project requirements SpecX.\n\nAgent instruction: Run Project Discovery for `Your Project Name`",
+  "tags": [
+    "domain.engineering",
+    "use-case.discovery"
+  ],
+  "collections": [
+    "builder"
+  ],
   "createdAt": "2026-08-03",
-  "updatedAt": "2026-08-03",
+  "updatedAt": "2026-08-04",
   "schemaVersion": "1",
-  "authors": ["Spec DB"],
+  "authors": [
+    "Spec DB"
+  ],
   "license": "CC-BY-4.0",
   "featured": true,
   "relatedSlugs": [
