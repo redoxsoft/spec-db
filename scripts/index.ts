@@ -120,26 +120,48 @@ async function loadDiskResources(): Promise<DiskResource[]> {
   return loaded.sort((a, b) => a.meta.slug.localeCompare(b.meta.slug))
 }
 
+async function catalogBase(
+  resource: DiskResource,
+): Promise<
+  Pick<
+    CatalogLiteItem,
+    | 'slug'
+    | 'kind'
+    | 'title'
+    | 'summary'
+    | 'summaryHtml'
+    | 'tags'
+    | 'collections'
+    | 'updatedAt'
+    | 'featured'
+  >
+> {
+  return {
+    slug: resource.meta.slug,
+    kind: resource.meta.kind,
+    title: resource.meta.title,
+    summary: resource.meta.summary,
+    summaryHtml: await compileMarkdownToHtml(resource.meta.summary),
+    tags: resource.meta.tags,
+    ...(resource.meta.collections?.length
+      ? { collections: resource.meta.collections }
+      : {}),
+    updatedAt: resource.meta.updatedAt ?? resource.meta.createdAt ?? '',
+    featured: resource.meta.featured,
+  }
+}
+
 async function buildTemplateDetail(resource: DiskResource): Promise<ResourceDetail> {
   const content = templateContentSchema.parse(
     await readJson(path.join(resource.dir, 'content.json')),
   )
   const outline = flattenOutlineTitles(content.outline)
   const sections = await flattenSections(content.outline)
-  const updatedAt = resource.meta.updatedAt ?? resource.meta.createdAt ?? ''
 
   return {
-    slug: resource.meta.slug,
+    ...(await catalogBase(resource)),
     kind: 'template',
-    title: resource.meta.title,
-    summary: resource.meta.summary,
-    tags: resource.meta.tags,
-    ...(resource.meta.collections?.length
-      ? { collections: resource.meta.collections }
-      : {}),
-    updatedAt,
     stats: `${sections.length} Sections`,
-    featured: resource.meta.featured,
     outline,
     sections,
     templateGuidance: content.guidance,
@@ -150,21 +172,12 @@ async function buildTemplateDetail(resource: DiskResource): Promise<ResourceDeta
 async function buildSpecDetail(resource: DiskResource): Promise<ResourceDetail> {
   const markdown = await readFile(path.join(resource.dir, 'content.md'), 'utf8')
   const { h2Titles } = extractMarkdownStructure(markdown)
-  const updatedAt = resource.meta.updatedAt ?? resource.meta.createdAt ?? ''
   const trimmed = markdown.trim()
 
   return {
-    slug: resource.meta.slug,
+    ...(await catalogBase(resource)),
     kind: 'spec',
-    title: resource.meta.title,
-    summary: resource.meta.summary,
-    tags: resource.meta.tags,
-    ...(resource.meta.collections?.length
-      ? { collections: resource.meta.collections }
-      : {}),
-    updatedAt,
     stats: `${Math.max(h2Titles.length, 1)} Sections`,
-    featured: resource.meta.featured,
     outline: h2Titles.length > 0 ? h2Titles : undefined,
     contentPreview: trimmed,
     previewHtml: await compileMarkdownToHtml(trimmed),
@@ -188,20 +201,11 @@ async function buildPipelineDetail(resource: DiskResource): Promise<ResourceDeta
       iteratorFields: step.iteratorFields,
     })
   }
-  const updatedAt = resource.meta.updatedAt ?? resource.meta.createdAt ?? ''
 
   return {
-    slug: resource.meta.slug,
+    ...(await catalogBase(resource)),
     kind: 'pipeline',
-    title: resource.meta.title,
-    summary: resource.meta.summary,
-    tags: resource.meta.tags,
-    ...(resource.meta.collections?.length
-      ? { collections: resource.meta.collections }
-      : {}),
-    updatedAt,
     stats: `Steps: ${tasks.length}`,
-    featured: resource.meta.featured,
     tasks,
     inputVarDefinitions: content.inputVarDefinitions,
     iteratorFields: content.iteratorFields,
@@ -214,6 +218,7 @@ function toLite(detail: ResourceDetail): CatalogLiteItem {
     kind: detail.kind,
     title: detail.title,
     summary: detail.summary,
+    ...(detail.summaryHtml ? { summaryHtml: detail.summaryHtml } : {}),
     tags: detail.tags,
     ...(detail.collections?.length
       ? { collections: detail.collections }

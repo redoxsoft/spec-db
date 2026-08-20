@@ -257,6 +257,7 @@ async function loadResources(
       }
 
       checkResourceTags(metaPath, meta, byId)
+      checkMarkdownMedia(metaPath, meta.summary)
       loaded.push({ metaPath, meta, dir: resourceDir })
     }
   }

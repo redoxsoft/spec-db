@@ -40,6 +40,8 @@ export type CatalogLiteItem = {
   kind: ResourceKind
   title: string
   summary: string
+  /** Build-time sanitized HTML for `summary` (card + detail teaser). */
+  summaryHtml?: string
   tags: string[]
   collections?: string[]
   updatedAt: string

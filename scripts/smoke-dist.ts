@@ -48,6 +48,16 @@ async function main() {
   if (!Array.isArray(lite) || lite.length === 0) {
     throw new Error('smoke-dist: catalog-lite.json empty or invalid')
   }
+  const missingSummaryHtml = lite.find(
+    (item) =>
+      typeof item !== 'object' ||
+      item === null ||
+      typeof (item as { summaryHtml?: unknown }).summaryHtml !== 'string' ||
+      !(item as { summaryHtml: string }).summaryHtml.trim(),
+  )
+  if (missingSummaryHtml) {
+    throw new Error('smoke-dist: catalog-lite.json item missing summaryHtml')
+  }
 
   const packageSamples = [
     'generated/packages/template/feature-spec-lite.json',

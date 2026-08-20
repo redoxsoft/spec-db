@@ -13,6 +13,7 @@ import { githubResourceUrl } from '../../lib/paths'
 import { ImportButton } from './ImportButton'
 import { PipelineOverview } from './PipelineOverview'
 import { PreviewContent } from './PreviewContent'
+import { ProseHtml } from './ProseHtml'
 import { TaskDetailPanel } from './TaskDetailPanel'
 
 type DetailModalProps = {
@@ -181,9 +182,13 @@ export function DetailModal({ slug, tags, onClose }: DetailModalProps) {
               </div>
 
               <div className="min-h-0 flex-1 overflow-y-auto p-4 sm:p-6">
-                <p className="mb-6 text-sm leading-relaxed text-gray-600">
-                  {item.summary}
-                </p>
+                {item.summaryHtml ? (
+                  <ProseHtml className="mb-6 text-gray-600" html={item.summaryHtml} />
+                ) : (
+                  <p className="mb-6 text-sm leading-relaxed text-gray-600">
+                    {item.summary}
+                  </p>
+                )}
                 {isPipeline ? (
                   <PipelineOverview item={item} onSelectTask={setTaskKey} />
                 ) : (

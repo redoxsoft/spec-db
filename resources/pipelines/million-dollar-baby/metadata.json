@@ -1,0 +1,21 @@
+{
+  "slug": "million-dollar-baby",
+  "kind": "pipeline",
+  "title": "Business Plan Quick Start",
+  "summary": "A guided pipeline for WorkX onboarding. Collect a short business idea then generate a structured (non-serious) business plan.\n\nAgent instruction: Run my idea through Business Plan Quick Start",
+  "tags": [
+    "domain.business",
+    "use-case.execution"
+  ],
+  "collections": [
+    "onboarding"
+  ],
+  "createdAt": "2026-08-20",
+  "updatedAt": "2026-08-21",
+  "schemaVersion": "1",
+  "authors": [
+    "Spec DB"
+  ],
+  "license": "CC-BY-4.0",
+  "featured": true
+}

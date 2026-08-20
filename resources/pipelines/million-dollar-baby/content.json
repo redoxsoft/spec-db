@@ -1,0 +1,9 @@
+{
+  "schemaVersion": "1",
+  "inputVarDefinitions": [],
+  "iteratorFields": [],
+  "steps": [
+    { "key": "requirement-gathering", "name": "Requirement Gathering" },
+    { "key": "plan-generation", "name": "Plan Generation" }
+  ]
+}

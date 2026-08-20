@@ -1,7 +1,8 @@
 import { Star } from 'lucide-react'
+import type { CatalogLiteItem } from '../../catalog'
 import { cn } from '../../lib/cn'
 import { getKindStyles } from '../../lib/kindStyles'
-import type { CatalogLiteItem } from '../../catalog'
+import { ProseHtml } from '../detail/ProseHtml'
 
 type ResourceCardProps = {
   item: CatalogLiteItem
@@ -14,12 +15,27 @@ type ResourceCardProps = {
   onToggleSelected?: () => void
 }
 
+function CardSummary({ item }: { item: CatalogLiteItem }) {
+  if (item.summaryHtml) {
+    return (
+      <ProseHtml
+        className="text-gray-500 [&_p]:my-2 [&_p:first-child]:mt-0 [&_p:last-child]:mb-0"
+        html={item.summaryHtml}
+      />
+    )
+  }
+
+  return (
+    <p className="text-sm leading-relaxed text-gray-500">{item.summary}</p>
+  )
+}
+
 function TemplateOutline({ outline }: { outline: string[] }) {
   const visible = outline.slice(0, 4)
   const remaining = outline.length - visible.length
 
   return (
-    <div className="mt-auto border-t border-gray-50 pt-4">
+    <div className="shrink-0 border-t border-gray-50 pt-4">
       <h4 className="mb-3 text-[10px] font-bold tracking-wider text-gray-400 uppercase">
         Outline
       </h4>
@@ -60,7 +76,7 @@ export function ResourceCard({
   return (
     <div
       className={cn(
-        'relative flex h-full w-full flex-col rounded-2xl border bg-ui-card shadow-card transition-all duration-200',
+        'relative flex h-full min-h-80 w-full flex-col rounded-2xl border bg-ui-card shadow-card transition-all duration-200',
         selected
           ? 'border-brand-500 ring-2 ring-brand-100'
           : 'border-ui-border hover:shadow-card-hover',
@@ -69,9 +85,9 @@ export function ResourceCard({
       <button
         type="button"
         onClick={() => onSelect(item.slug)}
-        className="flex min-h-0 w-full flex-1 cursor-pointer flex-col p-6 pb-0 text-left"
+        className="flex min-h-0 flex-1 cursor-pointer flex-col gap-4 p-6 pb-0 text-left"
       >
-        <div className="mb-4 flex items-center gap-3">
+        <div className="flex shrink-0 items-center gap-3">
           <div className="relative shrink-0">
             <div
               className={cn(
@@ -114,27 +130,13 @@ export function ResourceCard({
           ) : null}
         </div>
 
+        <CardSummary item={item} />
         {item.kind === 'template' && item.outline ? (
-          <>
-            <p className="mb-6 flex-1 text-sm text-gray-500">{item.summary}</p>
-            <TemplateOutline outline={item.outline} />
-          </>
-        ) : null}
-
-        {item.kind === 'spec' ? (
-          <p className="mb-6 line-clamp-4 flex-1 text-sm leading-relaxed text-gray-500 italic">
-            {item.summary}
-          </p>
-        ) : null}
-
-        {item.kind === 'pipeline' ? (
-          <p className="mb-6 flex-1 text-sm leading-relaxed text-gray-500">
-            {item.summary}
-          </p>
+          <TemplateOutline outline={item.outline} />
         ) : null}
       </button>
 
-      <div className="flex items-center justify-between gap-3 px-6 pt-5 pb-6 text-xs font-medium text-gray-400">
+      <div className="mt-auto flex items-center justify-between gap-3 px-6 pt-3 pb-5 text-xs font-medium text-gray-400">
         <span className="shrink-0">{item.stats}</span>
         {collections.length > 0 ? (
           <div className="flex min-w-0 flex-wrap justify-end gap-1.5">
