@@ -12,6 +12,7 @@ public/search-docs/
 public/pagefind/
 dist/search-docs/
 dist/pagefind/
+onetab/
 
 # editor / OS
 .DS_Store

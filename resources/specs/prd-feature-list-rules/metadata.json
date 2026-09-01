@@ -1,0 +1,24 @@
+{
+  "slug": "prd-feature-list-rules",
+  "kind": "spec",
+  "title": "PRD to Feature List Rules",
+  "summary": "Framework for translating a PRD into an estimable feature list: requirement signals, a canonical module spine, granularity calibration, scope classification, traceability, and a verification checklist.\n\nUsed by the Feature List Generator pipeline.",
+  "tags": [
+    "domain.product",
+    "use-case.specification"
+  ],
+  "collections": [
+    "product-prism"
+  ],
+  "createdAt": "2026-08-31",
+  "updatedAt": "2026-08-31",
+  "schemaVersion": "1",
+  "authors": [
+    "Spec DB"
+  ],
+  "license": "CC-BY-4.0",
+  "relatedSlugs": [
+    "feature-list-document-format",
+    "feature-list-generator"
+  ]
+}

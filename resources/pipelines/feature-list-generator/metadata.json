@@ -1,0 +1,25 @@
+{
+  "slug": "feature-list-generator",
+  "kind": "pipeline",
+  "title": "Feature List Generator",
+  "summary": "Translate a PRD into an estimation-ready feature list, consistently and traceably. Produces one SpecX document covering the whole PRD, with every feature traced to the section it came from and effort columns left blank for estimation.\n\nRequires the SpecX specs `PRD to Feature List Rules` and `Feature List Document Format` to be imported first.\n\nAgent instruction: Run `Your PRD Name` using Feature List Generator",
+  "tags": [
+    "domain.product",
+    "use-case.specification"
+  ],
+  "collections": [
+    "product-prism"
+  ],
+  "createdAt": "2026-08-31",
+  "updatedAt": "2026-08-31",
+  "schemaVersion": "1",
+  "authors": [
+    "Spec DB"
+  ],
+  "license": "CC-BY-4.0",
+  "featured": true,
+  "relatedSlugs": [
+    "prd-feature-list-rules",
+    "feature-list-document-format"
+  ]
+}

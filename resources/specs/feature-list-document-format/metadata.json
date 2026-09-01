@@ -1,0 +1,24 @@
+{
+  "slug": "feature-list-document-format",
+  "kind": "spec",
+  "title": "Feature List Document Format",
+  "summary": "Structure of the feature list produced when translating a PRD: per-module tables traced to PRD sections, with BE / FE / AI / UX / QA effort columns left blank for estimation.\n\nUsed by the Feature List Generator pipeline.",
+  "tags": [
+    "domain.product",
+    "use-case.specification"
+  ],
+  "collections": [
+    "product-prism"
+  ],
+  "createdAt": "2026-08-31",
+  "updatedAt": "2026-08-31",
+  "schemaVersion": "1",
+  "authors": [
+    "Spec DB"
+  ],
+  "license": "CC-BY-4.0",
+  "relatedSlugs": [
+    "prd-feature-list-rules",
+    "feature-list-generator"
+  ]
+}

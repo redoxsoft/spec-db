@@ -26,6 +26,19 @@ const SECTION_KEY_COMMENT = /^<!--\s*key:\s*([A-Za-z0-9._-]+)\s*-->$/i
 /** Spec section depth: H2 = 1 … H5 = 4 (aligned with SpecX outline max). */
 export const MAX_SPEC_SECTION_DEPTH = 4
 
+/**
+ * Mirrors SpecX `TABLE_LIMITS`. Hosts reject packages that exceed these, so the
+ * catalog check must enforce the same numbers or violations only surface on import.
+ * Row counts include the header row.
+ */
+export const SPEC_TABLE_LIMITS = {
+  maxRows: 30,
+  maxColumns: 10,
+  maxCells: 300,
+  maxCellChars: 400,
+  maxTablesPerSection: 1,
+} as const
+
 export type MarkdownToSpecResult = {
   sections: PackageSection[]
   warnings: string[]
@@ -126,10 +139,29 @@ function tableToBlock(table: Table, warnings: string[]): PackageBlock | null {
     warnings.push('Table with no columns skipped')
     return null
   }
-  if (columnCount > 6) {
+  if (columnCount > SPEC_TABLE_LIMITS.maxColumns) {
     throw new Error(
-      `SPEC_TABLE_TOO_WIDE: tables may have at most 6 columns (got ${columnCount})`,
+      `SPEC_TABLE_TOO_WIDE: tables may have at most ${SPEC_TABLE_LIMITS.maxColumns} columns (got ${columnCount})`,
     )
+  }
+  if (rows.length > SPEC_TABLE_LIMITS.maxRows) {
+    throw new Error(
+      `SPEC_TABLE_TOO_TALL: tables may have at most ${SPEC_TABLE_LIMITS.maxRows} rows including the header (got ${rows.length})`,
+    )
+  }
+  if (rows.length * columnCount > SPEC_TABLE_LIMITS.maxCells) {
+    throw new Error(
+      `SPEC_TABLE_TOO_MANY_CELLS: tables may have at most ${SPEC_TABLE_LIMITS.maxCells} cells (got ${rows.length * columnCount})`,
+    )
+  }
+  for (const row of rows) {
+    for (const cell of row) {
+      if (cell.length > SPEC_TABLE_LIMITS.maxCellChars) {
+        throw new Error(
+          `SPEC_TABLE_CELL_TOO_LONG: table cells may be at most ${SPEC_TABLE_LIMITS.maxCellChars} characters (got ${cell.length})`,
+        )
+      }
+    }
   }
 
   const normalized = rows.map((row) => {
@@ -234,6 +266,21 @@ function allocateKey(
   const next = `${base}-${suffix}`
   used.add(next)
   return next
+}
+
+/** SpecX allows one table per node, so a section needing two tables must be split. */
+function assertTablesPerSection(drafts: SectionDraft[]) {
+  for (const draft of drafts) {
+    const tableCount = draft.blocks.filter(
+      (block) => block.type === 'table',
+    ).length
+    if (tableCount > SPEC_TABLE_LIMITS.maxTablesPerSection) {
+      throw new Error(
+        `SPEC_TOO_MANY_TABLES: section "${draft.title}" has ${tableCount} tables (max ${SPEC_TABLE_LIMITS.maxTablesPerSection}); split it into subsections`,
+      )
+    }
+    assertTablesPerSection(draft.children)
+  }
 }
 
 function finalizeSections(drafts: SectionDraft[]): PackageSection[] {
@@ -346,6 +393,8 @@ export function markdownToSpecSections(markdown: string): MarkdownToSpecResult {
       'SPEC_NO_SECTIONS: content.md must include at least one H2 section',
     )
   }
+
+  assertTablesPerSection(roots)
 
   return { sections: finalizeSections(roots), warnings }
 }

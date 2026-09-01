@@ -1,0 +1,17 @@
+{
+  "schemaVersion": "1",
+  "inputVarDefinitions": [
+    {
+      "key": "PRD_REF",
+      "description": "Which PRD to translate. Accepts a SpecX document title, a repo-relative .md path, or a partial name; the pipeline resolves it and asks for confirmation when the match is not exact.",
+      "suggestedDefault": ""
+    }
+  ],
+  "iteratorFields": [],
+  "steps": [
+    { "key": "resolve-prd-context", "name": "Resolve PRD context" },
+    { "key": "extract-requirements", "name": "Extract requirements" },
+    { "key": "draft-feature-list", "name": "Draft feature list" },
+    { "key": "verify-and-finalise", "name": "Verify and finalise" }
+  ]
+}
