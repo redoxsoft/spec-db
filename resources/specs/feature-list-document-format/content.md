@@ -8,13 +8,9 @@ Throughout, `<Subject>` means the subject name derived from the source PRD — f
 
 Companion spec: PRD to Feature List Rules, which governs what goes into the document.
 
-## Why there is only one document <!-- key: why-one-document -->
+## Requirement inventory <!-- key: why-one-document -->
 
-Extracting requirements from the PRD is still a distinct stage of the work, and skipping it produces a list assembled from whichever headings were memorable. But the extraction is working state, not something a reader needs.
-
-An earlier version of this framework published that working state as a second SpecX document with its own synthetic requirement IDs. It was dropped for two reasons. The IDs were invented — the PRD's headings already identify its contents, and a parallel numbering scheme means a reader has to hold two documents open to verify one row. And the register carried vocabulary that only made sense next to the rules spec, so the artifact could not be read on its own.
-
-The extraction now lives in the pipeline run's task output. It remains available as an audit trail of how the list was built, without becoming something anyone has to review.
+Write the requirement inventory to the pipeline task output, not as a SpecX document. Cite PRD headings; do not invent requirement IDs.
 
 ## Document title <!-- key: document-title -->
 
@@ -26,17 +22,11 @@ If a document with this title already exists, update it in place and bump its re
 
 ## Table size limits <!-- key: table-size-limits -->
 
-SpecX enforces hard limits on every table. A document that breaks one of them fails to write, so these are constraints rather than style advice:
-
 - At most 10 columns.
 - At most 30 rows including the header, so **29 data rows**.
 - At most 300 cells in total.
 - At most 400 characters in any single cell.
-- **At most one table per section.**
-
-The last one drives the shape of everything below. When a section needs to present two tables, it must become two subsections instead. When a table would exceed 29 data rows, split its section by a natural grouping rather than truncating.
-
-The layouts in this spec already respect all five.
+- **At most one table per section.** When a section needs two tables, make two subsections. When a table would exceed 29 data rows, split by a natural grouping rather than truncating.
 
 ## Document structure <!-- key: document-structure -->
 
@@ -57,9 +47,7 @@ Sections in this order:
 ## Open Questions
 ```
 
-Each module is a subsection under Modules, ordered by the canonical spine. Splitting the list this way keeps every table short instead of producing one table with sixty rows.
-
-There is no scope boundary section. The list covers the whole PRD, so there is no slice to declare. Anything the PRD itself marks optional or defers, and anything a person explicitly excluded, appears under Out of Scope with the wording that justifies it.
+Each module is a subsection under Modules, ordered by the canonical spine. Optional, deferred, or human-excluded material goes under Out of Scope with the wording that justifies it.
 
 ## Header sections <!-- key: header-sections -->
 
@@ -73,9 +61,11 @@ There is no scope boundary section. The list covers the whole PRD, so there is n
 - Status: FINAL | BLOCKED
 ```
 
+Status is `FINAL` when the list is ready to estimate. Use `BLOCKED` only when a committed PRD requirement is missing, a feature has no PRD evidence, or a heading has no home. Do not use `BLOCKED` because the PRD left details unstated.
+
 **Goal** — two or three sentences on what the product is for, in the PRD's own terms. No scope, no features.
 
-**Summary** — a short bullet list of counts: modules, committed features, assumptions, dependencies, out-of-scope items, open questions. It gives a reader the shape of the estimate before they read it.
+**Summary** — a short bullet list of counts: modules, committed features, assumptions, dependencies, out-of-scope items, open questions.
 
 ## Module sections <!-- key: module-sections -->
 
@@ -87,8 +77,6 @@ Each module is one subsection holding exactly one table, nine columns wide:
 | Feature | Description | PRD Ref | BE | FE | AI | UX | QA | Remarks |
 ```
 
-This is the familiar estimation sheet with the module lifted into the heading and a traceability column added. One row per feature, so an estimator fills effort in place without cross-referencing a second table.
-
 `BE`, `FE`, `AI`, `UX`, and `QA` are the five effort columns — back end, front end, AI or data science, experience design, and quality assurance.
 
 Rules:
@@ -96,13 +84,13 @@ Rules:
 - `Description` is one to two sentences and must stay under 400 characters. Longer explanation belongs in a paragraph above the table, not in a cell.
 - `PRD Ref` cites the PRD sections the feature came from, such as `§7.2, §7.4`. Use the section numbers and short names the PRD itself uses; where a PRD has no numbering, use the heading text. Never empty — a feature with no citation is invented scope.
 - `Remarks` stays empty unless it adds a material qualifier. Permitted labels: `Vendor / Subscription`, `Client Input Required`, `Assumption`, `Depends on <module>`.
-- Every effort cell is left empty by the translation pipeline. Empty means not yet estimated. Never write `0` — a zero asserts the work is free, which is a different and usually wrong claim.
+- Every effort cell is left empty by the translation pipeline. Do not write `0`.
 - A module may hold at most 29 features. In practice it should hold far fewer; the rules spec advises splitting past about ten.
 - Omit a module entirely rather than emitting it with no features.
 
 ## Supporting sections <!-- key: supporting-sections -->
 
-Each of these is its own top-level section holding exactly one table, and each cites the PRD sections it draws on. Together with the feature citations, this is what lets a reviewer walk the PRD's table of contents and find every heading represented.
+Each of these is its own top-level section holding exactly one table, and each cites the PRD sections it draws on.
 
 If any of them would exceed 29 rows, split it into subsections by module and keep one table in each.
 
@@ -112,7 +100,7 @@ If any of them would exceed 29 rows, split it into subsections by module and kee
 | ID | Assumption | Impact if wrong | PRD Ref |
 ```
 
-`ID` runs from `A-001`. Impact states what changes in scope or effort if the assumption fails.
+`ID` runs from `A-001`. State the reading you took. Impact states what changes in scope or effort if that reading is wrong. Underspecification belongs here, not under Open Questions.
 
 **Dependencies**
 
@@ -128,7 +116,7 @@ If any of them would exceed 29 rows, split it into subsections by module and kee
 | Item | Reason | PRD Ref |
 ```
 
-`Reason` must carry its own evidence, because this table is where scope disappears. Write either the PRD's own wording — `Optional: "conversational AI if required"` or `Deferred: listed under Future Enhancements` — or the human instruction that excluded it, naming who gave it. A reason that is only a judgement, such as "later phase" or "not part of the initial build", is not admissible; that material belongs in a module table.
+`Reason` is the PRD's own wording — `Optional: "conversational AI if required"` or `Deferred: listed under Future Enhancements` — or the named person who excluded it. Do not use a judgement-only reason such as "later phase".
 
 **Open Questions**
 
@@ -136,10 +124,8 @@ If any of them would exceed 29 rows, split it into subsections by module and kee
 | ID | Module | Question | Why it matters |
 ```
 
-`ID` runs from `Q-001`. Why it matters states what the answer changes — a count of roles, an integration, a compliance obligation, an output format. Questions that change nothing do not belong here.
+`ID` runs from `Q-001`. Why it matters states what the answer changes. Use this table only when the PRD contradicts itself. Do not ask which part of the PRD to deliver first, and do not ask the PRD for operational detail it never had.
 
 ## Handoff to estimation <!-- key: handoff-to-estimation -->
 
-The feature list is estimation-ready, not an estimate. Whoever estimates fills the five effort columns in place, module by module, and leaves every other column untouched.
-
-Before estimating, they should read Out of Scope and Open Questions first. A list with unresolved blocking questions carries status `BLOCKED`, and its numbers will move once those are answered.
+Whoever estimates fills `BE` / `FE` / `AI` / `UX` / `QA` in place and leaves every other column untouched. Assumptions do not block handoff.
