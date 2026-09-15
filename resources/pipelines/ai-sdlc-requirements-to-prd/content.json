@@ -1,0 +1,16 @@
+{
+  "schemaVersion": "1",
+  "inputVarDefinitions": [
+    {
+      "key": "INITIATIVE",
+      "description": "Name or description of the product or problem to define."
+    }
+  ],
+  "iteratorFields": [],
+  "steps": [
+    { "key": "resolve-initiative", "name": "Resolve the initiative" },
+    { "key": "author-prd", "name": "Author the PRD" },
+    { "key": "verify-prd", "name": "Verify the PRD" },
+    { "key": "report-prd-handoff", "name": "Report the PRD handoff" }
+  ]
+}

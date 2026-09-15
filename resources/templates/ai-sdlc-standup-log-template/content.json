@@ -1,0 +1,69 @@
+{
+  "schemaVersion": "1",
+  "guidance": "Record only work that actually happened. Never fabricate progress. Absence of a blocker report is not confirmation that there are no blockers.",
+  "outline": [
+    {
+      "key": "log-context",
+      "title": "Log Context",
+      "guidance": "Name who this log covers and how often entries are added. Prefer content in the children.",
+      "children": [
+        {
+          "key": "team",
+          "title": "Team",
+          "guidance": "List the members who report in this log. Use real names or handles; do not invent people."
+        },
+        {
+          "key": "cadence",
+          "title": "Cadence",
+          "guidance": "State how often entries are added (daily, twice weekly, sprint). Do not treat this as a project plan."
+        }
+      ]
+    },
+    {
+      "key": "standup-entries",
+      "title": "Standup Entries",
+      "guidance": "Append dated entries in chronological order. Prefer content in the children. Do not rewrite past entries.",
+      "children": [
+        {
+          "key": "standup-entry",
+          "title": "Standup Entry",
+          "guidance": "Title each instance `<YYYY-MM-DD> — <Member>`. Do not title it \"Standup Entry\".",
+          "cardinality": {
+            "min": 1,
+            "max": null
+          },
+          "children": [
+            {
+              "key": "completed",
+              "title": "Completed",
+              "guidance": "List work that actually finished since the last entry. Do not list in-progress work as done."
+            },
+            {
+              "key": "next",
+              "title": "Next",
+              "guidance": "List the concrete work this member will do next. Name artifacts or tickets, not vague intent."
+            },
+            {
+              "key": "blockers",
+              "title": "Blockers",
+              "guidance": "Name anything stopping progress, or omit this node. Leaving it out does not mean there are no blockers.",
+              "cardinality": {
+                "min": 0,
+                "max": 1
+              }
+            },
+            {
+              "key": "help-and-decisions",
+              "title": "Help and Decisions",
+              "guidance": "Record asks for help and decisions made in this standup. Omit if none.",
+              "cardinality": {
+                "min": 0,
+                "max": 1
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

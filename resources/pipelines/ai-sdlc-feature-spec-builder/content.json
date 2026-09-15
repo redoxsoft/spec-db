@@ -1,0 +1,21 @@
+{
+  "schemaVersion": "1",
+  "inputVarDefinitions": [
+    {
+      "key": "REQUESTED_CHANGE",
+      "description": "The bounded behaviour change being requested."
+    },
+    {
+      "key": "SOURCE_CONTRACT_REF",
+      "description": "The existing PRD, Design Spec, API or technical contract, or equivalent source this amendment affects. A URL, path, or paste is usable; snapshot it inside the Change Request rather than creating a separate Work Scope Brief."
+    }
+  ],
+  "iteratorFields": [],
+  "steps": [
+    { "key": "resolve-feature-context", "name": "Resolve the change context" },
+    { "key": "analyze-feature-impact", "name": "Analyze the change impact" },
+    { "key": "author-feature-spec", "name": "Author the Change Request" },
+    { "key": "verify-feature-spec", "name": "Verify the Change Request" },
+    { "key": "report-feature-handoff", "name": "Report the change-request handoff" }
+  ]
+}

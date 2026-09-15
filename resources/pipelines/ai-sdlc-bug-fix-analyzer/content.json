@@ -1,0 +1,17 @@
+{
+  "schemaVersion": "1",
+  "inputVarDefinitions": [
+    {
+      "key": "BUG_REPORT",
+      "description": "Raw bug report, log excerpt, failing test, file path, URL, or symptom description."
+    }
+  ],
+  "iteratorFields": [],
+  "steps": [
+    { "key": "resolve-bug-context", "name": "Resolve the bug context" },
+    { "key": "reproduce-and-triage", "name": "Reproduce and triage" },
+    { "key": "establish-root-cause", "name": "Establish the root cause" },
+    { "key": "author-bug-fix-spec", "name": "Author the Bug Fix Spec" },
+    { "key": "verify-bug-analysis", "name": "Verify the bug analysis" }
+  ]
+}

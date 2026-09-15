@@ -57,6 +57,11 @@
       "type": "string",
       "minLength": 1
     },
+    "sourceVersion": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^\\d+\\.\\d+$"
+    },
     "schemaVersion": {
       "type": "string",
       "const": "1"
@@ -86,6 +91,7 @@
     "title",
     "summary",
     "tags",
+    "sourceVersion",
     "schemaVersion"
   ],
   "additionalProperties": false

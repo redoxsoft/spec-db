@@ -1,0 +1,25 @@
+{
+  "slug": "ai-sdlc-code-review-quality-bar",
+  "kind": "spec",
+  "title": "Code Review & Quality Bar",
+  "summary": "Checklist for reviewing a change against its spec: correctness, maintainability, security, required checks, and blocker/major/minor severity used as a delivery-verification gate.",
+  "tags": [
+    "ai-sdlc",
+    "domain.engineering",
+    "use-case.execution"
+  ],
+  "collections": [
+    "ai-sdlc"
+  ],
+  "createdAt": "2026-09-08",
+  "updatedAt": "2026-09-15",
+  "sourceVersion": "1.2",
+  "schemaVersion": "1",
+  "authors": [
+    "Spec DB"
+  ],
+  "license": "CC-BY-4.0",
+  "relatedSlugs": [
+    "ai-sdlc-review-verification"
+  ]
+}

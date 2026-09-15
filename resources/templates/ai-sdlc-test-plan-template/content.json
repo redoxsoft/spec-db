@@ -1,0 +1,109 @@
+{
+  "schemaVersion": "1",
+  "guidance": "Write verifiable cases that each trace to one source acceptance criterion. Choose requirements-based mode from a PRD or Change Request, or implementation-aware mode from a Design Spec, Milestone Plan, Bug Fix Spec, Work Scope Brief, or code/API evidence. Follow Test Strategy Guidelines. Record only observed results — never mark a case pass, fail, or not run without evidence. Never invent implementation-specific cases as PASS.",
+  "outline": [
+    {
+      "key": "test-context",
+      "title": "Test Context",
+      "guidance": "Anchor the plan to its source spec and the risks that drive coverage. Prefer content in the children.",
+      "children": [
+        {
+          "key": "source-and-scope",
+          "title": "Source and Scope",
+          "guidance": "Name the exact PRD, Change Request, Bug Fix Spec, Design Spec, Milestone Plan, Work Scope Brief, or other allowed source this plan verifies, and the behaviours in scope. Prefer document id when locked; use title for display. Do not restate the source spec."
+        },
+        {
+          "key": "test-plan-mode",
+          "title": "Test Plan Mode",
+          "guidance": "Write exactly `requirements-based` when the source is a PRD or Change Request (journey and acceptance tests, risks, data needs, expected outcomes). Write exactly `implementation-aware` when the source is a Design Spec, Milestone Plan, Bug Fix Spec, Work Scope Brief, or code/API evidence."
+        },
+        {
+          "key": "risk-priorities",
+          "title": "Risk Priorities",
+          "guidance": "Rank the highest-risk behaviours this plan must cover first. Name the risk, not a test type."
+        }
+      ]
+    },
+    {
+      "key": "test-environment",
+      "title": "Test Environment",
+      "guidance": "Describe where tests run and what they need. Prefer content in the children.",
+      "children": [
+        {
+          "key": "environments",
+          "title": "Environments",
+          "guidance": "List the environments this plan uses. Name each one; do not invent access you do not have."
+        },
+        {
+          "key": "test-data",
+          "title": "Test Data",
+          "guidance": "Describe the data, accounts, and fixtures required. Call out anything that must not be used in production."
+        },
+        {
+          "key": "prerequisites",
+          "title": "Prerequisites",
+          "guidance": "List tools, builds, flags, or access that must exist before a run starts. Omit process ceremony."
+        }
+      ]
+    },
+    {
+      "key": "test-cases",
+      "title": "Test Cases",
+      "guidance": "Group the cases this plan will execute. Prefer content in the children.",
+      "children": [
+        {
+          "key": "test-case",
+          "title": "Test Case",
+          "guidance": "Title each instance with the scenario name, not \"Test Case\".",
+          "cardinality": {
+            "min": 1,
+            "max": null
+          },
+          "children": [
+            {
+              "key": "level-and-objective",
+              "title": "Level and Objective",
+              "guidance": "State the layer (unit, integration, end-to-end, or manual) and the one behaviour this case proves. One case, one objective."
+            },
+            {
+              "key": "preconditions-and-data",
+              "title": "Preconditions and Data",
+              "guidance": "List the environment, data, and account state required before the steps. Be concrete."
+            },
+            {
+              "key": "steps",
+              "title": "Steps",
+              "guidance": "Numbered actions a stranger can follow. One action per line."
+            },
+            {
+              "key": "expected-result",
+              "title": "Expected Result",
+              "guidance": "State the observable outcome that means this case passed. Do not write \"works as expected\"."
+            },
+            {
+              "key": "source-acceptance",
+              "title": "Source Acceptance",
+              "guidance": "Cite the exact upstream acceptance criterion this case verifies. Every case must trace to one; do not invent a criterion the source does not contain."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "execution-results",
+      "title": "Execution Results",
+      "guidance": "Record observed runs after they happen. Prefer content in the children. Do not pre-fill results.",
+      "children": [
+        {
+          "key": "execution-run",
+          "title": "Execution Run",
+          "guidance": "Title each instance with the run date and environment, and write pass, fail, and not run with reasons in the instance body. Never record a result that was not observed.",
+          "cardinality": {
+            "min": 0,
+            "max": null
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "slug": "ai-sdlc-scrum-standup",
+  "kind": "pipeline",
+  "title": "Scrum Standup",
+  "summary": "Resolve or create the workspace Standup Log, collect one member's completed, next, and blocker facts, and append or update today's attributed entry. Continue here for daily or sprint status. Launch with empty notes if only the member identity is known. Never fabricates progress.",
+  "tags": [
+    "ai-sdlc",
+    "domain.business",
+    "use-case.execution"
+  ],
+  "collections": [
+    "ai-sdlc"
+  ],
+  "createdAt": "2026-09-08",
+  "updatedAt": "2026-09-15",
+  "sourceVersion": "1.2",
+  "schemaVersion": "1",
+  "authors": [
+    "Spec DB"
+  ],
+  "license": "CC-BY-4.0",
+  "relatedSlugs": [
+    "ai-sdlc-standup-log-template"
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "slug": "ai-sdlc-prd-vs-feature-spec-guidelines",
+  "kind": "spec",
+  "title": "Work Intake & Artifact Selection Guide",
+  "summary": "Rules for choosing a PRD, Change Request, or Bug Fix Spec, and when a Work Scope Brief is an execution bridge rather than a fourth product-intent type. Includes quality bars, evidence locking, and escalation.",
+  "tags": [
+    "ai-sdlc",
+    "domain.product",
+    "use-case.specification"
+  ],
+  "collections": [
+    "ai-sdlc"
+  ],
+  "createdAt": "2026-09-08",
+  "updatedAt": "2026-09-15",
+  "sourceVersion": "1.2",
+  "schemaVersion": "1",
+  "authors": [
+    "Spec DB"
+  ],
+  "license": "CC-BY-4.0",
+  "relatedSlugs": [
+    "ai-sdlc-bug-fix-analyzer",
+    "ai-sdlc-feature-spec-builder",
+    "ai-sdlc-requirements-to-prd",
+    "ai-sdlc-work-scope-brief-template"
+  ]
+}

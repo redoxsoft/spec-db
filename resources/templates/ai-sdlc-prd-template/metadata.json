@@ -1,0 +1,25 @@
+{
+  "slug": "ai-sdlc-prd-template",
+  "kind": "template",
+  "title": "PRD Template",
+  "summary": "Defines a new or materially evolving product capability: problem, audience, user journeys, measurable requirements, and delivery context. Use for greenfield work and significant brownfield initiatives.",
+  "tags": [
+    "ai-sdlc",
+    "domain.product",
+    "use-case.specification"
+  ],
+  "collections": [
+    "ai-sdlc"
+  ],
+  "createdAt": "2026-09-08",
+  "updatedAt": "2026-09-15",
+  "sourceVersion": "1.2",
+  "schemaVersion": "1",
+  "authors": [
+    "Spec DB"
+  ],
+  "license": "CC-BY-4.0",
+  "relatedSlugs": [
+    "ai-sdlc-requirements-to-prd"
+  ]
+}

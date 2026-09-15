@@ -1,0 +1,25 @@
+{
+  "slug": "ai-sdlc-bug-analysis-guidelines",
+  "kind": "spec",
+  "title": "Bug Analysis Guidelines",
+  "summary": "Standards for diagnosing bugs: evidence, reproduction, confirmed root cause versus hypothesis, fix strategy, and a regression test that would have caught the defect.",
+  "tags": [
+    "ai-sdlc",
+    "domain.engineering",
+    "use-case.execution"
+  ],
+  "collections": [
+    "ai-sdlc"
+  ],
+  "createdAt": "2026-09-08",
+  "updatedAt": "2026-09-15",
+  "sourceVersion": "1.2",
+  "schemaVersion": "1",
+  "authors": [
+    "Spec DB"
+  ],
+  "license": "CC-BY-4.0",
+  "relatedSlugs": [
+    "ai-sdlc-bug-fix-analyzer"
+  ]
+}

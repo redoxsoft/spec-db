@@ -66,6 +66,10 @@ export const metadataSchema = z
     license: z.string().min(1).optional(),
     createdAt: z.string().min(1).optional(),
     updatedAt: z.string().min(1).optional(),
+    sourceVersion: z
+      .string()
+      .min(1)
+      .regex(/^\d+\.\d+$/, 'sourceVersion must be MAJOR.MINOR (e.g. "1.0")'),
     schemaVersion: schemaVersionSchema,
     featured: z.boolean().optional(),
     templateSlug: z.string().min(1).optional(),

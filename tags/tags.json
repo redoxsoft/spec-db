@@ -98,6 +98,16 @@
       "parentId": "use-case",
       "order": 4,
       "status": "active"
+    },
+    {
+      "id": "ai-sdlc",
+      "displayName": "AI SDLC",
+      "description": "Templates, guidelines, and executable pipelines for an agent-driven software delivery lifecycle.",
+      "applicableKinds": ["spec", "template", "pipeline"],
+      "ui": "facet",
+      "parentId": "use-case",
+      "order": 5,
+      "status": "active"
     }
   ]
 }

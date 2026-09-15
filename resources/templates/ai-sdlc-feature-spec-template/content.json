@@ -1,0 +1,123 @@
+{
+  "schemaVersion": "1",
+  "guidance": "A Change Request is a tracked amendment proposal against an identified source of truth, not a replacement specification. Name the current behaviour, the bounded change that produces the desired outcome, and the spec sections that must later be synchronized. Use this for an intentional, bounded amendment to an existing product, design, API, or behaviour contract. Do not use it for unintended defects (Bug Fix Spec) or material capability changes (PRD). After verification, Delivery Sync applies approved amendments to the linked source documents and keeps this Change Request as the implementation record. Do not pre-fill implementation records.",
+  "outline": [
+    {
+      "key": "feature-context",
+      "title": "Change Context",
+      "guidance": "Anchor the amendment against what exists today. Prefer content in the children.",
+      "children": [
+        {
+          "key": "current-behaviour",
+          "title": "Current Behaviour",
+          "guidance": "Describe the existing behaviour a user or system actually sees. Cite the source of truth (PRD, Design Spec, API or technical contract, or equivalent) by document id and title when native."
+        },
+        {
+          "key": "source-contract-snapshot",
+          "title": "Source Contract Snapshot",
+          "guidance": "When the source contract was a URL, path, issue, or paste rather than a native SpecX document, record the location, excerpt or revision, and provenance here. Do not create a separate Work Scope Brief solely for that source contract. Omit when the source is already native.",
+          "cardinality": {
+            "min": 0,
+            "max": 1
+          }
+        },
+        {
+          "key": "desired-outcome",
+          "title": "Desired Outcome",
+          "guidance": "State the observable result after this change. Keep it to the delta, not a product vision."
+        }
+      ]
+    },
+    {
+      "key": "changes-required",
+      "title": "Changes Required",
+      "guidance": "Group the behaviour changes this amendment commits to. Prefer content in the children.",
+      "children": [
+        {
+          "key": "change",
+          "title": "Change",
+          "guidance": "Title each instance with the behaviour being changed, not \"Change\".",
+          "cardinality": {
+            "min": 1,
+            "max": null
+          },
+          "children": [
+            {
+              "key": "behaviour",
+              "title": "Behaviour",
+              "guidance": "State the new or updated behaviour in one or two sentences. Stay at product intent, not implementation."
+            },
+            {
+              "key": "acceptance-criteria",
+              "title": "Acceptance Criteria",
+              "guidance": "Bullet list of specific, testable done-conditions for this change."
+            },
+            {
+              "key": "edge-cases",
+              "title": "Edge Cases",
+              "guidance": "Bullet list of failure modes, missing data, permissions, or empty states that matter here. Omit if none are known.",
+              "cardinality": {
+                "min": 0,
+                "max": 1
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "impacted-specs",
+      "title": "Impacted Specs",
+      "guidance": "Name the existing spec sections this amendment must update after verification. Prefer content in the children.",
+      "children": [
+        {
+          "key": "impacted-section",
+          "title": "Impacted Section",
+          "guidance": "Title each instance with the source document and section name, not \"Impacted Section\".",
+          "cardinality": {
+            "min": 1,
+            "max": null
+          },
+          "children": [
+            {
+              "key": "current-contract",
+              "title": "Current Contract",
+              "guidance": "Quote or paraphrase the existing contract this section currently states. Do not restyle it as a new requirement."
+            },
+            {
+              "key": "required-update",
+              "title": "Required Update",
+              "guidance": "State the exact contract change this amendment needs in that section. Delivery Sync will apply this after verification."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "delivery-context",
+      "title": "Delivery Context",
+      "guidance": "Capture dependencies, risks, and how this amendment ships. Prefer content in the children.",
+      "children": [
+        {
+          "key": "dependencies-and-risks",
+          "title": "Dependencies and Risks",
+          "guidance": "List known blockers, sequencing constraints, and delivery risks. Do not invent unknowns as facts."
+        },
+        {
+          "key": "delivery-approach",
+          "title": "Delivery Approach",
+          "guidance": "Say whether this can go straight to implementation or needs a design spec and milestone plan, and why."
+        },
+        {
+          "key": "implementation-record",
+          "title": "Implementation Record",
+          "guidance": "Optional append-only leaf used after Delivery Sync. Title each instance with the date and the change, and write the record in the instance body. Do not pre-fill.",
+          "cardinality": {
+            "min": 0,
+            "max": null
+          }
+        }
+      ]
+    }
+  ]
+}

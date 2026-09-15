@@ -1,0 +1,124 @@
+{
+  "schemaVersion": "1",
+  "guidance": "Write concrete, testable user journeys and measurable requirements for a new or materially evolving product capability, whether the product is new or existing. Prefer named users, observable outcomes, and numbers over backlog fluff. Do not invent scope, personas, or metrics you cannot verify. Do not use this template for a bounded amendment (Change Request) or an unintended defect (Bug Fix Spec).",
+  "outline": [
+    {
+      "key": "product-context",
+      "title": "Product Context",
+      "guidance": "Frame the problem, who it affects, and what is in or out of this PRD. Prefer content in the children.",
+      "children": [
+        {
+          "key": "problem",
+          "title": "Problem",
+          "guidance": "State the user pain or business inefficiency in 2–4 sentences. Name who is blocked and what fails today."
+        },
+        {
+          "key": "audience",
+          "title": "Audience",
+          "guidance": "Name the primary users and any secondary stakeholders. Do not invent personas."
+        },
+        {
+          "key": "goals-and-non-goals",
+          "title": "Goals and Non-Goals",
+          "guidance": "List 1–3 measurable outcomes this PRD must achieve, then name what is explicitly out of scope. Do not treat a non-goal as a later stretch item."
+        }
+      ]
+    },
+    {
+      "key": "user-journeys",
+      "title": "User Journeys",
+      "guidance": "Group the end-to-end flows that prove the product works. Prefer content in the children.",
+      "children": [
+        {
+          "key": "user-journey",
+          "title": "User Journey",
+          "guidance": "Title each instance with the user goal or scenario name, not \"User Journey\".",
+          "cardinality": {
+            "min": 1,
+            "max": null
+          },
+          "children": [
+            {
+              "key": "user-need",
+              "title": "User Need",
+              "guidance": "State who is acting and what they must accomplish. One need per journey."
+            },
+            {
+              "key": "journey",
+              "title": "Journey",
+              "guidance": "Describe the observable steps from trigger to outcome. A stranger should be able to walk this path."
+            },
+            {
+              "key": "acceptance-criteria",
+              "title": "Acceptance Criteria",
+              "guidance": "Bullet list of specific, testable done-conditions for this journey. Prefer pass/fail checks over adjectives."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "requirements",
+      "title": "Requirements",
+      "guidance": "Group the product capabilities this PRD commits to. Prefer content in the children.",
+      "children": [
+        {
+          "key": "requirement",
+          "title": "Requirement",
+          "guidance": "Title each instance with the capability name, not \"Requirement\".",
+          "cardinality": {
+            "min": 1,
+            "max": null
+          },
+          "children": [
+            {
+              "key": "intent",
+              "title": "Intent",
+              "guidance": "State what the product must do and why, in one or two sentences. Do not hide multiple capabilities in one instance."
+            },
+            {
+              "key": "acceptance-criteria-requirement",
+              "title": "Acceptance Criteria",
+              "guidance": "Bullet list of specific, testable done-conditions for this requirement."
+            },
+            {
+              "key": "success-metric",
+              "title": "Success Metric",
+              "guidance": "Name one measurable threshold that proves this requirement worked. Omit if no metric is known yet.",
+              "cardinality": {
+                "min": 0,
+                "max": 1
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "delivery-context",
+      "title": "Delivery Context",
+      "guidance": "Capture what must be true around the requirements, not how to implement them. Prefer content in the children.",
+      "children": [
+        {
+          "key": "dependencies-and-constraints",
+          "title": "Dependencies and Constraints",
+          "guidance": "List known systems, teams, dates, or policy limits this PRD depends on. Do not invent unknowns as facts."
+        },
+        {
+          "key": "risks",
+          "title": "Risks",
+          "guidance": "List the delivery, adoption, or scope risks that could invalidate this PRD. Name likelihood and impact in one line each."
+        },
+        {
+          "key": "open-questions",
+          "title": "Open Questions",
+          "guidance": "List unresolved decisions that block a complete PRD. Omit if none remain.",
+          "cardinality": {
+            "min": 0,
+            "max": 1
+          }
+        }
+      ]
+    }
+  ]
+}

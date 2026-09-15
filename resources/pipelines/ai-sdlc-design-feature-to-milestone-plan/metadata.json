@@ -1,0 +1,31 @@
+{
+  "slug": "ai-sdlc-design-feature-to-milestone-plan",
+  "kind": "pipeline",
+  "title": "Milestone Plan Builder",
+  "summary": "Turn a locked PRD, Design Spec, Change Request, or Work Scope Brief into a Milestone Plan: sequenced slices with owners, verification, and Planned status. Product-level plans from a PRD label missing architecture instead of rejecting it. Continue here when delivery needs slicing before build. Launch with empty inputs to discover existing documents. Uses Unassigned when an owner is unknown.",
+  "tags": [
+    "ai-sdlc",
+    "domain.engineering",
+    "use-case.planning"
+  ],
+  "collections": [
+    "ai-sdlc"
+  ],
+  "createdAt": "2026-09-08",
+  "updatedAt": "2026-09-15",
+  "sourceVersion": "1.2",
+  "schemaVersion": "1",
+  "authors": [
+    "Spec DB"
+  ],
+  "license": "CC-BY-4.0",
+  "relatedSlugs": [
+    "ai-sdlc-design-architecture-principles",
+    "ai-sdlc-feature-spec-builder",
+    "ai-sdlc-milestone-implementation",
+    "ai-sdlc-milestone-plan-template",
+    "ai-sdlc-prd-feature-to-design-spec",
+    "ai-sdlc-requirements-to-prd",
+    "ai-sdlc-work-scope-brief-template"
+  ]
+}

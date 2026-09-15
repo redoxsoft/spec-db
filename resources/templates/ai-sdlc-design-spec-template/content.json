@@ -1,0 +1,127 @@
+{
+  "schemaVersion": "1",
+  "guidance": "Record architecture decisions with rationale. Name the source requirements; do not restate them. Follow Design & Architecture Principles. Do not expand this into an RFC or a restated PRD.",
+  "outline": [
+    {
+      "key": "design-context",
+      "title": "Design Context",
+      "guidance": "Anchor the design to its source requirements, goals, and decisions. Prefer content in the children.",
+      "children": [
+        {
+          "key": "source-requirements",
+          "title": "Source Requirements",
+          "guidance": "Name the exact upstream PRD or Change Request title this design implements. Do not restate its content."
+        },
+        {
+          "key": "goals-and-constraints",
+          "title": "Goals and Constraints",
+          "guidance": "List the technical outcomes this design must achieve and the hard limits it must respect. Keep this to constraints, not a requirements dump."
+        },
+        {
+          "key": "key-decisions",
+          "title": "Key Decisions",
+          "guidance": "Follow Design & Architecture Principles for decision discipline. Record each chosen option with rationale; do not list undecided options as if they were chosen."
+        }
+      ]
+    },
+    {
+      "key": "architecture",
+      "title": "Architecture",
+      "guidance": "Group the components that own this change. Follow Design & Architecture Principles for boundaries. Prefer content in the children.",
+      "children": [
+        {
+          "key": "component",
+          "title": "Component",
+          "guidance": "Title each instance with the component name, not \"Component\".",
+          "cardinality": {
+            "min": 1,
+            "max": null
+          },
+          "children": [
+            {
+              "key": "responsibility",
+              "title": "Responsibility",
+              "guidance": "State what this component owns and what it must not own. One owner per concern."
+            },
+            {
+              "key": "interfaces",
+              "title": "Interfaces",
+              "guidance": "Name the APIs, events, or data stores this component exposes or consumes. Point to contract instances by name rather than duplicating schemas here."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "contracts-and-data",
+      "title": "Contracts and Data",
+      "guidance": "Group the schemas and behaviours other systems depend on. Follow Design & Architecture Principles for compatibility. Prefer content in the children.",
+      "children": [
+        {
+          "key": "contract",
+          "title": "Contract",
+          "guidance": "Title each instance with the API, event, or schema name, not \"Contract\".",
+          "cardinality": {
+            "min": 1,
+            "max": null
+          },
+          "children": [
+            {
+              "key": "schema-and-behaviour",
+              "title": "Schema and Behaviour",
+              "guidance": "Describe the payload shape and the success and failure behaviour callers can rely on."
+            },
+            {
+              "key": "validation-and-compatibility",
+              "title": "Validation and Compatibility",
+              "guidance": "State how input is validated at this boundary and how the contract evolves without breaking existing callers."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "operational-quality",
+      "title": "Operational Quality",
+      "guidance": "Cover security, reliability, and any migration needed to run this design. Follow Design & Architecture Principles. Prefer content in the children.",
+      "children": [
+        {
+          "key": "security-and-privacy",
+          "title": "Security and Privacy",
+          "guidance": "Name auth, authorization, and data-handling requirements at the boundaries this design introduces. Do not invent threats you cannot justify."
+        },
+        {
+          "key": "reliability-and-observability",
+          "title": "Reliability and Observability",
+          "guidance": "State failure modes, retries, and the signals that show this design is healthy or degraded."
+        },
+        {
+          "key": "migration-and-rollback",
+          "title": "Migration and Rollback",
+          "guidance": "Describe data or traffic migration and how to revert if the change fails. Omit if no migration is needed.",
+          "cardinality": {
+            "min": 0,
+            "max": 1
+          }
+        }
+      ]
+    },
+    {
+      "key": "verification",
+      "title": "Verification",
+      "guidance": "Show how this design covers the source requirements and how it will be tested. Prefer content in the children.",
+      "children": [
+        {
+          "key": "requirement-traceability",
+          "title": "Requirement Traceability",
+          "guidance": "Map each source requirement to the component or contract that satisfies it. Name gaps explicitly."
+        },
+        {
+          "key": "test-approach",
+          "title": "Test Approach",
+          "guidance": "State the levels and critical paths that prove this design works. Do not write the full test plan here."
+        }
+      ]
+    }
+  ]
+}

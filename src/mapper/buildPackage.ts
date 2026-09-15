@@ -28,6 +28,7 @@ export type PackageEnvelopeSource = Pick<
   | 'tags'
   | 'updatedAt'
   | 'createdAt'
+  | 'sourceVersion'
   | 'schemaVersion'
 >
 
@@ -44,6 +45,7 @@ function envelopeFields(meta: PackageEnvelopeSource) {
     summary: meta.summary,
     ...(meta.tags.length > 0 ? { tags: meta.tags } : {}),
     ...(updatedAt ? { updatedAt } : {}),
+    sourceVersion: meta.sourceVersion,
     schemaVersion: meta.schemaVersion,
   }
 }

@@ -1,0 +1,27 @@
+{
+  "slug": "ai-sdlc-bug-fix-analyzer",
+  "kind": "pipeline",
+  "title": "Bug Fix Analyzer",
+  "summary": "Reproduce and diagnose a single unintended defect, then author or update a Bug Fix Spec with a confirmed root cause, bounded fix, and regression coverage. Continue here from a bug report, failing test, or incident evidence. Launch with empty inputs to collect symptoms. Stops with a Change Request or PRD recommendation when product intent has changed.",
+  "tags": [
+    "ai-sdlc",
+    "domain.engineering",
+    "use-case.execution"
+  ],
+  "collections": [
+    "ai-sdlc"
+  ],
+  "createdAt": "2026-09-08",
+  "updatedAt": "2026-09-15",
+  "sourceVersion": "1.2",
+  "schemaVersion": "1",
+  "authors": [
+    "Spec DB"
+  ],
+  "license": "CC-BY-4.0",
+  "relatedSlugs": [
+    "ai-sdlc-bug-analysis-guidelines",
+    "ai-sdlc-bug-fix-spec-template",
+    "ai-sdlc-milestone-implementation"
+  ]
+}

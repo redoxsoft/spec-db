@@ -1,0 +1,27 @@
+{
+  "slug": "ai-sdlc-test-plan-template",
+  "kind": "template",
+  "title": "Test Plan Template",
+  "summary": "Risk-ranked test cases traced to source acceptance criteria, plus environment setup and observed execution results. Supports requirements-based plans from a PRD or Change Request and implementation-aware plans from design, code, or a Work Scope Brief.",
+  "tags": [
+    "ai-sdlc",
+    "domain.engineering",
+    "use-case.execution"
+  ],
+  "collections": [
+    "ai-sdlc"
+  ],
+  "createdAt": "2026-09-08",
+  "updatedAt": "2026-09-15",
+  "sourceVersion": "1.2",
+  "schemaVersion": "1",
+  "authors": [
+    "Spec DB"
+  ],
+  "license": "CC-BY-4.0",
+  "relatedSlugs": [
+    "ai-sdlc-test-generation-logging",
+    "ai-sdlc-test-strategy-guidelines",
+    "ai-sdlc-work-scope-brief-template"
+  ]
+}

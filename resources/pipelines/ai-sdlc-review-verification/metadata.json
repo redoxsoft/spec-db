@@ -1,0 +1,28 @@
+{
+  "slug": "ai-sdlc-review-verification",
+  "kind": "pipeline",
+  "title": "Review & Verification",
+  "summary": "Validate a defined change boundary against its work item and the Code Review & Quality Bar, remediate in-scope blocker and major findings, and return PASS or FAIL. Accepts a Change Request, Bug Fix Spec, milestone, or Work Scope Brief; a direct run may create an as-built brief from named evidence plus an exact diff. Continue here when implemented work needs a delivery-verification gate. Launch with empty inputs to discover eligible work items.",
+  "tags": [
+    "ai-sdlc",
+    "domain.engineering",
+    "use-case.execution"
+  ],
+  "collections": [
+    "ai-sdlc"
+  ],
+  "createdAt": "2026-09-08",
+  "updatedAt": "2026-09-15",
+  "sourceVersion": "1.2",
+  "schemaVersion": "1",
+  "authors": [
+    "Spec DB"
+  ],
+  "license": "CC-BY-4.0",
+  "relatedSlugs": [
+    "ai-sdlc-code-review-quality-bar",
+    "ai-sdlc-milestone-implementation",
+    "ai-sdlc-release-spec-update",
+    "ai-sdlc-work-scope-brief-template"
+  ]
+}

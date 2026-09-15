@@ -1,0 +1,17 @@
+{
+  "schemaVersion": "1",
+  "inputVarDefinitions": [
+    {
+      "key": "SOURCE_SPEC_REF",
+      "description": "The upstream PRD, Design Spec, Change Request, or Work Scope Brief to translate into a Milestone Plan."
+    }
+  ],
+  "iteratorFields": [],
+  "steps": [
+    { "key": "resolve-planning-context", "name": "Resolve the planning context" },
+    { "key": "map-delivery-dependencies", "name": "Map the delivery dependencies" },
+    { "key": "author-milestone-plan", "name": "Author the Milestone Plan" },
+    { "key": "verify-milestones", "name": "Verify the milestones" },
+    { "key": "report-plan-handoff", "name": "Report the plan handoff" }
+  ]
+}

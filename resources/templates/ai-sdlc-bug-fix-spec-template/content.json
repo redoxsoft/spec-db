@@ -1,0 +1,118 @@
+{
+  "schemaVersion": "1",
+  "guidance": "Separate confirmed evidence from hypothesis. Record only a root cause that evidence supports, and never treat a guess as the cause. Keep reproduction steps exact enough that a stranger can follow them.",
+  "outline": [
+    {
+      "key": "issue-summary",
+      "title": "Issue Summary",
+      "guidance": "Contrast what happened with what should have happened, and who is affected. Prefer content in the children.",
+      "children": [
+        {
+          "key": "observed-behaviour",
+          "title": "Observed Behaviour",
+          "guidance": "Describe the failing behaviour as observed. Quote logs, errors, or UI text when you have them."
+        },
+        {
+          "key": "expected-behaviour",
+          "title": "Expected Behaviour",
+          "guidance": "State the correct behaviour, citing the spec or contract when one exists."
+        },
+        {
+          "key": "impact",
+          "title": "Impact",
+          "guidance": "Name who is affected, how often it happens, and the severity. Do not inflate impact you cannot observe."
+        }
+      ]
+    },
+    {
+      "key": "reproduction",
+      "title": "Reproduction",
+      "guidance": "Group the cases a stranger can follow to see the bug. Prefer content in the children.",
+      "children": [
+        {
+          "key": "reproduction-case",
+          "title": "Reproduction Case",
+          "guidance": "Title each instance with the failing scenario name, not \"Reproduction Case\".",
+          "cardinality": {
+            "min": 1,
+            "max": null
+          },
+          "children": [
+            {
+              "key": "preconditions",
+              "title": "Preconditions",
+              "guidance": "List the environment, data, and account state required before the steps. Be concrete."
+            },
+            {
+              "key": "steps",
+              "title": "Steps",
+              "guidance": "Numbered actions a stranger can follow. One action per line."
+            },
+            {
+              "key": "evidence",
+              "title": "Evidence",
+              "guidance": "Paste log snippets or link to recordings that show this case. Do not attach files; there is no file-attachment block."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "root-cause-analysis",
+      "title": "Root Cause Analysis",
+      "guidance": "Explain the confirmed cause and why tests missed it. Prefer content in the children.",
+      "children": [
+        {
+          "key": "root-cause",
+          "title": "Root Cause",
+          "guidance": "State the confirmed cause and the evidence that supports it. If the cause is still unknown, say so — do not record a guess."
+        },
+        {
+          "key": "contributing-factors",
+          "title": "Contributing Factors",
+          "guidance": "List conditions that made the bug more likely. Omit if none are known.",
+          "cardinality": {
+            "min": 0,
+            "max": 1
+          }
+        },
+        {
+          "key": "regression-gap",
+          "title": "Regression Gap",
+          "guidance": "Name the missing test, check, or review that would have caught this before release."
+        }
+      ]
+    },
+    {
+      "key": "fix-strategy",
+      "title": "Fix Strategy",
+      "guidance": "Bound the change, its risks, and how you will prove it. Prefer content in the children.",
+      "children": [
+        {
+          "key": "proposed-change",
+          "title": "Proposed Change",
+          "guidance": "Describe the smallest change that removes the confirmed cause. Do not expand into unrelated refactors."
+        },
+        {
+          "key": "risks-and-rollback",
+          "title": "Risks and Rollback",
+          "guidance": "List side effects of the fix and how to revert if it fails."
+        },
+        {
+          "key": "verification",
+          "title": "Verification",
+          "guidance": "List the checks that prove the bug is gone and that the regression gap is closed."
+        },
+        {
+          "key": "implementation-record",
+          "title": "Implementation Record",
+          "guidance": "Optional append-only leaf used after a release. Title each instance with the date and the change, and write the record in the instance body. Do not pre-fill.",
+          "cardinality": {
+            "min": 0,
+            "max": null
+          }
+        }
+      ]
+    }
+  ]
+}

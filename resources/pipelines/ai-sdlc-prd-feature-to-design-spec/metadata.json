@@ -1,0 +1,29 @@
+{
+  "slug": "ai-sdlc-prd-feature-to-design-spec",
+  "kind": "pipeline",
+  "title": "PRD / Change Request \u2192 Design Spec",
+  "summary": "Turn a locked PRD or Change Request into a Design Spec: architecture, contracts, operational quality, and requirement traceability that extend the existing system. Continue here when a product brief exists and design is the next step. Launch with empty inputs to discover existing documents.",
+  "tags": [
+    "ai-sdlc",
+    "domain.engineering",
+    "use-case.specification"
+  ],
+  "collections": [
+    "ai-sdlc"
+  ],
+  "createdAt": "2026-09-08",
+  "updatedAt": "2026-09-15",
+  "sourceVersion": "1.2",
+  "schemaVersion": "1",
+  "authors": [
+    "Spec DB"
+  ],
+  "license": "CC-BY-4.0",
+  "relatedSlugs": [
+    "ai-sdlc-design-architecture-principles",
+    "ai-sdlc-design-feature-to-milestone-plan",
+    "ai-sdlc-design-spec-template",
+    "ai-sdlc-feature-spec-builder",
+    "ai-sdlc-requirements-to-prd"
+  ]
+}

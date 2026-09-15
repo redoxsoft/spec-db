@@ -1,0 +1,22 @@
+{
+  "schemaVersion": "1",
+  "inputVarDefinitions": [
+    {
+      "key": "WORK_ITEM_REF",
+      "description": "The milestone, Change Request, Bug Fix Spec, or Work Scope Brief this work belongs to. On a direct run, named issue or evidence plus an exact change boundary may be normalized into an as-built Work Scope Brief."
+    },
+    {
+      "key": "CHANGE_SCOPE",
+      "description": "The exact set of changes under review — files, diff, branch, PR, or milestone boundary."
+    }
+  ],
+  "iteratorFields": [],
+  "steps": [
+    { "key": "resolve-review-context", "name": "Resolve the review context" },
+    { "key": "normalize-review-scope", "name": "Normalize the review scope" },
+    { "key": "review-spec-alignment", "name": "Review alignment with the spec" },
+    { "key": "review-code-quality", "name": "Review code quality" },
+    { "key": "remediate-review-findings", "name": "Remediate review findings" },
+    { "key": "verify-review-outcome", "name": "Verify the review outcome" }
+  ]
+}

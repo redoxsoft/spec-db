@@ -1,0 +1,24 @@
+{
+  "schemaVersion": "1",
+  "inputVarDefinitions": [
+    {
+      "key": "WORK_ITEM_REF",
+      "description": "A native implementable artifact (Milestone Plan, Change Request, Bug Fix Spec, or Work Scope Brief) or evidence from which a Work Scope Brief can be created (PRD, Design Spec, ticket, branch, diff, or paste)."
+    },
+    {
+      "key": "MILESTONE_SELECTOR",
+      "description": "The milestone title or number, when the work item is a Milestone Plan."
+    }
+  ],
+  "iteratorFields": [],
+  "steps": [
+    { "key": "resolve-work-item", "name": "Resolve the work item" },
+    { "key": "normalize-work-item", "name": "Normalize the work item" },
+    { "key": "inspect-repository-state", "name": "Inspect the repository state" },
+    { "key": "implement-work-item", "name": "Implement the work item" },
+    { "key": "run-review-verification", "name": "Run review and verification" },
+    { "key": "confirm-review-gate", "name": "Confirm the delivery-verification gate" },
+    { "key": "run-release-spec-update", "name": "Run delivery sync and spec update" },
+    { "key": "report-implementation-handoff", "name": "Report the implementation handoff" }
+  ]
+}

@@ -55,6 +55,7 @@ Every resource needs a `metadata.json`. Validate against [`schemas/metadata.sche
   "collections": ["builder"],
   "createdAt": "2026-08-02",
   "updatedAt": "2026-08-02",
+  "sourceVersion": "1.0",
   "schemaVersion": "1",
   "authors": ["Your Name"],
   "license": "CC-BY-4.0"
@@ -68,6 +69,7 @@ Every resource needs a `metadata.json`. Validate against [`schemas/metadata.sche
 | `summary` | Required; short card blurb |
 | `tags` | Must exist in `tags/tags.json`, active, applicable to this kind |
 | `collections` | Optional; free-form kebab-case ids (e.g. `builder`); max 2; no registry; shown as chips on cards |
+| `sourceVersion` | Catalog revision `MAJOR.MINOR` (e.g. `"1.0"`). Bump when the importable body changes. Hosts use this to decide sync. |
 | `schemaVersion` | Always `"1"` |
 | `templateSlug` | Specs only; must point at an existing template |
 | `relatedSlugs` | Optional; each must resolve to a catalog slug |

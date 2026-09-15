@@ -1,0 +1,27 @@
+{
+  "slug": "ai-sdlc-milestone-plan-template",
+  "kind": "template",
+  "title": "Milestone Plan Template",
+  "summary": "Sequenced delivery plan from a PRD, Design Spec, Change Request, or Work Scope Brief: product-level or implementation-level milestones with goals, work items, owners, verification, and status. Use before implementation starts.",
+  "tags": [
+    "ai-sdlc",
+    "domain.engineering",
+    "use-case.planning"
+  ],
+  "collections": [
+    "ai-sdlc"
+  ],
+  "createdAt": "2026-09-08",
+  "updatedAt": "2026-09-15",
+  "sourceVersion": "1.2",
+  "schemaVersion": "1",
+  "authors": [
+    "Spec DB"
+  ],
+  "license": "CC-BY-4.0",
+  "relatedSlugs": [
+    "ai-sdlc-design-feature-to-milestone-plan",
+    "ai-sdlc-milestone-implementation",
+    "ai-sdlc-work-scope-brief-template"
+  ]
+}

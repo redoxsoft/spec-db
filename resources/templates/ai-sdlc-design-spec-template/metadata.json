@@ -1,0 +1,25 @@
+{
+  "slug": "ai-sdlc-design-spec-template",
+  "kind": "template",
+  "title": "Design Spec Template",
+  "summary": "Turn source requirements into architecture, contracts, operational quality, and verification. Record decisions with rationale; do not restate the PRD or Change Request.",
+  "tags": [
+    "ai-sdlc",
+    "domain.engineering",
+    "use-case.specification"
+  ],
+  "collections": [
+    "ai-sdlc"
+  ],
+  "createdAt": "2026-09-08",
+  "updatedAt": "2026-09-15",
+  "sourceVersion": "1.2",
+  "schemaVersion": "1",
+  "authors": [
+    "Spec DB"
+  ],
+  "license": "CC-BY-4.0",
+  "relatedSlugs": [
+    "ai-sdlc-prd-feature-to-design-spec"
+  ]
+}

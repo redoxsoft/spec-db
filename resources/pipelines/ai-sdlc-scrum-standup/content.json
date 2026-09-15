@@ -1,0 +1,16 @@
+{
+  "schemaVersion": "1",
+  "inputVarDefinitions": [
+    {
+      "key": "STANDUP_INPUT",
+      "description": "Member name, standup notes, or both."
+    }
+  ],
+  "iteratorFields": [],
+  "steps": [
+    { "key": "resolve-standup-context", "name": "Resolve the standup context" },
+    { "key": "collect-standup-update", "name": "Collect the standup update" },
+    { "key": "append-standup-entry", "name": "Append the standup entry" },
+    { "key": "verify-standup-log", "name": "Verify the standup log" }
+  ]
+}

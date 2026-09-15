@@ -1,0 +1,110 @@
+{
+  "schemaVersion": "1",
+  "guidance": "Sequence delivery as outcome-named milestones with owners, verification, and status. Choose product-level mode from a PRD, or implementation-level mode from a Design Spec, Change Request, or Work Scope Brief. Do not invent owners, dates, progress, or missing architecture. A new plan sets every milestone status to Planned.",
+  "outline": [
+    {
+      "key": "plan-context",
+      "title": "Plan Context",
+      "guidance": "Anchor the plan to its source spec and the delivery outcome. Prefer content in the children.",
+      "children": [
+        {
+          "key": "source-spec",
+          "title": "Source Spec",
+          "guidance": "Name the exact source this plan delivers (PRD, Design Spec, Change Request, or Work Scope Brief) by document id when locked and by title for display. Do not restate its content."
+        },
+        {
+          "key": "plan-mode",
+          "title": "Plan Mode",
+          "guidance": "Write exactly `product-level` when the source is a PRD: outcome slices, owners, dependencies, and decision points. Write exactly `implementation-level` when the source is a Design Spec, Change Request, or Work Scope Brief: contracts, migrations, and technical ordering may drive milestones."
+        },
+        {
+          "key": "delivery-outcome",
+          "title": "Delivery Outcome",
+          "guidance": "State the observable result when every milestone in this plan is Done. Keep it to one outcome, not a backlog."
+        }
+      ]
+    },
+    {
+      "key": "milestones",
+      "title": "Milestones",
+      "guidance": "Group the sequenced slices of work. Prefer content in the children.",
+      "children": [
+        {
+          "key": "milestone",
+          "title": "Milestone",
+          "guidance": "Title each instance with the milestone outcome, not \"Milestone 1\".",
+          "cardinality": {
+            "min": 1,
+            "max": null
+          },
+          "children": [
+            {
+              "key": "goal-and-scope",
+              "title": "Goal and Scope",
+              "guidance": "State what this milestone delivers and what it explicitly leaves for later. Keep the slice shippable on its own."
+            },
+            {
+              "key": "work-items",
+              "title": "Work Items",
+              "guidance": "List the concrete tasks this milestone requires. Name artifacts, not vague chores."
+            },
+            {
+              "key": "owner",
+              "title": "Owner",
+              "guidance": "Name the person or team accountable for this milestone. Use Unassigned when the owner is unknown; never invent a name."
+            },
+            {
+              "key": "dependencies",
+              "title": "Dependencies",
+              "guidance": "List earlier milestones or external blockers this milestone needs. Omit if it can start immediately.",
+              "cardinality": {
+                "min": 0,
+                "max": 1
+              }
+            },
+            {
+              "key": "verification-and-done",
+              "title": "Verification and Done",
+              "guidance": "List the checks that prove this milestone is complete. Prefer observable outcomes over process checkboxes."
+            },
+            {
+              "key": "status",
+              "title": "Status",
+              "guidance": "One of Planned, In Progress, Blocked, or Done. A new plan sets every milestone to Planned."
+            },
+            {
+              "key": "implementation-record",
+              "title": "Implementation Record",
+              "guidance": "Append after this milestone completes. Title each instance with the date, and write the record in the instance body. Do not pre-fill.",
+              "cardinality": {
+                "min": 0,
+                "max": null
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "cross-cutting-context",
+      "title": "Cross-Cutting Context",
+      "guidance": "Capture sequencing across milestones and shared risks. Prefer content in the children.",
+      "children": [
+        {
+          "key": "sequencing",
+          "title": "Sequencing",
+          "guidance": "State the order milestones must run and which ones may proceed in parallel. In a product-level plan, label unresolved technical sequencing `Needs design decision` or `Validation required before implementation`; do not invent architecture to fill the gap."
+        },
+        {
+          "key": "shared-risks",
+          "title": "Shared Risks",
+          "guidance": "List risks that span more than one milestone. Omit if none are known.",
+          "cardinality": {
+            "min": 0,
+            "max": 1
+          }
+        }
+      ]
+    }
+  ]
+}

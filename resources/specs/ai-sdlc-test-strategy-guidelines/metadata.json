@@ -1,0 +1,27 @@
+{
+  "slug": "ai-sdlc-test-strategy-guidelines",
+  "kind": "spec",
+  "title": "Test Strategy Guidelines",
+  "summary": "Rules for ranking test risk, choosing coverage layers, writing verifiable cases traced to acceptance criteria, and recording only observed execution evidence. Supports requirements-based plans from a PRD and implementation-aware plans; unready cases are not run, never PASS.",
+  "tags": [
+    "ai-sdlc",
+    "domain.engineering",
+    "use-case.execution"
+  ],
+  "collections": [
+    "ai-sdlc"
+  ],
+  "createdAt": "2026-09-08",
+  "updatedAt": "2026-09-15",
+  "sourceVersion": "1.2",
+  "schemaVersion": "1",
+  "authors": [
+    "Spec DB"
+  ],
+  "license": "CC-BY-4.0",
+  "relatedSlugs": [
+    "ai-sdlc-test-generation-logging",
+    "ai-sdlc-test-plan-template",
+    "ai-sdlc-work-scope-brief-template"
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "slug": "ai-sdlc-test-generation-logging",
+  "kind": "pipeline",
+  "title": "Test Generation & Logging",
+  "summary": "Turn a locked PRD, Change Request, Bug Fix Spec, Design Spec, Milestone Plan, or Work Scope Brief into a Test Plan: risk-ranked coverage, cases traced to acceptance criteria, and observed execution results. Requirements-based plans may come from a PRD; implementation-specific cases without environment detail are not run, never PASS. Continue here when a spec needs tests. Launch with empty inputs to discover eligible sources. Does not fix defects.",
+  "tags": [
+    "ai-sdlc",
+    "domain.engineering",
+    "use-case.execution"
+  ],
+  "collections": [
+    "ai-sdlc"
+  ],
+  "createdAt": "2026-09-08",
+  "updatedAt": "2026-09-15",
+  "sourceVersion": "1.2",
+  "schemaVersion": "1",
+  "authors": [
+    "Spec DB"
+  ],
+  "license": "CC-BY-4.0",
+  "relatedSlugs": [
+    "ai-sdlc-milestone-implementation",
+    "ai-sdlc-test-plan-template",
+    "ai-sdlc-test-strategy-guidelines",
+    "ai-sdlc-work-scope-brief-template"
+  ]
+}

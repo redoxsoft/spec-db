@@ -1,0 +1,18 @@
+{
+  "schemaVersion": "1",
+  "inputVarDefinitions": [
+    {
+      "key": "SOURCE_SPEC_REF",
+      "description": "The PRD, Change Request, Bug Fix Spec, Design Spec, Milestone Plan, or Work Scope Brief to derive tests from."
+    }
+  ],
+  "iteratorFields": [],
+  "steps": [
+    { "key": "resolve-test-context", "name": "Resolve the test context" },
+    { "key": "design-test-coverage", "name": "Design the test coverage" },
+    { "key": "author-test-plan", "name": "Author the Test Plan" },
+    { "key": "execute-feasible-tests", "name": "Execute the feasible tests" },
+    { "key": "log-test-results", "name": "Log the test results" },
+    { "key": "verify-qa-handoff", "name": "Verify the QA handoff" }
+  ]
+}

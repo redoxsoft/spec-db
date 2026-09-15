@@ -30,6 +30,11 @@
       "type": "string",
       "minLength": 1
     },
+    "sourceVersion": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^\\d+\\.\\d+$"
+    },
     "schemaVersion": {
       "type": "string",
       "const": "1"
@@ -60,6 +65,7 @@
     "slug",
     "title",
     "summary",
+    "sourceVersion",
     "schemaVersion",
     "kind",
     "spec"

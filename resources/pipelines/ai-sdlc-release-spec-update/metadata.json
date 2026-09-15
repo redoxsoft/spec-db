@@ -1,0 +1,29 @@
+{
+  "slug": "ai-sdlc-release-spec-update",
+  "kind": "pipeline",
+  "title": "Delivery Sync & Spec Update",
+  "summary": "After verification passes, update linked source documentation to match delivered behaviour and record implementation evidence on a Change Request, Bug Fix Spec, milestone, or Work Scope Brief. Missing linked PRD or Design titles are reported and skipped. Continue here after a passing review when specs must catch up to the change. Launch with empty inputs to discover eligible work items. SpecX documents only \u2014 it does not deploy, publish, tag, or release software.",
+  "tags": [
+    "ai-sdlc",
+    "domain.engineering",
+    "use-case.execution"
+  ],
+  "collections": [
+    "ai-sdlc"
+  ],
+  "createdAt": "2026-09-08",
+  "updatedAt": "2026-09-15",
+  "sourceVersion": "1.2",
+  "schemaVersion": "1",
+  "authors": [
+    "Spec DB"
+  ],
+  "license": "CC-BY-4.0",
+  "relatedSlugs": [
+    "ai-sdlc-bug-fix-spec-template",
+    "ai-sdlc-feature-spec-template",
+    "ai-sdlc-milestone-implementation",
+    "ai-sdlc-review-verification",
+    "ai-sdlc-work-scope-brief-template"
+  ]
+}

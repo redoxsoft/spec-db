@@ -1,0 +1,27 @@
+{
+  "slug": "ai-sdlc-requirements-to-prd",
+  "kind": "pipeline",
+  "title": "Requirements \u2192 PRD",
+  "summary": "Classify an initiative, then author or update a PRD for a new or materially evolving capability. Continue here when you have or need a PRD. Launch with empty inputs to discover existing PRDs. Stops with a Change Request or Bug Fix recommendation when that artifact fits better.",
+  "tags": [
+    "ai-sdlc",
+    "domain.product",
+    "use-case.specification"
+  ],
+  "collections": [
+    "ai-sdlc"
+  ],
+  "createdAt": "2026-09-08",
+  "updatedAt": "2026-09-15",
+  "sourceVersion": "1.2",
+  "schemaVersion": "1",
+  "authors": [
+    "Spec DB"
+  ],
+  "license": "CC-BY-4.0",
+  "relatedSlugs": [
+    "ai-sdlc-prd-feature-to-design-spec",
+    "ai-sdlc-prd-template",
+    "ai-sdlc-prd-vs-feature-spec-guidelines"
+  ]
+}

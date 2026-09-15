@@ -20,6 +20,10 @@ const packageEnvelopeFields = {
   summary: z.string().min(1),
   tags: z.array(z.string().min(1)).optional(),
   updatedAt: z.string().min(1).optional(),
+  sourceVersion: z
+    .string()
+    .min(1)
+    .regex(/^\d+\.\d+$/, 'sourceVersion must be MAJOR.MINOR (e.g. "1.0")'),
   schemaVersion: schemaVersionSchema,
 }
 

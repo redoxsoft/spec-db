@@ -1,0 +1,27 @@
+{
+  "slug": "ai-sdlc-feature-spec-template",
+  "kind": "template",
+  "title": "Change Request Template",
+  "summary": "A tracked amendment to an existing product, design, API, or behaviour contract: current behaviour, the requested change, impacted spec sections, and how the delta will be synchronized after verification. Do not use this for a material capability change or an unintended defect.",
+  "tags": [
+    "ai-sdlc",
+    "domain.product",
+    "use-case.specification"
+  ],
+  "collections": [
+    "ai-sdlc"
+  ],
+  "createdAt": "2026-09-08",
+  "updatedAt": "2026-09-15",
+  "sourceVersion": "1.2",
+  "schemaVersion": "1",
+  "authors": [
+    "Spec DB"
+  ],
+  "license": "CC-BY-4.0",
+  "relatedSlugs": [
+    "ai-sdlc-feature-spec-builder",
+    "ai-sdlc-milestone-implementation",
+    "ai-sdlc-release-spec-update"
+  ]
+}

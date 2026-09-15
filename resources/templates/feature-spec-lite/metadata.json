@@ -9,6 +9,7 @@
   ],
   "createdAt": "2026-08-02",
   "updatedAt": "2026-08-02",
+  "sourceVersion": "1.0",
   "schemaVersion": "1",
   "authors": [
     "Spec DB"

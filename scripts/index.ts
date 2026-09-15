@@ -133,6 +133,7 @@ async function catalogBase(
     | 'tags'
     | 'collections'
     | 'updatedAt'
+    | 'sourceVersion'
     | 'featured'
   >
 > {
@@ -147,6 +148,7 @@ async function catalogBase(
       ? { collections: resource.meta.collections }
       : {}),
     updatedAt: resource.meta.updatedAt ?? resource.meta.createdAt ?? '',
+    sourceVersion: resource.meta.sourceVersion,
     featured: resource.meta.featured,
   }
 }
@@ -224,6 +226,7 @@ function toLite(detail: ResourceDetail): CatalogLiteItem {
       ? { collections: detail.collections }
       : {}),
     updatedAt: detail.updatedAt,
+    sourceVersion: detail.sourceVersion,
     stats: detail.stats,
     featured: detail.featured,
     outline: detail.outline,

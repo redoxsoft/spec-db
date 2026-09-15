@@ -1,0 +1,156 @@
+{
+  "schemaVersion": "1",
+  "guidance": "A Work Scope Brief is an execution bridge, not a PRD, Change Request, or Bug Fix Spec. Use it when a team has sufficient evidence to build or review a bounded change but no native implementable work item yet. Capture provenance, the exact outcome, inclusions and exclusions, a repository change boundary, and testable acceptance criteria. Label observed, inferred, and unresolved statements. Do not invent scope. Do not expand this into a product framing document. After verification, Delivery Sync may append an implementation record here; it does not invent missing product history.",
+  "outline": [
+    {
+      "key": "work-scope-context",
+      "title": "Work Scope Context",
+      "guidance": "Anchor this brief as planned or as-built work. Prefer content in the children.",
+      "children": [
+        {
+          "key": "entry-mode",
+          "title": "Entry Mode",
+          "guidance": "Write exactly `planned` (build from evidence) or `as-built` (review or sync a named diff, branch, or PR). Do not invent a third mode."
+        },
+        {
+          "key": "outcome",
+          "title": "Outcome",
+          "guidance": "State the observable result this bounded work must produce. Keep it to one delivery slice, not a product vision."
+        }
+      ]
+    },
+    {
+      "key": "source-evidence",
+      "title": "Source Evidence",
+      "guidance": "Group the native documents, tickets, files, branches, diffs, or pasted excerpts this brief is based on. Prefer content in the children.",
+      "children": [
+        {
+          "key": "evidence-item",
+          "title": "Evidence Item",
+          "guidance": "Title each instance with the source kind and name, not \"Evidence Item\".",
+          "cardinality": {
+            "min": 1,
+            "max": null
+          },
+          "children": [
+            {
+              "key": "source-location",
+              "title": "Source Location",
+              "guidance": "Record the SpecX document id and title when native, otherwise the URL, issue id, file path, branch, diff, or paste hash. Carry a document id separately from a display title."
+            },
+            {
+              "key": "snapshot",
+              "title": "Snapshot",
+              "guidance": "Quote or paraphrase only the excerpt used as evidence. Label each claim observed, inferred, or unresolved."
+            },
+            {
+              "key": "provenance",
+              "title": "Provenance",
+              "guidance": "Record source revision, import time, and who supplied it when known. Omit if unknown.",
+              "cardinality": {
+                "min": 0,
+                "max": 1
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "delivery-scope",
+      "title": "Delivery Scope",
+      "guidance": "Bound what this work changes in the repository and what it must not touch. Prefer content in the children.",
+      "children": [
+        {
+          "key": "inclusions",
+          "title": "Inclusions",
+          "guidance": "List the behaviours, files, or contracts in this slice."
+        },
+        {
+          "key": "exclusions",
+          "title": "Exclusions",
+          "guidance": "List unrelated dirty files, neighbouring refactors, and work left for later. Unrelated existing changes must be preserved."
+        },
+        {
+          "key": "change-boundary",
+          "title": "Change Boundary",
+          "guidance": "Name the exact files, diff, branch, PR, or milestone boundary this work owns. Do not infer a boundary from arbitrary uncommitted files."
+        }
+      ]
+    },
+    {
+      "key": "acceptance",
+      "title": "Acceptance",
+      "guidance": "Group the testable done-conditions for this slice. Prefer content in the children.",
+      "children": [
+        {
+          "key": "acceptance-criterion",
+          "title": "Acceptance Criterion",
+          "guidance": "Title each instance with the observable check, not \"Acceptance Criterion\".",
+          "cardinality": {
+            "min": 1,
+            "max": null
+          },
+          "children": [
+            {
+              "key": "criterion",
+              "title": "Criterion",
+              "guidance": "State one pass/fail check. Prefer observable outcomes over adjectives."
+            },
+            {
+              "key": "evidence-trace",
+              "title": "Evidence Trace",
+              "guidance": "Cite the source evidence item this criterion comes from. Do not invent a criterion the evidence does not contain.",
+              "cardinality": {
+                "min": 0,
+                "max": 1
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "confidence-and-gaps",
+      "title": "Confidence and Gaps",
+      "guidance": "Record assumptions and missing information without blocking safe work. Prefer content in the children.",
+      "children": [
+        {
+          "key": "assumptions",
+          "title": "Assumptions",
+          "guidance": "List inferences required to proceed. Label each as an assumption, not a fact."
+        },
+        {
+          "key": "unresolved-gaps",
+          "title": "Unresolved Gaps",
+          "guidance": "List contradictions or missing design, environment, or contract detail. Recommend follow-up; do not invent answers. Omit if none remain.",
+          "cardinality": {
+            "min": 0,
+            "max": 1
+          }
+        }
+      ]
+    },
+    {
+      "key": "delivery-context",
+      "title": "Delivery Context",
+      "guidance": "Capture how this brief is verified and recorded. Prefer content in the children.",
+      "children": [
+        {
+          "key": "verification-status",
+          "title": "Verification Status",
+          "guidance": "One of `pending`, `pass`, or `fail`. Do not mark pass unless Review & Verification passed this exact change boundary."
+        },
+        {
+          "key": "implementation-record",
+          "title": "Implementation Record",
+          "guidance": "Optional append-only leaf used after Delivery Sync. Title each instance with the date and the change, and write the record in the instance body. Do not pre-fill.",
+          "cardinality": {
+            "min": 0,
+            "max": null
+          }
+        }
+      ]
+    }
+  ]
+}

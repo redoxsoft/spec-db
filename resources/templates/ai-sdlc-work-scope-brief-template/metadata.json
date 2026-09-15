@@ -1,0 +1,28 @@
+{
+  "slug": "ai-sdlc-work-scope-brief-template",
+  "kind": "template",
+  "title": "Work Scope Brief Template",
+  "summary": "A lightweight execution bridge for mid-stream work: provenance, bounded scope, acceptance criteria, and either a planned or as-built change boundary. Use when a PRD, ticket, design, branch, or diff is ready to build or review but no Change Request, Bug Fix Spec, or milestone yet exists. Not a fourth product-intent artifact.",
+  "tags": [
+    "ai-sdlc",
+    "domain.engineering",
+    "use-case.specification"
+  ],
+  "collections": [
+    "ai-sdlc"
+  ],
+  "createdAt": "2026-09-15",
+  "updatedAt": "2026-09-15",
+  "sourceVersion": "1.0",
+  "schemaVersion": "1",
+  "authors": [
+    "Spec DB"
+  ],
+  "license": "CC-BY-4.0",
+  "relatedSlugs": [
+    "ai-sdlc-milestone-implementation",
+    "ai-sdlc-review-verification",
+    "ai-sdlc-release-spec-update",
+    "ai-sdlc-prd-vs-feature-spec-guidelines"
+  ]
+}

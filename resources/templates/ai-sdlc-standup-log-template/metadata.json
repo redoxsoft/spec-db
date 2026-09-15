@@ -1,0 +1,25 @@
+{
+  "slug": "ai-sdlc-standup-log-template",
+  "kind": "template",
+  "title": "Standup Log Template",
+  "summary": "Append-only recurring status log: what shipped, what is next, and blockers. Use for daily or sprint cadence, not one-off status reports.",
+  "tags": [
+    "ai-sdlc",
+    "domain.business",
+    "use-case.execution"
+  ],
+  "collections": [
+    "ai-sdlc"
+  ],
+  "createdAt": "2026-09-08",
+  "updatedAt": "2026-09-15",
+  "sourceVersion": "1.2",
+  "schemaVersion": "1",
+  "authors": [
+    "Spec DB"
+  ],
+  "license": "CC-BY-4.0",
+  "relatedSlugs": [
+    "ai-sdlc-scrum-standup"
+  ]
+}

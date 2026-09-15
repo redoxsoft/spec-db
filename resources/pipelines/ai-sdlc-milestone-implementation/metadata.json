@@ -1,0 +1,33 @@
+{
+  "slug": "ai-sdlc-milestone-implementation",
+  "kind": "pipeline",
+  "title": "Implementation",
+  "summary": "Implement an approved delivery scope: a milestone, Change Request, Bug Fix Spec, or Work Scope Brief. PRD, Design Spec, ticket, or branch evidence is normalized into a bounded Work Scope Brief before code changes. Continue here when a work item is ready to build. Launch with empty inputs to discover open work. Gates delivery verification on Review & Verification, then records the result with Delivery Sync & Spec Update. Leaves changes in the working tree.",
+  "tags": [
+    "ai-sdlc",
+    "domain.engineering",
+    "use-case.execution"
+  ],
+  "collections": [
+    "ai-sdlc"
+  ],
+  "createdAt": "2026-09-08",
+  "updatedAt": "2026-09-15",
+  "sourceVersion": "1.2",
+  "schemaVersion": "1",
+  "authors": [
+    "Spec DB"
+  ],
+  "license": "CC-BY-4.0",
+  "relatedSlugs": [
+    "ai-sdlc-bug-fix-analyzer",
+    "ai-sdlc-bug-fix-spec-template",
+    "ai-sdlc-design-feature-to-milestone-plan",
+    "ai-sdlc-feature-spec-template",
+    "ai-sdlc-milestone-plan-template",
+    "ai-sdlc-release-spec-update",
+    "ai-sdlc-review-verification",
+    "ai-sdlc-test-generation-logging",
+    "ai-sdlc-work-scope-brief-template"
+  ]
+}

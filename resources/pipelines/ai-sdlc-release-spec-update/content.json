@@ -1,0 +1,21 @@
+{
+  "schemaVersion": "1",
+  "inputVarDefinitions": [
+    {
+      "key": "WORK_ITEM_REF",
+      "description": "The milestone, Change Request, Bug Fix Spec, or Work Scope Brief this verified work belongs to."
+    },
+    {
+      "key": "CHANGE_SCOPE",
+      "description": "The exact set of changes under review — files, diff, or milestone boundary."
+    }
+  ],
+  "iteratorFields": [],
+  "steps": [
+    { "key": "resolve-release-context", "name": "Resolve the delivery-sync context" },
+    { "key": "confirm-release-readiness", "name": "Confirm delivery-sync readiness" },
+    { "key": "synchronize-specs", "name": "Synchronize the specs" },
+    { "key": "record-implementation", "name": "Record the implementation" },
+    { "key": "report-release-handoff", "name": "Report the delivery-sync handoff" }
+  ]
+}

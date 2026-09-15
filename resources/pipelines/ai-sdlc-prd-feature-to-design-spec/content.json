@@ -1,0 +1,17 @@
+{
+  "schemaVersion": "1",
+  "inputVarDefinitions": [
+    {
+      "key": "SOURCE_SPEC_REF",
+      "description": "The upstream PRD or Change Request to translate."
+    }
+  ],
+  "iteratorFields": [],
+  "steps": [
+    { "key": "resolve-design-context", "name": "Resolve the design context" },
+    { "key": "inspect-existing-architecture", "name": "Inspect the existing architecture" },
+    { "key": "author-design-spec", "name": "Author the Design Spec" },
+    { "key": "verify-design", "name": "Verify the design" },
+    { "key": "report-design-handoff", "name": "Report the design handoff" }
+  ]
+}
