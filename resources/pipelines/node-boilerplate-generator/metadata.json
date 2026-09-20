@@ -1,0 +1,22 @@
+{
+  "slug": "node-boilerplate-generator",
+  "kind": "pipeline",
+  "title": "Node Boilerplate Generator",
+  "summary": "**Purpose** — Generate a blank runnable fullstack Node.js project from Node.js Application Development Standards.\n\n**How to run** — Call the connected agent with instructions `Run Node Boilerplate Generator.`",
+  "tags": [
+    "domain.engineering",
+    "use-case.execution"
+  ],
+  "createdAt": "2026-09-19",
+  "updatedAt": "2026-09-20",
+  "sourceVersion": "1.4",
+  "schemaVersion": "1",
+  "authors": [
+    "Spec DB"
+  ],
+  "license": "CC-BY-4.0",
+  "featured": true,
+  "relatedSlugs": [
+    "nodejs-application-development-standards"
+  ]
+}

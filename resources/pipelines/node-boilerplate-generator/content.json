@@ -1,0 +1,17 @@
+{
+  "schemaVersion": "1",
+  "inputVarDefinitions": [],
+  "iteratorFields": [],
+  "steps": [
+    { "key": "check-prerequisites", "name": "Check prerequisites" },
+    { "key": "collect-project-intake", "name": "Collect project intake" },
+    { "key": "initialize-lock", "name": "Initialize lock" },
+    { "key": "generate-repository", "name": "Generate repository" },
+    { "key": "install-dependencies", "name": "Install dependencies" },
+    { "key": "generate-applications", "name": "Generate applications" },
+    { "key": "generate-tests", "name": "Generate tests" },
+    { "key": "generate-containers-and-docs", "name": "Generate containers and docs" },
+    { "key": "verify-project", "name": "Verify project" },
+    { "key": "report-handoff", "name": "Report handoff" }
+  ]
+}

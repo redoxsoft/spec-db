@@ -1,0 +1,21 @@
+{
+  "slug": "nodejs-application-development-standards",
+  "kind": "spec",
+  "title": "Node.js Application Development Standards",
+  "summary": "Binding rules for the Node Boilerplate Generator: identity, layout, stack, security, and verification for a hello-world fullstack scaffold.",
+  "tags": [
+    "domain.engineering",
+    "use-case.execution"
+  ],
+  "createdAt": "2026-09-19",
+  "updatedAt": "2026-09-19",
+  "sourceVersion": "1.3",
+  "schemaVersion": "1",
+  "authors": [
+    "Spec DB"
+  ],
+  "license": "CC-BY-4.0",
+  "relatedSlugs": [
+    "node-boilerplate-generator"
+  ]
+}
