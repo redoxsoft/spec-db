@@ -19,15 +19,17 @@ Catalog content is [CC BY 4.0](LICENSE-CONTENT). App code is [MIT](LICENSE).
 1. Pick **one** kind (template, spec, or pipeline).
 2. Copy an existing folder under `resources/<kind>/` as a starting point when possible.
 3. Use only tags that already exist in [`tags/tags.json`](tags/tags.json) with `"status": "active"` and the right `applicableKinds`. If you need a new tag for your resource, include it in the **same** PR (keep hierarchy depth ≤ 2).
-4. Run the contract check locally (see [Verify before opening a PR](#verify-before-opening-a-pr)).
+4. Optional folder membership uses [`collections/collections.json`](collections/collections.json). `collection` is a top-level id; `subcollection` is a child of that collection and requires `collection`. Both must be `"status": "active"`. Add a new collection in the **same** PR. Do not change a collection's `displayName` after it has merged — that string is the workspace folder name.
+5. Run the contract check locally (see [Verify before opening a PR](#verify-before-opening-a-pr)).
 
-JSON Schema mirrors: [`schemas/`](schemas/). Tags: [`tags/README.md`](tags/README.md).
+JSON Schema mirrors: [`schemas/`](schemas/). Tags: [`tags/README.md`](tags/README.md). Collections: [`collections/README.md`](collections/README.md).
 
 ---
 
 ## Repository layout
 
 ```text
+collections/collections.json
 tags/tags.json
 resources/
   templates/<slug>/metadata.json + content.json
@@ -52,7 +54,7 @@ Every resource needs a `metadata.json`. Validate against [`schemas/metadata.sche
   "title": "Human title",
   "summary": "One or two sentences for catalog cards.",
   "tags": ["domain.product", "use-case.specification"],
-  "collections": ["builder"],
+  "collection": "builder",
   "createdAt": "2026-08-02",
   "updatedAt": "2026-08-02",
   "sourceVersion": "1.0",
@@ -68,7 +70,8 @@ Every resource needs a `metadata.json`. Validate against [`schemas/metadata.sche
 | `kind` | `"template"` \| `"spec"` \| `"pipeline"` |
 | `summary` | Required; short card blurb |
 | `tags` | Must exist in `tags/tags.json`, active, applicable to this kind |
-| `collections` | Optional; free-form kebab-case ids (e.g. `builder`); max 2; no registry; shown as chips on cards |
+| `collection` | Optional. Top-level id from [`collections/collections.json`](collections/collections.json). Must be `active`. Omitted means the resource is not in a collection |
+| `subcollection` | Optional child id. Requires `collection`. Its registry `parentId` must be that collection, and it must be `active` |
 | `sourceVersion` | Catalog revision `MAJOR.MINOR` (e.g. `"1.0"`). Bump when the importable body changes. Hosts use this to decide sync. |
 | `schemaVersion` | Always `"1"` |
 | `templateSlug` | Specs only; must point at an existing template |
@@ -296,7 +299,7 @@ tasks/summarize.md
 
 ## Verify before opening a PR
 
-After `npm install`, run the **contract check** (validates tags + every resource against Zod schemas and authoring rules):
+After `npm install`, run the **contract check** (validates the collections registry, tags, and every resource against Zod schemas and authoring rules):
 
 ```bash
 npm run check
@@ -346,5 +349,6 @@ Spec DB publishes external package formats only. SpecX/WorkX own import adapters
 | Outline `cardinality` | SpecX `{ min, max \| null }` (omit → `{1,1}`) |
 | `tasks/<key>.md` | WorkX task `instructions` |
 | `inputVarDefinitions` / `iteratorFields` | WorkX equivalents |
+| `collection` / `subcollection` | Optional package objects `{ id, displayName }`. Hosts use `displayName` as the folder name. `packageVersion` stays `"1"` |
 
 See [docs/embed.md](docs/embed.md) for the full embed/import contract.

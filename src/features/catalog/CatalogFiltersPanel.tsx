@@ -1,56 +1,18 @@
-import { ChevronDown, Layers, Search, type LucideIcon } from 'lucide-react'
+import { Folder, Search } from 'lucide-react'
+import type { CatalogCollection, ResourceKind } from '../../catalog'
 import { cn } from '../../lib/cn'
-import { getKindStyles } from '../../lib/kindStyles'
-import type { ResourceKind, TagsRegistry } from '../../catalog'
+import { folderIconClassName } from '../../lib/kindStyles'
 import type { CatalogFilters, KindFilter } from './filterCatalog'
-
-function kindFilter(
-  id: ResourceKind,
-  label: string,
-): {
-  id: KindFilter
-  label: string
-  icon: LucideIcon
-  iconClassName: string
-} {
-  const styles = getKindStyles(id)
-  return {
-    id,
-    label,
-    icon: styles.icon,
-    iconClassName: styles.color,
-  }
-}
-
-const KIND_FILTERS: {
-  id: KindFilter
-  label: string
-  icon: LucideIcon
-  iconClassName: string
-}[] = [
-  {
-    id: 'all',
-    label: 'All Resources',
-    icon: Layers,
-    iconClassName: 'text-gray-500',
-  },
-  kindFilter('template', 'Templates'),
-  kindFilter('spec', 'Specs'),
-  kindFilter('pipeline', 'Pipelines'),
-]
-
-const TAG_GROUPS = [
-  { id: 'domain', label: 'Domain', key: 'domain' as const },
-  { id: 'usecase', label: 'Use Case', key: 'usecase' as const },
-]
+import { kindFilterOptions } from './kindFilterOptions'
 
 export type CatalogFiltersPanelProps = {
-  tags: TagsRegistry
   filters: CatalogFilters
   allowedKinds: ResourceKind[]
+  collections: CatalogCollection[]
+  activeCollectionId: string | null
   onKindChange: (kind: KindFilter) => void
   onQueryChange: (q: string) => void
-  onToggleTag: (tagId: string) => void
+  onOpenCollection: (id: string) => void
   /** Prefetch Pagefind bundle on search focus. */
   onSearchFocus?: () => void
 }
@@ -72,19 +34,18 @@ function searchPlaceholder(allowedKinds: ResourceKind[]): string {
 }
 
 export function CatalogFiltersPanel({
-  tags,
   filters,
   allowedKinds,
+  collections,
+  activeCollectionId,
   onKindChange,
   onQueryChange,
-  onToggleTag,
+  onOpenCollection,
   onSearchFocus,
 }: CatalogFiltersPanelProps) {
+  const inCollection = Boolean(activeCollectionId)
   const showKindFilter = allowedKinds.length > 1
-  const kindOptions = KIND_FILTERS.filter(
-    (option) =>
-      option.id === 'all' || allowedKinds.includes(option.id as ResourceKind),
-  )
+  const kindOptions = kindFilterOptions(allowedKinds)
 
   return (
     <>
@@ -111,11 +72,13 @@ export function CatalogFiltersPanel({
       {showKindFilter ? (
         <div className="border-b border-ui-border p-5">
           <h2 className="mb-3 text-xs font-bold tracking-wider text-gray-400 uppercase">
-            Resource Type
+            Library
           </h2>
           <div className="space-y-1">
             {kindOptions.map(({ id, label, icon: Icon, iconClassName }) => {
-              const selected = filters.kind === id
+              // Kind selection only applies in Library; keep shortcuts expanded
+              // while browsing a collection, but do not highlight any of them.
+              const selected = !inCollection && filters.kind === id
               return (
                 <button
                   key={id}
@@ -144,47 +107,33 @@ export function CatalogFiltersPanel({
 
       <div className="flex-1 overflow-y-auto p-5">
         <h2 className="mb-3 text-xs font-bold tracking-wider text-gray-400 uppercase">
-          Browse by Tags
+          Collections
         </h2>
-        {TAG_GROUPS.map(({ id, label, key }) => (
-          <div key={id} className="mb-5">
-            <h3 className="mb-2 flex items-center gap-1 text-xs font-semibold text-gray-500">
-              <ChevronDown className="h-3 w-3" aria-hidden />
-              {label}
-            </h3>
-            <div className="space-y-1 pl-4">
-              {tags[key].map((tag) => {
-                const selected = filters.tags.includes(tag.id)
-                return (
-                  <label
-                    key={tag.id}
-                    className={cn(
-                      'group flex min-h-11 cursor-pointer items-center gap-2 rounded-md py-2 transition-colors',
-                      selected && 'text-brand-700',
-                    )}
-                  >
-                    <input
-                      type="checkbox"
-                      checked={selected}
-                      onChange={() => onToggleTag(tag.id)}
-                      className="h-4 w-4 rounded border-gray-300 text-brand-600 focus:ring-brand-500"
-                    />
-                    <span
-                      className={cn(
-                        'text-sm transition-colors',
-                        selected
-                          ? 'font-medium text-brand-700'
-                          : 'text-gray-600 group-hover:text-gray-900',
-                      )}
-                    >
-                      {tag.label}
-                    </span>
-                  </label>
-                )
-              })}
-            </div>
-          </div>
-        ))}
+        <div className="space-y-1">
+          {collections.map((collection) => {
+            const selected = collection.id === activeCollectionId
+            return (
+              <button
+                key={collection.id}
+                type="button"
+                onClick={() => onOpenCollection(collection.id)}
+                aria-current={selected ? 'page' : undefined}
+                className={cn(
+                  'flex min-h-11 w-full items-center gap-2 rounded-md px-3 py-2 text-left text-sm font-medium transition-colors',
+                  selected
+                    ? 'bg-brand-50 text-brand-700'
+                    : 'text-gray-600 hover:bg-gray-50',
+                )}
+              >
+                <Folder
+                  className={cn('h-4 w-4 shrink-0', folderIconClassName)}
+                  aria-hidden
+                />
+                <span className="truncate">{collection.displayName}</span>
+              </button>
+            )
+          })}
+        </div>
       </div>
     </>
   )

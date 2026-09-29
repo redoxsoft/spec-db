@@ -140,6 +140,17 @@ Hosts validate Spec DB origin on receive; Spec DB validates parent origin on pro
 
 ### Out of scope
 
-- [ ] ~~Host BE batch import API~~ — keep single-item import.
-- [ ] ~~Standalone multi-slug `/import` deep link~~ — embed-only for v1.
+- [ ] ~~Host BE batch import API~~ — keep single-item import for `batch-requested`. Collection import is a separate message and uses each backend’s collection API (below), not a per-item folder create.
+- [ ] ~~Standalone multi-slug `/import` deep link~~ — embed-only for v1. There is also no standalone `/import?collection=` pack link.
 - [ ] ~~Shared npm package for message types~~ — Spec DB docs + duplicated host types are enough for v1.
+
+---
+
+## Collection import
+
+A collection page in an embed can post `spec-db:import:collection-requested` (`batchId`, `collectionId`, optional `subcollectionId`, `items`). Types live in `src/lib/importHandoff.ts`. See [`embed.md`](./embed.md).
+
+- `items` is that collection’s membership intersected with the host `kinds=` allowlist, including files inside sub-collections when the top-level page is open. Local kind tabs do not change `items`. An empty allowlisted set does not post.
+- Hosts do **not** walk `items` and create folders one file at a time. They call **each backend’s collection API** (`POST …/spec-db/imports/collection`) with `collectionId` and the slugs that backend owns. `items` is the roster for that call and for progress.
+- The result is the folders those files need. It is not an exact replica of the catalog tree.
+- Standalone Spec DB has **no** pack CTA. Card import stays the single-item deep link (`kind` + `slug`).

@@ -57,6 +57,32 @@ Rules:
 - Host kind allowlist still wins (WorkX: `pipeline`; SpecX: `spec` \| `template`).
 - Batch multi-select is **embed-only**. Standalone keeps detail-modal / deep-link **single** import (`kind` + `slug`).
 
+### Spec DB → host: collection pack (embed-only)
+
+On a collection page (`?collection=<id>`, optional `?subcollection=<id>`), the pack button posts one message when `embed=true` and the allowlisted set is non-empty:
+
+```json
+{
+  "type": "spec-db:import:collection-requested",
+  "batchId": "550e8400-e29b-41d4-a716-446655440000",
+  "collectionId": "ai-sdlc",
+  "items": [
+    { "kind": "template", "slug": "ai-sdlc-prd-template" },
+    { "kind": "spec", "slug": "ai-sdlc-prd-vs-feature-spec-guidelines" }
+  ]
+}
+```
+
+`subcollectionId` is included only when that child page is open.
+
+Rules:
+
+- `items` is catalog membership of that collection (or that sub-collection) **intersected with the host `kinds=` allowlist**. A top-level collection includes files that live in a sub-collection. The local All / Templates / Specs / Pipelines tabs change the grid only and do **not** shrink `items`.
+- If that set is empty, Spec DB does not render the button and does not post the message.
+- Hosts do **not** import `items` one-by-one, and do **not** create a folder per file. Split `items` by kind and call **each backend’s collection API** (`POST …/spec-db/imports/collection`) with `collectionId`, optional `subcollectionId`, and the `slugs` for that backend. `items` is the allowlist and progress roster.
+- That call does **not** build an exact folder replica of the catalog. Each backend ensures only the folders its own files need.
+- Standalone Spec DB (no `embed=true`) renders the collection page and card deep links, and renders **no** pack button. There is no `/import?collection=` deep link.
+
 ### Host → Spec DB: progress + completed (recommended)
 
 Hosts should emit these while running a batch so Spec DB can later clear selection / show per-item status. Spec DB UI does **not** consume them yet (fire-and-forget after Import (N)).
@@ -89,8 +115,8 @@ Do not put host resource ids (pipeline id, document id) in these messages. Spec 
 ### Host responsibilities
 
 1. Listen for `message` and check `event.origin` against the Spec DB origin allowlist.
-2. Accept `batch-requested` and/or legacy `import:requested`.
-3. Call the host backend **one item at a time** with `{ kind, slug }` (never a client-supplied content URL).
+2. Accept `batch-requested`, `collection-requested`, and/or legacy `import:requested`.
+3. For `import:requested` and `batch-requested`, call the host backend **one item at a time** with `{ kind, slug }` (never a client-supplied content URL). For `collection-requested`, call each backend’s **collection** API once — not per-item folder create.
 4. Backend builds the package URL from a trusted Spec DB base env, e.g.  
    `{SPEC_DB_BASE_URL}/generated/packages/{kind}/{slug}.json`, then fetches, validates, maps, and creates.
 5. Continue auth / workspace / create inside SpecX or WorkX.
@@ -138,7 +164,7 @@ Without `embed=true`, Import opens a host deep link in a new tab (single item on
 - Specs / templates → `VITE_SPECX_IMPORT_BASE` (default `https://specx.redoxsoft.com/import`)
 - Pipelines → `VITE_WORKX_IMPORT_BASE` (default `https://workx.redoxsoft.com/import`)
 
-Query params: `kind`, `slug` only. No multi-slug batch deep link.
+Query params: `kind`, `slug` only. No multi-slug batch deep link, and no `/import?collection=` pack deep link. The collection pack button exists only inside an embed.
 
 ## Origins & framing
 

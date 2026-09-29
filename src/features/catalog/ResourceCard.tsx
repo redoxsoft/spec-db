@@ -7,8 +7,6 @@ import { ProseHtml } from '../detail/ProseHtml'
 type ResourceCardProps = {
   item: CatalogLiteItem
   onSelect: (slug: string) => void
-  activeCollections?: readonly string[]
-  onAddCollection?: (id: string) => void
   /** Embed multi-select: show checkbox and selected chrome. */
   selectionEnabled?: boolean
   selected?: boolean
@@ -63,15 +61,12 @@ function TemplateOutline({ outline }: { outline: string[] }) {
 export function ResourceCard({
   item,
   onSelect,
-  activeCollections = [],
-  onAddCollection,
   selectionEnabled = false,
   selected = false,
   onToggleSelected,
 }: ResourceCardProps) {
   const styles = getKindStyles(item.kind)
   const Icon = styles.icon
-  const collections = item.collections?.slice(0, 2) ?? []
 
   return (
     <div
@@ -109,9 +104,19 @@ export function ResourceCard({
             ) : null}
           </div>
 
-          <h3 className="min-w-0 flex-1 line-clamp-2 text-lg leading-tight font-semibold text-gray-900">
-            {item.title}
-          </h3>
+          <div className="min-w-0 flex-1">
+            <span
+              className={cn(
+                'mb-1 inline-flex rounded px-2 py-0.5 text-[10px] font-bold tracking-wider uppercase',
+                styles.badge,
+              )}
+            >
+              {styles.label}
+            </span>
+            <h3 className="line-clamp-2 text-lg leading-tight font-semibold text-gray-900">
+              {item.title}
+            </h3>
+          </div>
 
           {selectionEnabled ? (
             <label
@@ -136,31 +141,8 @@ export function ResourceCard({
         ) : null}
       </button>
 
-      <div className="mt-auto flex items-center justify-between gap-3 px-6 pt-3 pb-5 text-xs font-medium text-gray-400">
+      <div className="mt-auto flex items-center px-6 pt-3 pb-5 text-xs font-medium text-gray-400">
         <span className="shrink-0">{item.stats}</span>
-        {collections.length > 0 ? (
-          <div className="flex min-w-0 flex-wrap justify-end gap-1.5">
-            {collections.map((id) => {
-              const active = activeCollections.includes(id)
-              return (
-                <button
-                  key={id}
-                  type="button"
-                  onClick={() => onAddCollection?.(id)}
-                  className={cn(
-                    'inline-flex max-w-full truncate rounded-md px-2 py-1 text-[11px] font-medium transition-colors',
-                    active
-                      ? 'bg-brand-600 text-white hover:bg-brand-700'
-                      : 'bg-gray-100 text-gray-600 hover:bg-gray-200 hover:text-gray-800',
-                  )}
-                  title={`Filter by ${id}`}
-                >
-                  {id}
-                </button>
-              )
-            })}
-          </div>
-        ) : null}
       </div>
     </div>
   )

@@ -7,6 +7,10 @@ import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import type { CatalogLiteItem, ResourceDetail, TagsRegistry } from '../src/catalog/types.ts'
 import {
+  collectionRegistryIssues,
+  collectionsById,
+  collectionsRegistrySchema,
+  resourceCollectionIssues,
   compileMarkdownToHtml,
   extractMarkdownStructure,
   loadImportPackage,
@@ -14,6 +18,8 @@ import {
   pipelineContentSchema,
   tagsRegistrySchema,
   templateContentSchema,
+  toPackageEnvelope,
+  type CollectionsRegistryFile,
   type OutlineNode,
   type ResourceKind,
   type ResourceMetadata,
@@ -22,6 +28,7 @@ import {
 } from '../src/mapper/index.ts'
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
+const COLLECTIONS_PATH = path.join(ROOT, 'collections', 'collections.json')
 const TAGS_PATH = path.join(ROOT, 'tags', 'tags.json')
 const RESOURCES_ROOT = path.join(ROOT, 'resources')
 const OUT_ROOT = path.join(ROOT, 'public', 'generated')
@@ -68,6 +75,22 @@ async function flattenSections(
     }
   }
   return sections
+}
+
+function toGeneratedCollections(registry: CollectionsRegistryFile) {
+  const collections = [...registry.collections]
+    .sort(
+      (a, b) => a.order - b.order || a.id.localeCompare(b.id),
+    )
+    .map((entry) => ({
+      id: entry.id,
+      displayName: entry.displayName,
+      description: entry.description,
+      parentId: entry.parentId ?? null,
+      order: entry.order,
+      status: entry.status,
+    }))
+  return { schemaVersion: registry.schemaVersion, collections }
 }
 
 function toUiTags(registry: TagsRegistryFile): TagsRegistry {
@@ -131,7 +154,8 @@ async function catalogBase(
     | 'summary'
     | 'summaryHtml'
     | 'tags'
-    | 'collections'
+    | 'collection'
+    | 'subcollection'
     | 'updatedAt'
     | 'sourceVersion'
     | 'featured'
@@ -144,8 +168,9 @@ async function catalogBase(
     summary: resource.meta.summary,
     summaryHtml: await compileMarkdownToHtml(resource.meta.summary),
     tags: resource.meta.tags,
-    ...(resource.meta.collections?.length
-      ? { collections: resource.meta.collections }
+    ...(resource.meta.collection ? { collection: resource.meta.collection } : {}),
+    ...(resource.meta.subcollection
+      ? { subcollection: resource.meta.subcollection }
       : {}),
     updatedAt: resource.meta.updatedAt ?? resource.meta.createdAt ?? '',
     sourceVersion: resource.meta.sourceVersion,
@@ -222,9 +247,8 @@ function toLite(detail: ResourceDetail): CatalogLiteItem {
     summary: detail.summary,
     ...(detail.summaryHtml ? { summaryHtml: detail.summaryHtml } : {}),
     tags: detail.tags,
-    ...(detail.collections?.length
-      ? { collections: detail.collections }
-      : {}),
+    ...(detail.collection ? { collection: detail.collection } : {}),
+    ...(detail.subcollection ? { subcollection: detail.subcollection } : {}),
     updatedAt: detail.updatedAt,
     sourceVersion: detail.sourceVersion,
     stats: detail.stats,
@@ -239,9 +263,26 @@ async function writeJson(filePath: string, data: unknown) {
 }
 
 async function main() {
+  const collectionsFile = collectionsRegistrySchema.parse(
+    await readJson(COLLECTIONS_PATH),
+  )
+  const registryIssues = collectionRegistryIssues(collectionsFile)
+  if (registryIssues.length > 0) {
+    throw new Error(registryIssues.join('\n'))
+  }
+  const collectionIds = collectionsById(collectionsFile)
   const tagsFile = tagsRegistrySchema.parse(await readJson(TAGS_PATH))
   const uiTags = toUiTags(tagsFile)
   const diskResources = await loadDiskResources()
+  const membershipIssues: string[] = []
+  for (const resource of diskResources) {
+    for (const issue of resourceCollectionIssues(resource.meta, collectionIds)) {
+      membershipIssues.push(`${resource.meta.slug}: ${issue}`)
+    }
+  }
+  if (membershipIssues.length > 0) {
+    throw new Error(membershipIssues.join('\n'))
+  }
 
   const details: ResourceDetail[] = []
   for (const resource of diskResources) {
@@ -258,6 +299,10 @@ async function main() {
   await mkdir(path.join(OUT_ROOT, 'resources'), { recursive: true })
   await mkdir(path.join(OUT_ROOT, 'packages'), { recursive: true })
 
+  await writeJson(
+    path.join(OUT_ROOT, 'collections.json'),
+    toGeneratedCollections(collectionsFile),
+  )
   await writeJson(path.join(OUT_ROOT, 'tags.json'), uiTags)
   await writeJson(
     path.join(OUT_ROOT, 'catalog-lite.json'),
@@ -273,7 +318,10 @@ async function main() {
 
   let packageCount = 0
   for (const resource of diskResources) {
-    const built = await loadImportPackage(resource.dir, resource.meta)
+    const built = await loadImportPackage(
+      resource.dir,
+      toPackageEnvelope(resource.meta, collectionIds),
+    )
     const { warnings, ...pkg } = built as typeof built & { warnings?: string[] }
     if (warnings?.length) {
       for (const warning of warnings) {

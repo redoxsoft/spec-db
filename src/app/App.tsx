@@ -9,7 +9,9 @@ import {
 import type { CatalogLiteItem, ResourceKind } from '../catalog'
 import { CatalogMain } from '../features/catalog/CatalogMain'
 import { CatalogSidebar } from '../features/catalog/CatalogSidebar'
+import { CollectionBrowse } from '../features/catalog/CollectionBrowse'
 import { MobileFiltersDrawer } from '../features/catalog/MobileFiltersDrawer'
+import { activeTopLevelCollections } from '../features/catalog/collectionPack'
 import { useCatalog } from '../features/catalog/useCatalog'
 import { DetailModal } from '../features/detail/DetailModal'
 import { cn } from '../lib/cn'
@@ -30,8 +32,10 @@ function batchImportTarget(kinds: ResourceKind[]): string {
 
 function CatalogShell() {
   const {
+    allItems,
     items,
     tags,
+    collections,
     filters,
     allowedKinds,
     title,
@@ -39,12 +43,16 @@ function CatalogShell() {
     searching,
     searchError,
     error,
+    collectionId,
+    subcollectionId,
+    resolvedQuery,
+    searchSlugs,
+    collectionHits,
     setKind,
     setQuery,
-    toggleTag,
+    setGroupTag,
     removeTag,
-    addCollection,
-    removeCollection,
+    openCollection,
     clearFilters,
     prepareSearch,
   } = useCatalog()
@@ -86,13 +94,15 @@ function CatalogShell() {
     setSelectedByKey({})
   }
 
+  const sidebarCollections = activeTopLevelCollections(collections)
   const filterPanelProps = {
-    tags,
     filters,
     allowedKinds,
+    collections: sidebarCollections,
+    activeCollectionId: collectionId,
     onKindChange: setKind,
     onQueryChange: setQuery,
-    onToggleTag: toggleTag,
+    onOpenCollection: (id: string) => openCollection(id),
     onSearchFocus: prepareSearch,
   }
 
@@ -119,33 +129,66 @@ function CatalogShell() {
       {!embed ? <AppHeader /> : null}
       <main className="flex min-h-0 flex-1 overflow-hidden">
         <CatalogSidebar {...filterPanelProps} />
-        <CatalogMain
-          title={title}
-          items={items}
-          filters={filters}
-          allowedKinds={allowedKinds}
-          tags={tags}
-          loading={loading}
-          searching={searching}
-          searchError={searchError}
-          error={error}
-          onSelect={setSelectedSlug}
-          onClearKind={() => setKind('all')}
-          onClearQuery={() => setQuery('')}
-          onRemoveTag={removeTag}
-          onRemoveCollection={removeCollection}
-          onClearFilters={clearFilters}
-          onOpenFilters={() => setFiltersOpen(true)}
-          onAddCollection={addCollection}
-          selectionEnabled={embed}
-          selectedKeys={selectedKeys}
-          selectedItems={selectedItems}
-          batchImportTarget={batchImportTarget(
-            selectedItems.map((item) => item.kind),
-          )}
-          onToggleSelected={toggleSelected}
-          onClearSelection={clearSelection}
-        />
+        {collectionId ? (
+          <CollectionBrowse
+            collections={collections}
+            collectionId={collectionId}
+            subcollectionId={subcollectionId}
+            catalog={allItems}
+            allowedKinds={allowedKinds}
+            embed={embed}
+            loading={loading}
+            searching={searching}
+            searchError={searchError}
+            error={error}
+            resolvedQuery={resolvedQuery}
+            searchSlugs={searchSlugs}
+            collectionHits={collectionHits}
+            filterQuery={filters.q}
+            onOpenCollection={openCollection}
+            onOpenFilters={() => setFiltersOpen(true)}
+            onSelect={setSelectedSlug}
+            selectionEnabled={embed}
+            selectedKeys={selectedKeys}
+            selectedItems={selectedItems}
+            batchImportTarget={batchImportTarget(
+              selectedItems.map((item) => item.kind),
+            )}
+            onToggleSelected={toggleSelected}
+            onClearSelection={clearSelection}
+          />
+        ) : (
+          <CatalogMain
+            title={title}
+            items={items}
+            filters={filters}
+            allowedKinds={allowedKinds}
+            tags={tags}
+            collections={collections}
+            resolvedQuery={resolvedQuery}
+            collectionHits={collectionHits}
+            loading={loading}
+            searching={searching}
+            searchError={searchError}
+            error={error}
+            onSelect={setSelectedSlug}
+            onClearKind={() => setKind('all')}
+            onClearQuery={() => setQuery('')}
+            onOpenCollection={openCollection}
+            onRemoveTag={removeTag}
+            onSetGroupTag={setGroupTag}
+            onClearFilters={clearFilters}
+            onOpenFilters={() => setFiltersOpen(true)}
+            selectionEnabled={embed}
+            selectedKeys={selectedKeys}
+            selectedItems={selectedItems}
+            batchImportTarget={batchImportTarget(
+              selectedItems.map((item) => item.kind),
+            )}
+            onToggleSelected={toggleSelected}
+            onClearSelection={clearSelection}
+          />
+        )}
       </main>
       <MobileFiltersDrawer
         open={filtersOpen}

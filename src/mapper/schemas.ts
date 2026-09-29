@@ -14,6 +14,32 @@ export const inputVarDefinitionSchema = z.object({
   suggestedDefault: z.string().optional(),
 })
 
+const kebabCaseId = (message: string) =>
+  z
+    .string()
+    .regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/, message)
+
+export const collectionDefinitionSchema = z
+  .object({
+    id: kebabCaseId('id must be lowercase kebab-case'),
+    displayName: z.string().min(1),
+    description: z.string().min(1),
+    parentId: kebabCaseId('parentId must be lowercase kebab-case').nullable().optional(),
+    order: z.number(),
+    status: z.enum(['active', 'deprecated']),
+  })
+  .strict()
+
+export const collectionsRegistrySchema = z
+  .object({
+    schemaVersion: schemaVersionSchema,
+    collections: z.array(collectionDefinitionSchema),
+  })
+  .strict()
+
+export type CollectionDefinition = z.infer<typeof collectionDefinitionSchema>
+export type CollectionsRegistryFile = z.infer<typeof collectionsRegistrySchema>
+
 export const tagDefinitionSchema = z.object({
   id: z.string().min(1),
   displayName: z.string().min(1),
@@ -47,21 +73,10 @@ export const metadataSchema = z
     title: z.string().min(1),
     summary: z.string().min(1),
     tags: z.array(z.string().min(1)),
-    collections: z
-      .array(
-        z
-          .string()
-          .regex(
-            /^[a-z0-9]+(?:-[a-z0-9]+)*$/,
-            'collection id must be lowercase kebab-case',
-          ),
-      )
-      .max(2)
-      .refine(
-        (ids) => new Set(ids).size === ids.length,
-        'collections must be unique',
-      )
-      .optional(),
+    collection: kebabCaseId('collection must be lowercase kebab-case').optional(),
+    subcollection: kebabCaseId(
+      'subcollection must be lowercase kebab-case',
+    ).optional(),
     authors: z.array(z.string().min(1)).optional(),
     license: z.string().min(1).optional(),
     createdAt: z.string().min(1).optional(),
@@ -77,6 +92,15 @@ export const metadataSchema = z
     icon: z.string().min(1).optional(),
   })
   .strict()
+  .superRefine((meta, ctx) => {
+    if (meta.subcollection && !meta.collection) {
+      ctx.addIssue({
+        code: 'custom',
+        path: ['subcollection'],
+        message: 'subcollection requires collection',
+      })
+    }
+  })
 
 export type ResourceMetadata = z.infer<typeof metadataSchema>
 

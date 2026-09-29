@@ -7,6 +7,8 @@ export const IMPORT_BATCH_PROGRESS_TYPE =
   'spec-db:import:batch-progress' as const
 export const IMPORT_BATCH_COMPLETED_TYPE =
   'spec-db:import:batch-completed' as const
+export const IMPORT_COLLECTION_REQUESTED_TYPE =
+  'spec-db:import:collection-requested' as const
 
 /** Default SpecX standalone `/import` base (templates + specs). */
 export const DEFAULT_SPECX_IMPORT_BASE = 'https://specx.redoxsoft.com/import'
@@ -29,6 +31,16 @@ export type SpecDbImportBatchRequested = {
   type: typeof IMPORT_BATCH_REQUESTED_TYPE
   batchId: string
   items: SpecDbImportItem[]
+}
+
+/** Embed pack import. `items` is membership ∩ host `kinds=`, not the visible kind tab. */
+export type SpecDbImportCollectionRequested = {
+  type: typeof IMPORT_COLLECTION_REQUESTED_TYPE
+  batchId: string
+  collectionId: string
+  subcollectionId?: string
+  items: SpecDbImportItem[]
+  force?: boolean
 }
 
 export type SpecDbImportBatchProgressStatus =
@@ -140,6 +152,12 @@ export type ImportBatchHandoffResult = {
   targetOrigin: string
 }
 
+export type ImportCollectionHandoffResult = {
+  mode: 'embed'
+  message: SpecDbImportCollectionRequested
+  targetOrigin: string
+}
+
 /** Perform Import handoff (embed postMessage or standalone window.open). */
 export function requestImport(options: {
   kind: ResourceKind
@@ -181,6 +199,44 @@ export function requestImportBatch(options: {
   const message: SpecDbImportBatchRequested = {
     type: IMPORT_BATCH_REQUESTED_TYPE,
     batchId: createImportBatchId(),
+    items: options.items.map((item) => ({
+      kind: item.kind,
+      slug: item.slug,
+    })),
+  }
+
+  const targetOrigin = resolvePostMessageTargetOrigin()
+  window.parent.postMessage(message, targetOrigin)
+  return { mode: 'embed', message, targetOrigin }
+}
+
+/**
+ * Embed-only collection pack. Posts membership ∩ host allowlist.
+ * Standalone has no pack transport — do not call this outside embed.
+ * Does not post when `items` is empty.
+ */
+export function requestImportCollection(options: {
+  collectionId: string
+  subcollectionId?: string
+  items: SpecDbImportItem[]
+  embed: boolean
+  force?: boolean
+}): ImportCollectionHandoffResult {
+  if (!options.embed) {
+    throw new Error('requestImportCollection is embed-only')
+  }
+  if (options.items.length < 1) {
+    throw new Error('requestImportCollection requires at least one item')
+  }
+
+  const message: SpecDbImportCollectionRequested = {
+    type: IMPORT_COLLECTION_REQUESTED_TYPE,
+    batchId: createImportBatchId(),
+    collectionId: options.collectionId,
+    ...(options.subcollectionId
+      ? { subcollectionId: options.subcollectionId }
+      : {}),
+    force: options.force === true,
     items: options.items.map((item) => ({
       kind: item.kind,
       slug: item.slug,

@@ -1,5 +1,10 @@
-import { catalogLiteUrl, resourceDetailUrl, tagsUrl } from './urls'
-import type { CatalogLiteItem, ResourceDetail, TagsRegistry } from './types'
+import { catalogLiteUrl, collectionsUrl, resourceDetailUrl, tagsUrl } from './urls'
+import type {
+  CatalogLiteItem,
+  GeneratedCollectionsFile,
+  ResourceDetail,
+  TagsRegistry,
+} from './types'
 
 async function fetchJson<T>(url: string): Promise<T> {
   const response = await fetch(url)
@@ -15,6 +20,10 @@ export function fetchCatalogLite(): Promise<CatalogLiteItem[]> {
 
 export function fetchTagsRegistry(): Promise<TagsRegistry> {
   return fetchJson<TagsRegistry>(tagsUrl())
+}
+
+export function fetchCollectionsRegistry(): Promise<GeneratedCollectionsFile> {
+  return fetchJson<GeneratedCollectionsFile>(collectionsUrl())
 }
 
 export function fetchResourceDetail(slug: string): Promise<ResourceDetail> {

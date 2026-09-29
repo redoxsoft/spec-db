@@ -1,8 +1,18 @@
 import type { ResourceKind } from '../../catalog'
 
-export type PagefindHit = {
+export type PagefindResourceHit = {
   slug: string
   kind: ResourceKind
+}
+
+export type PagefindCollectionHit = {
+  id: string
+  parentId: string | null
+}
+
+export type PagefindSearchHits = {
+  resources: PagefindResourceHit[]
+  collections: PagefindCollectionHit[]
 }
 
 type PagefindResultData = {
@@ -107,22 +117,38 @@ export function ensurePagefind(): Promise<PagefindModule> {
   return loading
 }
 
-export async function searchPagefind(query: string): Promise<PagefindHit[]> {
+function metaString(value: unknown): string | null {
+  if (typeof value === 'string' && value.trim()) return value.trim()
+  if (Array.isArray(value) && typeof value[0] === 'string' && value[0].trim()) {
+    return value[0].trim()
+  }
+  return null
+}
+
+export async function searchPagefind(query: string): Promise<PagefindSearchHits> {
   const trimmed = query.trim()
-  if (!trimmed) return []
+  if (!trimmed) return { resources: [], collections: [] }
 
   const pagefind = await ensurePagefind()
   const response = await pagefind.search(trimmed)
-  const hits: PagefindHit[] = []
+  const resources: PagefindResourceHit[] = []
+  const collections: PagefindCollectionHit[] = []
 
   for (const result of response.results) {
     const data = await result.data()
-    const slug = data.meta?.slug ?? slugFromUrl(data.url)
-    const kind = data.meta?.kind as ResourceKind | undefined
+    const slug = metaString(data.meta?.slug) ?? slugFromUrl(data.url)
+    const kind = metaString(data.meta?.kind)
     if (!slug || !kind) continue
+    if (kind === 'collection') {
+      collections.push({
+        id: slug,
+        parentId: metaString(data.meta?.parent),
+      })
+      continue
+    }
     if (kind !== 'spec' && kind !== 'template' && kind !== 'pipeline') continue
-    hits.push({ slug, kind })
+    resources.push({ slug, kind })
   }
 
-  return hits
+  return { resources, collections }
 }

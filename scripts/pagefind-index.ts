@@ -8,7 +8,11 @@ import { mkdir, readdir, readFile, rm, writeFile } from 'node:fs/promises'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import * as pagefind from 'pagefind'
-import type { ResourceDetail } from '../src/catalog/types.ts'
+import type {
+  CatalogCollection,
+  GeneratedCollectionsFile,
+  ResourceDetail,
+} from '../src/catalog/types.ts'
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
 
@@ -33,10 +37,22 @@ function stripTags(html: string): string {
   return html.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim()
 }
 
-function bodyText(detail: ResourceDetail): string {
+function bodyText(
+  detail: ResourceDetail,
+  collectionsById: ReadonlyMap<string, CatalogCollection>,
+): string {
   const parts: string[] = [detail.summary]
 
-  if (detail.collections?.length) parts.push(detail.collections.join(' '))
+  const placement = [detail.collection, detail.subcollection].filter(
+    (id): id is string => Boolean(id),
+  )
+  if (placement.length > 0) {
+    parts.push(placement.join(' '))
+    const labels = placement.map(
+      (id) => collectionsById.get(id)?.displayName ?? id,
+    )
+    parts.push(labels.join(' '))
+  }
 
   if (detail.outline?.length) parts.push(detail.outline.join(' '))
 
@@ -66,8 +82,11 @@ function bodyText(detail: ResourceDetail): string {
   return parts.filter(Boolean).join('\n\n')
 }
 
-function renderSearchPage(detail: ResourceDetail): string {
-  const body = escapeHtml(bodyText(detail))
+function renderSearchPage(
+  detail: ResourceDetail,
+  collectionsById: ReadonlyMap<string, CatalogCollection>,
+): string {
+  const body = escapeHtml(bodyText(detail, collectionsById))
   const title = escapeHtml(detail.title)
   return `<!DOCTYPE html>
 <html lang="en">
@@ -88,10 +107,36 @@ function renderSearchPage(detail: ResourceDetail): string {
 `
 }
 
+function renderCollectionPage(entry: CatalogCollection): string {
+  const title = escapeHtml(entry.displayName)
+  const description = escapeHtml(entry.description)
+  const parentMeta = entry.parentId
+    ? `\n    <p data-pagefind-meta="parent:${escapeHtml(entry.parentId)}"></p>`
+    : ''
+  return `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>${title}</title>
+</head>
+<body>
+  <article data-pagefind-body>
+    <h1>${title}</h1>
+    <p data-pagefind-meta="slug:${escapeHtml(entry.id)}"></p>
+    <p data-pagefind-meta="kind:collection"></p>${parentMeta}
+    <p>${description}</p>
+    <div>${title}</div>
+  </article>
+</body>
+</html>
+`
+}
+
 async function main() {
   const rootName = parseRootArg()
   const siteRoot = path.join(ROOT, rootName)
   const generatedResources = path.join(siteRoot, 'generated', 'resources')
+  const collectionsPath = path.join(siteRoot, 'generated', 'collections.json')
   const searchDocs = path.join(siteRoot, 'search-docs')
   const pagefindOut = path.join(siteRoot, 'pagefind')
 
@@ -106,8 +151,25 @@ async function main() {
     )
   }
 
+  let collectionsFile: GeneratedCollectionsFile
+  try {
+    collectionsFile = JSON.parse(
+      await readFile(collectionsPath, 'utf8'),
+    ) as GeneratedCollectionsFile
+  } catch {
+    throw new Error(
+      `Missing ${path.relative(ROOT, collectionsPath)} — run npm run index first`,
+    )
+  }
+  const collectionsById = new Map(
+    collectionsFile.collections.map((entry) => [entry.id, entry]),
+  )
+  const collectionPages = collectionsFile.collections.filter(
+    (entry) => entry.status === 'active',
+  )
+
   await rm(searchDocs, { recursive: true, force: true })
-  await mkdir(searchDocs, { recursive: true })
+  await mkdir(path.join(searchDocs, 'collections'), { recursive: true })
 
   for (const file of files) {
     const detail = JSON.parse(
@@ -115,7 +177,15 @@ async function main() {
     ) as ResourceDetail
     await writeFile(
       path.join(searchDocs, `${detail.slug}.html`),
-      renderSearchPage(detail),
+      renderSearchPage(detail, collectionsById),
+      'utf8',
+    )
+  }
+
+  for (const entry of collectionPages) {
+    await writeFile(
+      path.join(searchDocs, 'collections', `${entry.id}.html`),
+      renderCollectionPage(entry),
       'utf8',
     )
   }
@@ -143,7 +213,7 @@ async function main() {
   }
 
   console.log(
-    `pagefind-index: ${files.length} pages → ${path.relative(ROOT, pagefindOut)}`,
+    `pagefind-index: ${files.length + collectionPages.length} pages → ${path.relative(ROOT, pagefindOut)}`,
   )
 }
 

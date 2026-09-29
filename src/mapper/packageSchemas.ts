@@ -10,6 +10,16 @@ import {
 export const packageVersionSchema = z.literal('1')
 export type PackageVersion = z.infer<typeof packageVersionSchema>
 
+const packagePlacementSchema = z
+  .object({
+    id: z
+      .string()
+      .min(1)
+      .regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/, 'id must be lowercase kebab-case'),
+    displayName: z.string().min(1),
+  })
+  .strict()
+
 const packageEnvelopeFields = {
   packageVersion: packageVersionSchema,
   slug: z
@@ -25,6 +35,21 @@ const packageEnvelopeFields = {
     .min(1)
     .regex(/^\d+\.\d+$/, 'sourceVersion must be MAJOR.MINOR (e.g. "1.0")'),
   schemaVersion: schemaVersionSchema,
+  collection: packagePlacementSchema.optional(),
+  subcollection: packagePlacementSchema.optional(),
+}
+
+function refinePackagePlacement(
+  pkg: { collection?: unknown; subcollection?: unknown },
+  ctx: z.core.$RefinementCtx,
+) {
+  if (pkg.subcollection !== undefined && pkg.collection === undefined) {
+    ctx.addIssue({
+      code: 'custom',
+      path: ['subcollection'],
+      message: 'subcollection requires collection',
+    })
+  }
 }
 
 /** Packaged outline node — full tree; cardinality + children always present. */
@@ -57,6 +82,7 @@ export const templatePackageSchema = z
     }),
   })
   .strict()
+  .superRefine(refinePackagePlacement)
 
 export type TemplatePackage = z.infer<typeof templatePackageSchema>
 
@@ -86,6 +112,7 @@ export const pipelinePackageSchema = z
     }),
   })
   .strict()
+  .superRefine(refinePackagePlacement)
 
 export type PipelinePackage = z.infer<typeof pipelinePackageSchema>
 
@@ -153,6 +180,7 @@ export const specPackageSchema = z
     }),
   })
   .strict()
+  .superRefine(refinePackagePlacement)
 
 export type SpecPackage = z.infer<typeof specPackageSchema>
 

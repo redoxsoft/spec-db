@@ -11,6 +11,21 @@ export type TagsRegistry = {
   usecase: Tag[]
 }
 
+/** Folder record emitted in `generated/collections.json`. */
+export type CatalogCollection = {
+  id: string
+  displayName: string
+  description: string
+  parentId: string | null
+  order: number
+  status: 'active' | 'deprecated'
+}
+
+export type GeneratedCollectionsFile = {
+  schemaVersion: string
+  collections: CatalogCollection[]
+}
+
 export type OutlineSection = {
   title: string
   guidance: string
@@ -43,7 +58,10 @@ export type CatalogLiteItem = {
   /** Build-time sanitized HTML for `summary` (card + detail teaser). */
   summaryHtml?: string
   tags: string[]
-  collections?: string[]
+  /** Top-level collection id. */
+  collection?: string
+  /** Child collection id. Present only when `collection` is set. */
+  subcollection?: string
   updatedAt: string
   sourceVersion: string
   stats: string

@@ -3,12 +3,20 @@ import { useSearchParams } from 'react-router-dom'
 import { parseKindsAllowlist } from '../../app/runtimeParams'
 import {
   fetchCatalogLite,
+  fetchCollectionsRegistry,
   fetchTagsRegistry,
+  type CatalogCollection,
   type CatalogLiteItem,
   type ResourceKind,
   type TagsRegistry,
 } from '../../catalog'
 import { ensurePagefind, searchPagefind } from '../search/pagefindClient'
+import type { PagefindCollectionHit } from '../search/pagefindClient'
+import {
+  browseCollectionParams,
+  clearCollectionParams,
+  readBrowseId,
+} from './browseParams'
 import {
   catalogTitle,
   coerceKindFilter,
@@ -26,6 +34,7 @@ type ResolvedSearch = {
   /** Query that `slugs` corresponds to (stale-while-revalidate). */
   query: string
   slugs: Set<string> | null
+  collections: PagefindCollectionHit[]
 }
 
 function parseKind(value: string | null): KindFilter {
@@ -40,7 +49,6 @@ function readFilters(params: URLSearchParams): CatalogFilters {
     kind: parseKind(params.get('kind')),
     q: params.get('q') ?? '',
     tags: params.getAll('tag'),
-    collections: params.getAll('collection'),
   }
 }
 
@@ -62,17 +70,15 @@ function writeFilters(
   params.delete('tag')
   for (const tag of next.tags) params.append('tag', tag)
 
-  params.delete('collection')
-  for (const id of next.collections) params.append('collection', id)
-
   return params
 }
 
-/** Loads generated catalog-lite + tags; text search via Pagefind. */
+/** Loads generated catalog-lite, tags, and collections; text search via Pagefind. */
 export function useCatalog(): {
   allItems: CatalogLiteItem[]
   items: CatalogLiteItem[]
   tags: TagsRegistry
+  collections: CatalogCollection[]
   filters: CatalogFilters
   allowedKinds: ResourceKind[]
   title: string
@@ -81,18 +87,24 @@ export function useCatalog(): {
   searching: boolean
   searchError: string | null
   error: string | null
+  collectionId: string | null
+  subcollectionId: string | null
+  resolvedQuery: string
+  searchSlugs: Set<string> | null
+  collectionHits: PagefindCollectionHit[]
   setKind: (kind: KindFilter) => void
   setQuery: (q: string) => void
-  toggleTag: (tagId: string) => void
+  setGroupTag: (groupTagIds: readonly string[], tagId: string | null) => void
   removeTag: (tagId: string) => void
-  addCollection: (id: string) => void
-  removeCollection: (id: string) => void
+  openCollection: (id: string, subcollectionId?: string | null) => void
+  clearCollection: () => void
   clearFilters: () => void
   prepareSearch: () => void
 } {
   const [searchParams, setSearchParams] = useSearchParams()
   const [catalog, setCatalog] = useState<CatalogLiteItem[]>([])
   const [tags, setTags] = useState<TagsRegistry>(EMPTY_TAGS)
+  const [collections, setCollections] = useState<CatalogCollection[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [searching, setSearching] = useState(
@@ -104,8 +116,7 @@ export function useCatalog(): {
   )
   const [resolvedSearch, setResolvedSearch] = useState<ResolvedSearch>(() => {
     const q = (searchParams.get('q') ?? '').trim()
-    // null slugs + non-empty query → waiting for first Pagefind response
-    return { query: q, slugs: null }
+    return { query: q, slugs: null, collections: [] }
   })
 
   useEffect(() => {
@@ -115,18 +126,21 @@ export function useCatalog(): {
       setLoading(true)
       setError(null)
       try {
-        const [lite, registry] = await Promise.all([
+        const [lite, registry, collectionsFile] = await Promise.all([
           fetchCatalogLite(),
           fetchTagsRegistry(),
+          fetchCollectionsRegistry(),
         ])
         if (cancelled) return
         setCatalog(lite)
         setTags(registry)
+        setCollections(collectionsFile.collections)
       } catch (err) {
         if (cancelled) return
         setError(err instanceof Error ? err.message : String(err))
         setCatalog([])
         setTags(EMPTY_TAGS)
+        setCollections([])
       } finally {
         if (!cancelled) setLoading(false)
       }
@@ -146,13 +160,13 @@ export function useCatalog(): {
     kind: coerceKindFilter(rawFilters.kind, allowedKinds),
   }
   const query = committed.q.trim()
+  const collectionId = readBrowseId(searchParams.get('collection'))
+  const subcollectionId = readBrowseId(searchParams.get('subcollection'))
 
-  // Keep draft in sync when URL is cleared/changed externally (chips, clear all, back/forward).
   useEffect(() => {
     setDraftQuery(committed.q)
   }, [committed.q])
 
-  // Debounce writing the search box into the URL (Pagefind runs off the URL query).
   useEffect(() => {
     if (draftQuery === committed.q) return
 
@@ -202,13 +216,12 @@ export function useCatalog(): {
 
     async function runSearch() {
       if (!query) {
-        setResolvedSearch({ query: '', slugs: null })
+        setResolvedSearch({ query: '', slugs: null, collections: [] })
         setSearching(false)
         setSearchError(null)
         return
       }
 
-      // Keep previous resolvedSearch visible until this fetch finishes.
       setSearching(true)
       setSearchError(null)
       try {
@@ -217,17 +230,18 @@ export function useCatalog(): {
         setResolvedSearch({
           query,
           slugs: new Set(
-            hits
+            hits.resources
               .filter((hit) => kinds.includes(hit.kind))
               .map((hit) => hit.slug),
           ),
+          collections: hits.collections,
         })
       } catch (err) {
         if (cancelled) return
         const message = err instanceof Error ? err.message : String(err)
         console.error(err)
         setSearchError(message)
-        setResolvedSearch({ query, slugs: new Set() })
+        setResolvedSearch({ query, slugs: new Set(), collections: [] })
       } finally {
         if (!cancelled) setSearching(false)
       }
@@ -242,7 +256,6 @@ export function useCatalog(): {
   const scopedCatalog = catalog.filter((item) =>
     allowedKinds.includes(item.kind),
   )
-  // Apply kind/tags from URL immediately; search filter stays on last resolved result.
   const items = filterCatalog(
     scopedCatalog,
     { ...committed, q: resolvedSearch.query },
@@ -273,6 +286,7 @@ export function useCatalog(): {
     allItems: scopedCatalog,
     items,
     tags,
+    collections,
     filters,
     allowedKinds,
     title: catalogTitle(committed, allowedKinds),
@@ -281,31 +295,51 @@ export function useCatalog(): {
     searching,
     searchError,
     error,
+    collectionId,
+    subcollectionId,
+    resolvedQuery: resolvedSearch.query,
+    searchSlugs: resolvedSearch.slugs,
+    collectionHits: resolvedSearch.collections,
     setKind: (kind) => {
       if (allowedKinds.length === 1) return
       if (kind !== 'all' && !allowedKinds.includes(kind)) return
-      update({ kind })
+      setSearchParams(
+        (prev) => {
+          const allowed = parseKindsAllowlist(prev)
+          const next = writeFilters(
+            clearCollectionParams(prev),
+            {
+              ...readFilters(prev),
+              kind: coerceKindFilter(kind, allowed),
+            },
+            allowed,
+          )
+          return next
+        },
+        { replace: true },
+      )
     },
     setQuery: (q) => {
       setDraftQuery(q)
     },
-    toggleTag: (tagId) => {
-      const nextTags = committed.tags.includes(tagId)
-        ? committed.tags.filter((id) => id !== tagId)
-        : [...committed.tags, tagId]
-      update({ tags: nextTags })
+    setGroupTag: (groupTagIds, tagId) => {
+      const group = new Set(groupTagIds)
+      const rest = committed.tags.filter((id) => !group.has(id))
+      update({ tags: tagId ? [...rest, tagId] : rest })
     },
     removeTag: (tagId) => {
       update({ tags: committed.tags.filter((id) => id !== tagId) })
     },
-    addCollection: (id) => {
-      if (committed.collections.includes(id)) return
-      update({ collections: [...committed.collections, id] })
+    openCollection: (id, childId) => {
+      // Clear `q` in the same URL write. Draft follows `committed.q` so it
+      // does not schedule a second search-param update that drops `collection`.
+      setSearchParams(
+        (prev) => browseCollectionParams(prev, id, childId),
+        { replace: true },
+      )
     },
-    removeCollection: (id) => {
-      update({
-        collections: committed.collections.filter((c) => c !== id),
-      })
+    clearCollection: () => {
+      setSearchParams((prev) => clearCollectionParams(prev), { replace: true })
     },
     clearFilters: () => {
       setDraftQuery('')
@@ -315,7 +349,6 @@ export function useCatalog(): {
           next.delete('kind')
           next.delete('q')
           next.delete('tag')
-          next.delete('collection')
           return next
         },
         { replace: true },

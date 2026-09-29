@@ -9,7 +9,6 @@ type ActiveFilterChipsProps = {
   onClearKind: () => void
   onClearQuery: () => void
   onRemoveTag: (tagId: string) => void
-  onRemoveCollection: (id: string) => void
   onClearAll: () => void
 }
 
@@ -39,16 +38,12 @@ export function ActiveFilterChips({
   onClearKind,
   onClearQuery,
   onRemoveTag,
-  onRemoveCollection,
   onClearAll,
 }: ActiveFilterChipsProps) {
   const query = filters.q.trim()
   const showKindChip = allowedKinds.length > 1 && filters.kind !== 'all'
   const show =
-    showKindChip ||
-    query.length > 0 ||
-    filters.tags.length > 0 ||
-    filters.collections.length > 0
+    showKindChip || query.length > 0 || filters.tags.length > 0
 
   if (!show) return null
 
@@ -63,13 +58,6 @@ export function ActiveFilterChips({
           key={tagId}
           label={getTagLabel(tags, tagId)}
           onRemove={() => onRemoveTag(tagId)}
-        />
-      ))}
-      {filters.collections.map((id) => (
-        <Chip
-          key={id}
-          label={id}
-          onRemove={() => onRemoveCollection(id)}
         />
       ))}
       <button

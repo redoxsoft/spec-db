@@ -30,13 +30,13 @@
         "minLength": 1
       }
     },
-    "collections": {
-      "maxItems": 2,
-      "type": "array",
-      "items": {
-        "type": "string",
-        "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
-      }
+    "collection": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+    },
+    "subcollection": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
     },
     "authors": {
       "type": "array",
@@ -94,5 +94,10 @@
     "sourceVersion",
     "schemaVersion"
   ],
-  "additionalProperties": false
+  "additionalProperties": false,
+  "dependentRequired": {
+    "subcollection": [
+      "collection"
+    ]
+  }
 }

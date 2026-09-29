@@ -8,6 +8,10 @@ export function tagsUrl(): string {
   return `${GENERATED_BASE}/tags.json`
 }
 
+export function collectionsUrl(): string {
+  return `${GENERATED_BASE}/collections.json`
+}
+
 export function resourceDetailUrl(slug: string): string {
   return `${GENERATED_BASE}/resources/${encodeURIComponent(slug)}.json`
 }

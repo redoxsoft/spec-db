@@ -1,5 +1,6 @@
 import { Clock3, LoaderCircle, SearchX, SlidersHorizontal } from 'lucide-react'
 import type {
+  CatalogCollection,
   CatalogLiteItem,
   ResourceKind,
   TagsRegistry,
@@ -7,13 +8,15 @@ import type {
 import type { SpecDbImportItem } from '../../lib/importHandoff'
 import { ActiveFilterChips } from './ActiveFilterChips'
 import { BatchImportBar } from './BatchImportBar'
+import { CatalogCardGrid } from './CatalogCardGrid'
+import { CollectionSearchHits } from './CollectionSearchHits'
+import { LibraryTagDropdowns } from './LibraryTagDropdowns'
+import { collectionSearchTargets } from './collectionPack'
 import {
   coerceKindFilter,
-  groupCatalogByKind,
   hasActiveFilters,
   type CatalogFilters,
 } from './filterCatalog'
-import { ResourceCard } from './ResourceCard'
 
 type CatalogMainProps = {
   title: string
@@ -21,6 +24,9 @@ type CatalogMainProps = {
   filters: CatalogFilters
   allowedKinds: ResourceKind[]
   tags: TagsRegistry
+  collections: CatalogCollection[]
+  resolvedQuery: string
+  collectionHits: readonly { id: string; parentId: string | null }[]
   loading?: boolean
   searching?: boolean
   searchError?: string | null
@@ -28,11 +34,11 @@ type CatalogMainProps = {
   onSelect: (slug: string) => void
   onClearKind: () => void
   onClearQuery: () => void
+  onOpenCollection: (id: string, subcollectionId?: string | null) => void
   onRemoveTag: (tagId: string) => void
-  onRemoveCollection: (id: string) => void
+  onSetGroupTag: (groupTagIds: readonly string[], tagId: string | null) => void
   onClearFilters: () => void
   onOpenFilters: () => void
-  onAddCollection: (id: string) => void
   /** Embed-only multi-select. */
   selectionEnabled?: boolean
   selectedKeys?: ReadonlySet<string>
@@ -70,7 +76,6 @@ function activeFilterCount(
   if (allowedKinds.length > 1 && filters.kind !== 'all') count += 1
   if (filters.q.trim()) count += 1
   count += filters.tags.length
-  count += filters.collections.length
   return count
 }
 
@@ -124,6 +129,9 @@ export function CatalogMain({
   filters,
   allowedKinds,
   tags,
+  collections,
+  resolvedQuery,
+  collectionHits,
   loading = false,
   searching = false,
   searchError = null,
@@ -131,11 +139,11 @@ export function CatalogMain({
   onSelect,
   onClearKind,
   onClearQuery,
+  onOpenCollection,
   onRemoveTag,
-  onRemoveCollection,
+  onSetGroupTag,
   onClearFilters,
   onOpenFilters,
-  onAddCollection,
   selectionEnabled = false,
   selectedKeys,
   selectedItems = [],
@@ -150,33 +158,9 @@ export function CatalogMain({
   const showKindGroups =
     coerceKindFilter(filters.kind, allowedKinds) === 'all' &&
     allowedKinds.length > 1
-  const kindGroups = showKindGroups ? groupCatalogByKind(items) : null
-  const gridClass = searching
-    ? 'grid auto-rows-max grid-cols-1 gap-6 opacity-60 transition-opacity md:grid-cols-2 lg:grid-cols-3'
-    : 'grid auto-rows-max grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3'
-
-  function renderCard(item: CatalogLiteItem, index: number) {
-    const key = `${item.kind}:${item.slug}`
-    return (
-      <div
-        key={item.slug}
-        className="catalog-card-enter h-full"
-        style={{
-          animationDelay: `${Math.min(index, 8) * 40}ms`,
-        }}
-      >
-        <ResourceCard
-          item={item}
-          onSelect={onSelect}
-          activeCollections={filters.collections}
-          onAddCollection={onAddCollection}
-          selectionEnabled={selectionEnabled}
-          selected={selectedKeys?.has(key) ?? false}
-          onToggleSelected={() => onToggleSelected?.(item)}
-        />
-      </div>
-    )
-  }
+  const searchTargets = resolvedQuery
+    ? collectionSearchTargets(collectionHits, collections)
+    : []
 
   return (
     <section className="relative flex-1 overflow-y-auto bg-ui-bg">
@@ -187,6 +171,12 @@ export function CatalogMain({
               {title}
             </h1>
             <p className="mt-2 text-gray-500">{catalogSubtitle(allowedKinds)}</p>
+            <LibraryTagDropdowns
+              domain={tags.domain}
+              usecase={tags.usecase}
+              selected={filters.tags}
+              onSetGroupTag={onSetGroupTag}
+            />
           </div>
           <button
             type="button"
@@ -210,7 +200,6 @@ export function CatalogMain({
           onClearKind={onClearKind}
           onClearQuery={onClearQuery}
           onRemoveTag={onRemoveTag}
-          onRemoveCollection={onRemoveCollection}
           onClearAll={onClearFilters}
         />
 
@@ -232,6 +221,10 @@ export function CatalogMain({
         ) : (
           <>
             {searching ? <SearchStatusBar label="Searching…" /> : null}
+            <CollectionSearchHits
+              hits={searchTargets}
+              onOpenCollection={onOpenCollection}
+            />
 
             {searchError && !searching ? (
               <div className="flex flex-col items-center justify-center py-20 text-center">
@@ -251,32 +244,15 @@ export function CatalogMain({
                 </p>
               </div>
             ) : !empty ? (
-              kindGroups ? (
-                <div
-                  key={items.map((item) => item.slug).join('|')}
-                  className="space-y-10"
-                >
-                  {kindGroups.map((group) => (
-                    <section key={group.kind}>
-                      <h2 className="mb-4 text-xs font-bold tracking-wider text-gray-400 uppercase">
-                        {group.title}
-                      </h2>
-                      <div className={gridClass}>
-                        {group.items.map((item, index) =>
-                          renderCard(item, index),
-                        )}
-                      </div>
-                    </section>
-                  ))}
-                </div>
-              ) : (
-                <div
-                  key={items.map((item) => item.slug).join('|')}
-                  className={gridClass}
-                >
-                  {items.map((item, index) => renderCard(item, index))}
-                </div>
-              )
+              <CatalogCardGrid
+                items={items}
+                grouped={showKindGroups}
+                searching={searching}
+                onSelect={onSelect}
+                selectionEnabled={selectionEnabled}
+                selectedKeys={selectedKeys}
+                onToggleSelected={onToggleSelected}
+              />
             ) : searching ? (
               <CatalogSkeleton />
             ) : comingSoon ? (
@@ -293,7 +269,7 @@ export function CatalogMain({
                     : 'Specs will appear here when they are ready to browse and import.'}
                 </p>
               </div>
-            ) : (
+            ) : searchTargets.length > 0 ? null : (
               <div className="flex flex-col items-center justify-center py-20 text-center">
                 <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-gray-100">
                   <SearchX className="h-8 w-8 text-gray-400" aria-hidden />

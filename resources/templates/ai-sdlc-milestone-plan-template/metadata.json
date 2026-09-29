@@ -8,9 +8,7 @@
     "domain.engineering",
     "use-case.planning"
   ],
-  "collections": [
-    "ai-sdlc"
-  ],
+  "collection": "ai-sdlc",
   "createdAt": "2026-09-08",
   "updatedAt": "2026-09-15",
   "sourceVersion": "1.2",

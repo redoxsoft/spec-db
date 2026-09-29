@@ -11,31 +11,32 @@ export type KindStyles = {
   label: string
 }
 
+/** Kind accents — colors come from `@theme` tokens in `styles/globals.css`. */
 const KIND_STYLES: Record<ResourceKind, KindStyles> = {
   template: {
     icon: Layout,
-    color: 'text-amber-600',
-    bg: 'bg-amber-50',
-    border: 'border-amber-100',
-    badge: 'bg-amber-100 text-amber-800',
+    color: 'text-kind-template-500',
+    bg: 'bg-kind-template-50',
+    border: 'border-kind-template-100',
+    badge: 'bg-kind-template-100 text-kind-template-800',
     importTarget: 'SpecX',
     label: 'Template',
   },
   spec: {
     icon: FileText,
-    color: 'text-sky-600',
-    bg: 'bg-sky-50',
-    border: 'border-sky-100',
-    badge: 'bg-sky-100 text-sky-700',
+    color: 'text-kind-spec-600',
+    bg: 'bg-kind-spec-50',
+    border: 'border-kind-spec-100',
+    badge: 'bg-kind-spec-100 text-kind-spec-700',
     importTarget: 'SpecX',
     label: 'Spec',
   },
   pipeline: {
     icon: Workflow,
-    color: 'text-emerald-600',
-    bg: 'bg-emerald-50',
-    border: 'border-emerald-100',
-    badge: 'bg-emerald-100 text-emerald-700',
+    color: 'text-kind-pipeline-600',
+    bg: 'bg-kind-pipeline-50',
+    border: 'border-kind-pipeline-100',
+    badge: 'bg-kind-pipeline-100 text-kind-pipeline-700',
     importTarget: 'WorkX',
     label: 'Pipeline',
   },
@@ -55,3 +56,6 @@ export function getKindStyles(kind: ResourceKind | string): KindStyles {
   if (kind in KIND_STYLES) return KIND_STYLES[kind as ResourceKind]
   return FALLBACK
 }
+
+/** Collection / folder icon color (`--color-kind-folder-500`). */
+export const folderIconClassName = 'text-kind-folder-500'

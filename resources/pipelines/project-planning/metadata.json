@@ -7,9 +7,7 @@
     "domain.engineering",
     "use-case.planning"
   ],
-  "collections": [
-    "builder"
-  ],
+  "collection": "builder",
   "createdAt": "2026-08-03",
   "updatedAt": "2026-08-04",
   "sourceVersion": "1.0",

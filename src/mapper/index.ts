@@ -1,4 +1,15 @@
 export {
+  collectionRegistryIssues,
+  collectionsById,
+  placementFor,
+  resourceCollectionIssues,
+  type CollectionLookup,
+  type PackagePlacement,
+} from './collections'
+
+export {
+  collectionDefinitionSchema,
+  collectionsRegistrySchema,
   inputVarDefinitionSchema,
   metadataSchema,
   outlineCardinalitySchema,
@@ -10,6 +21,8 @@ export {
   tagDefinitionSchema,
   tagsRegistrySchema,
   templateContentSchema,
+  type CollectionDefinition,
+  type CollectionsRegistryFile,
   type OutlineCardinality,
   type OutlineNode,
   type PipelineContent,
@@ -55,6 +68,7 @@ export {
   buildSpecPackage,
   buildTemplatePackage,
   loadImportPackage,
+  toPackageEnvelope,
   loadPipelinePackage,
   loadSpecPackage,
   loadTemplatePackage,

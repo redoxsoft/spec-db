@@ -1,5 +1,5 @@
 /**
- * Contract check for `tags/` + `resources/` (Zod + authoring rules).
+ * Contract check for `collections/`, `tags/`, and `resources/` (Zod + authoring rules).
  * Usage: npm run check  (alias: npm run validate)
  *
  * Catalog contributors should run this before opening a PR.
@@ -10,14 +10,21 @@ import { fileURLToPath } from 'node:url'
 import { ZodError } from 'zod'
 import {
   checkPipelineVarCoverage,
+  collectionRegistryIssues,
+  collectionsById,
+  collectionsRegistrySchema,
   collectOutlineInvariantIssues,
   extractMarkdownStructure,
   loadImportPackage,
   markdownContainsMedia,
   metadataSchema,
   pipelineContentSchema,
+  resourceCollectionIssues,
   tagsRegistrySchema,
   templateContentSchema,
+  toPackageEnvelope,
+  type CollectionLookup,
+  type CollectionsRegistryFile,
   type ResourceKind,
   type ResourceMetadata,
   type TagDefinition,
@@ -25,6 +32,7 @@ import {
 } from '../src/mapper/index.ts'
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
+const COLLECTIONS_PATH = path.join(ROOT, 'collections', 'collections.json')
 const TAGS_PATH = path.join(ROOT, 'tags', 'tags.json')
 const RESOURCES_ROOT = path.join(ROOT, 'resources')
 
@@ -139,6 +147,23 @@ function validateTagHierarchy(registry: TagsRegistryFile) {
   return byId
 }
 
+function validateCollectionsRegistry(registry: CollectionsRegistryFile) {
+  for (const issue of collectionRegistryIssues(registry)) {
+    fail(COLLECTIONS_PATH, issue)
+  }
+  return collectionsById(registry)
+}
+
+function checkResourceCollections(
+  metaPath: string,
+  meta: ResourceMetadata,
+  byId: CollectionLookup,
+) {
+  for (const issue of resourceCollectionIssues(meta, byId)) {
+    fail(metaPath, issue)
+  }
+}
+
 function checkResourceTags(
   metaPath: string,
   meta: ResourceMetadata,
@@ -202,6 +227,7 @@ type LoadedResource = {
 
 async function loadResources(
   byId: Map<string, TagDefinition>,
+  collectionsByIdMap: CollectionLookup,
 ): Promise<LoadedResource[]> {
   const loaded: LoadedResource[] = []
   const slugOwners = new Map<string, string>()
@@ -257,6 +283,7 @@ async function loadResources(
       }
 
       checkResourceTags(metaPath, meta, byId)
+      checkResourceCollections(metaPath, meta, collectionsByIdMap)
       checkMarkdownMedia(metaPath, meta.summary)
       loaded.push({ metaPath, meta, dir: resourceDir })
     }
@@ -301,7 +328,10 @@ function checkRefs(resources: LoadedResource[]) {
   }
 }
 
-async function validateSpec(resource: LoadedResource) {
+async function validateSpec(
+  resource: LoadedResource,
+  collections: CollectionLookup,
+) {
   const contentPath = path.join(resource.dir, 'content.md')
   let markdown: string
   try {
@@ -322,7 +352,12 @@ async function validateSpec(resource: LoadedResource) {
   }
 
   try {
-    const built = await loadImportPackage(resource.dir, resource.meta)
+    const built = await loadImportPackage(
+      resource.dir,
+      toPackageEnvelope(resource.meta, collections, {
+        requirePlacement: false,
+      }),
+    )
     const warnings = 'warnings' in built ? built.warnings : undefined
     if (warnings?.length) {
       for (const warning of warnings) {
@@ -337,7 +372,10 @@ async function validateSpec(resource: LoadedResource) {
   }
 }
 
-async function validateTemplate(resource: LoadedResource) {
+async function validateTemplate(
+  resource: LoadedResource,
+  collections: CollectionLookup,
+) {
   const contentPath = path.join(resource.dir, 'content.json')
   const raw = await readJson(contentPath)
   if (raw === undefined) return
@@ -353,7 +391,12 @@ async function validateTemplate(resource: LoadedResource) {
   }
 
   try {
-    await loadImportPackage(resource.dir, resource.meta)
+    await loadImportPackage(
+      resource.dir,
+      toPackageEnvelope(resource.meta, collections, {
+        requirePlacement: false,
+      }),
+    )
   } catch (error) {
     fail(
       contentPath,
@@ -362,7 +405,10 @@ async function validateTemplate(resource: LoadedResource) {
   }
 }
 
-async function validatePipeline(resource: LoadedResource) {
+async function validatePipeline(
+  resource: LoadedResource,
+  collections: CollectionLookup,
+) {
   const contentPath = path.join(resource.dir, 'content.json')
   const raw = await readJson(contentPath)
   if (raw === undefined) return
@@ -434,7 +480,12 @@ async function validatePipeline(resource: LoadedResource) {
   }
 
   try {
-    await loadImportPackage(resource.dir, resource.meta)
+    await loadImportPackage(
+      resource.dir,
+      toPackageEnvelope(resource.meta, collections, {
+        requirePlacement: false,
+      }),
+    )
   } catch (error) {
     fail(
       contentPath,
@@ -457,14 +508,29 @@ async function main() {
     return
   }
 
+  const collectionsRaw = await readJson(COLLECTIONS_PATH)
+  if (collectionsRaw === undefined) {
+    printAndExit()
+    return
+  }
+
+  const collectionsParsed = collectionsRegistrySchema.safeParse(collectionsRaw)
+  if (!collectionsParsed.success) {
+    fail(COLLECTIONS_PATH, formatZod(collectionsParsed.error))
+    printAndExit()
+    return
+  }
+
+  const collectionIds = validateCollectionsRegistry(collectionsParsed.data)
   const byId = validateTagHierarchy(tagsParsed.data)
-  const resources = await loadResources(byId)
+  const resources = await loadResources(byId, collectionIds)
   checkRefs(resources)
 
   for (const resource of resources) {
-    if (resource.meta.kind === 'spec') await validateSpec(resource)
-    else if (resource.meta.kind === 'template') await validateTemplate(resource)
-    else await validatePipeline(resource)
+    if (resource.meta.kind === 'spec') await validateSpec(resource, collectionIds)
+    else if (resource.meta.kind === 'template') {
+      await validateTemplate(resource, collectionIds)
+    } else await validatePipeline(resource, collectionIds)
   }
 
   printAndExit()

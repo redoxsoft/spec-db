@@ -11,6 +11,12 @@ import {
   type TemplatePackage,
 } from './packageSchemas'
 import {
+  placementFor,
+  resourceCollectionIssues,
+  type CollectionLookup,
+  type PackagePlacement,
+} from './collections'
+import {
   pipelineContentSchema,
   templateContentSchema,
   type OutlineNode,
@@ -30,7 +36,42 @@ export type PackageEnvelopeSource = Pick<
   | 'createdAt'
   | 'sourceVersion'
   | 'schemaVersion'
->
+> & {
+  collection?: PackagePlacement
+  subcollection?: PackagePlacement
+}
+
+function basePackageEnvelope(
+  meta: ResourceMetadata,
+): PackageEnvelopeSource {
+  return {
+    slug: meta.slug,
+    kind: meta.kind,
+    title: meta.title,
+    summary: meta.summary,
+    tags: meta.tags,
+    updatedAt: meta.updatedAt,
+    createdAt: meta.createdAt,
+    sourceVersion: meta.sourceVersion,
+    schemaVersion: meta.schemaVersion,
+  }
+}
+
+export function toPackageEnvelope(
+  meta: ResourceMetadata,
+  collections: CollectionLookup,
+  options?: { requirePlacement?: boolean },
+): PackageEnvelopeSource {
+  const requirePlacement = options?.requirePlacement !== false
+  if (!requirePlacement) {
+    const issues = resourceCollectionIssues(meta, collections)
+    if (issues.length > 0) return basePackageEnvelope(meta)
+  }
+  return {
+    ...basePackageEnvelope(meta),
+    ...placementFor(meta, collections),
+  }
+}
 
 export type PackageBuildWarnings = {
   warnings: string[]
@@ -44,6 +85,8 @@ function envelopeFields(meta: PackageEnvelopeSource) {
     title: meta.title,
     summary: meta.summary,
     ...(meta.tags.length > 0 ? { tags: meta.tags } : {}),
+    ...(meta.collection ? { collection: meta.collection } : {}),
+    ...(meta.subcollection ? { subcollection: meta.subcollection } : {}),
     ...(updatedAt ? { updatedAt } : {}),
     sourceVersion: meta.sourceVersion,
     schemaVersion: meta.schemaVersion,

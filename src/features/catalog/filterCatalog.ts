@@ -7,7 +7,6 @@ export type CatalogFilters = {
   kind: KindFilter
   q: string
   tags: string[]
-  collections: string[]
 }
 
 export const KIND_TITLES: Record<KindFilter, string> = {
@@ -92,15 +91,6 @@ export function filterCatalog(
       return false
     }
 
-    if (
-      filters.collections.length > 0 &&
-      !filters.collections.every((id) =>
-        (item.collections ?? []).includes(id),
-      )
-    ) {
-      return false
-    }
-
     return true
   })
 
@@ -117,8 +107,7 @@ export function hasActiveFilters(
   return (
     kindIsUserChoice ||
     filters.q.trim().length > 0 ||
-    filters.tags.length > 0 ||
-    filters.collections.length > 0
+    filters.tags.length > 0
   )
 }
 

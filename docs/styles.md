@@ -21,10 +21,14 @@ Define in Tailwind theme (names can match the prototype):
 |-------|------|----------------|
 | `brand.50/100/500/600/700` | Accents, selected filters, primary CTA | blue scale |
 | `ui.border` / `ui.bg` / `ui.card` | Chrome, page, cards | `#e5e7eb` / `#f9fafb` / `#ffffff` |
+| `kind.template.*` | Template icons / badges | `#8B5CF6` purple |
+| `kind.spec.*` | Spec icons / badges | sky |
+| `kind.pipeline.*` | Pipeline icons / badges | emerald |
+| `kind.folder.*` | Collection folder icons / badges | Windows manila yellow |
 | `shadow-card` / `shadow-card-hover` | Resource cards | soft elevation |
 | `font-sans` | UI text | Inter (or project default once chosen) |
 
-**Kind accents** (template / spec / pipeline): small fixed maps in one module (e.g. `src/lib/kindStyles.ts`) — indigo / blue / emerald as in the prototype. Do not invent new kind palettes per screen.
+**Kind accents** (template / spec / pipeline / folder): define hex once in `src/styles/globals.css` `@theme`, map to utilities in `src/lib/kindStyles.ts`. Do not invent new kind palettes per screen or hardcode kind hex in JSX.
 
 **Forbidden in JSX:** raw hex, one-off `bg-[#…]`, arbitrary layout math unless truly dynamic.
 
