@@ -1,0 +1,9 @@
+{
+  "schemaVersion": "1",
+  "inputVarDefinitions": [],
+  "iteratorFields": [],
+  "steps": [
+    { "key": "scope-suites", "name": "Scope the Suites and Confirm" },
+    { "key": "run-and-record", "name": "Run the Suites and Record Evidence" }
+  ]
+}

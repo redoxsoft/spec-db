@@ -1,0 +1,23 @@
+{
+  "slug": "agile-sdlc-implement",
+  "kind": "pipeline",
+  "title": "Agile Implement",
+  "summary": "Self-verifying delivery from a compact trivial contract or durable Work Item: build inside the approved boundary and record established revision identity and observed evidence without rerunning checks.",
+  "tags": [
+    "agile-sdlc",
+    "domain.engineering",
+    "use-case.execution"
+  ],
+  "collection": "agile-sdlc",
+  "subcollection": "agile-sdlc-deliver",
+  "createdAt": "2026-09-29",
+  "updatedAt": "2026-09-29",
+  "sourceVersion": "1.0",
+  "schemaVersion": "1",
+  "license": "CC-BY-4.0",
+  "relatedSlugs": [
+    "agile-sdlc-work-item-template",
+    "agile-sdlc-delivery-record-template",
+    "agile-sdlc-test-strategy-guide"
+  ]
+}

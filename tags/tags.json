@@ -108,6 +108,16 @@
       "parentId": "use-case",
       "order": 5,
       "status": "active"
+    },
+    {
+      "id": "agile-sdlc",
+      "displayName": "Agile SDLC",
+      "description": "Templates, guides, and pipelines for the lean Agile SDLC delivery pack.",
+      "applicableKinds": ["spec", "template", "pipeline"],
+      "ui": "facet",
+      "parentId": "use-case",
+      "order": 6,
+      "status": "active"
     }
   ]
 }

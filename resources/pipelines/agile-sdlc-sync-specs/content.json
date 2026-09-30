@@ -1,0 +1,9 @@
+{
+  "schemaVersion": "1",
+  "inputVarDefinitions": [],
+  "iteratorFields": [],
+  "steps": [
+    { "key": "scope-sync", "name": "Scope the Living Specs and Confirm" },
+    { "key": "sync-and-record", "name": "Update Living Specs and Record" }
+  ]
+}

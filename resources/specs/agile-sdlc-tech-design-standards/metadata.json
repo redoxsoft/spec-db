@@ -1,0 +1,21 @@
+{
+  "slug": "agile-sdlc-tech-design-standards",
+  "kind": "spec",
+  "title": "Agile Technical Design Standards",
+  "summary": "How to document architecture, decision records, API and data contracts, migrations, and how to scope a change in an existing codebase.",
+  "tags": [
+    "agile-sdlc",
+    "domain.engineering",
+    "use-case.specification"
+  ],
+  "collection": "agile-sdlc",
+  "createdAt": "2026-09-29",
+  "updatedAt": "2026-09-29",
+  "sourceVersion": "1.0",
+  "schemaVersion": "1",
+  "license": "CC-BY-4.0",
+  "relatedSlugs": [
+    "agile-sdlc-generate-tech-spec",
+    "agile-sdlc-generate-implementation-plan"
+  ]
+}

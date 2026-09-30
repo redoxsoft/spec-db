@@ -1,0 +1,17 @@
+{
+  "slug": "agile-sdlc-code-review-guide",
+  "kind": "spec",
+  "title": "Agile Code Review Guide",
+  "summary": "A seven-pillar checklist for code review, two finding severities (blocking and non-blocking), and what makes a finding actionable.",
+  "tags": [
+    "agile-sdlc",
+    "domain.engineering",
+    "use-case.execution"
+  ],
+  "collection": "agile-sdlc",
+  "createdAt": "2026-09-29",
+  "updatedAt": "2026-09-29",
+  "sourceVersion": "1.0",
+  "schemaVersion": "1",
+  "license": "CC-BY-4.0"
+}

@@ -1,0 +1,9 @@
+{
+  "schemaVersion": "1",
+  "inputVarDefinitions": [],
+  "iteratorFields": [],
+  "steps": [
+    { "key": "scope-and-confirm", "name": "Scope the Test Strategy and Confirm" },
+    { "key": "draft-and-hand-off", "name": "Draft the Test Plan and Hand Off" }
+  ]
+}

@@ -28,6 +28,37 @@
       "description": "Guided first-run pipelines for getting started in WorkX.",
       "order": 4,
       "status": "active"
+    },
+    {
+      "id": "agile-sdlc",
+      "displayName": "Agile SDLC",
+      "description": "A lean agent-executed delivery lifecycle: one self-verifying implement pipeline, optional specification pipelines, and optional review and verification gates.",
+      "order": 5,
+      "status": "active"
+    },
+    {
+      "id": "agile-sdlc-specify",
+      "displayName": "Specify",
+      "description": "The five document-generation pipelines for PRDs, feature specs, tech specs, test plans, and implementation plans.",
+      "parentId": "agile-sdlc",
+      "order": 1,
+      "status": "active"
+    },
+    {
+      "id": "agile-sdlc-deliver",
+      "displayName": "Deliver",
+      "description": "The implement pipeline that builds a change, runs its checks, and records the result.",
+      "parentId": "agile-sdlc",
+      "order": 2,
+      "status": "active"
+    },
+    {
+      "id": "agile-sdlc-verify",
+      "displayName": "Verify",
+      "description": "Pipelines for review, extended verification, and spec sync.",
+      "parentId": "agile-sdlc",
+      "order": 3,
+      "status": "active"
     }
   ]
 }

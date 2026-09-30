@@ -1,0 +1,20 @@
+{
+  "slug": "agile-sdlc-work-item-template",
+  "kind": "template",
+  "title": "Agile Work Item Template",
+  "summary": "Lean durable contract for a bounded change, defect, or task: outcome, acceptance criteria, repository boundary, verification, and only material optional detail.",
+  "tags": [
+    "agile-sdlc",
+    "domain.engineering",
+    "use-case.specification"
+  ],
+  "collection": "agile-sdlc",
+  "createdAt": "2026-09-29",
+  "updatedAt": "2026-09-29",
+  "sourceVersion": "1.0",
+  "schemaVersion": "1",
+  "license": "CC-BY-4.0",
+  "relatedSlugs": [
+    "agile-sdlc-implement"
+  ]
+}

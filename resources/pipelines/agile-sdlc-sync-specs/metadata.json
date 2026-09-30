@@ -1,0 +1,21 @@
+{
+  "slug": "agile-sdlc-sync-specs",
+  "kind": "pipeline",
+  "title": "Agile Sync Specs",
+  "summary": "Preflights non-overlapping living-spec paths, preserves upstream gate outcomes, and updates one deterministic target at a time with resumable per-target evidence.",
+  "tags": [
+    "agile-sdlc",
+    "domain.engineering",
+    "use-case.execution"
+  ],
+  "collection": "agile-sdlc",
+  "subcollection": "agile-sdlc-verify",
+  "createdAt": "2026-09-29",
+  "updatedAt": "2026-09-29",
+  "sourceVersion": "1.0",
+  "schemaVersion": "1",
+  "license": "CC-BY-4.0",
+  "relatedSlugs": [
+    "agile-sdlc-delivery-record-template"
+  ]
+}

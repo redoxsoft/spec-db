@@ -1,0 +1,21 @@
+{
+  "slug": "agile-sdlc-delivery-plan-template",
+  "kind": "template",
+  "title": "Agile Delivery Plan Template",
+  "summary": "Shared repository-grounded structure for test plans and implementation plans, with optional increments, scenarios, environment, recovery, and decisions.",
+  "tags": [
+    "agile-sdlc",
+    "domain.engineering",
+    "use-case.planning"
+  ],
+  "collection": "agile-sdlc",
+  "createdAt": "2026-09-29",
+  "updatedAt": "2026-09-29",
+  "sourceVersion": "1.0",
+  "schemaVersion": "1",
+  "license": "CC-BY-4.0",
+  "relatedSlugs": [
+    "agile-sdlc-generate-test-plan",
+    "agile-sdlc-generate-implementation-plan"
+  ]
+}

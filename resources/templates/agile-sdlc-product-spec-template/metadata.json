@@ -1,0 +1,21 @@
+{
+  "slug": "agile-sdlc-product-spec-template",
+  "kind": "template",
+  "title": "Agile Product Spec Template",
+  "summary": "Shared structure for initiative-level PRDs and behavior-focused feature specs, with optional evidence-backed modules and no required upstream artifact.",
+  "tags": [
+    "agile-sdlc",
+    "domain.product",
+    "use-case.specification"
+  ],
+  "collection": "agile-sdlc",
+  "createdAt": "2026-09-29",
+  "updatedAt": "2026-09-29",
+  "sourceVersion": "1.0",
+  "schemaVersion": "1",
+  "license": "CC-BY-4.0",
+  "relatedSlugs": [
+    "agile-sdlc-generate-prd",
+    "agile-sdlc-generate-feature-spec"
+  ]
+}

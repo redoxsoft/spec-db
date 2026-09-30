@@ -1,0 +1,23 @@
+{
+  "slug": "agile-sdlc-review",
+  "kind": "pipeline",
+  "title": "Agile Review",
+  "summary": "Completes an empty diff as not applicable; otherwise reviews a persisted diff and revision and writes actionable findings, completing even when its verdict blocks the change.",
+  "tags": [
+    "agile-sdlc",
+    "domain.engineering",
+    "use-case.execution"
+  ],
+  "collection": "agile-sdlc",
+  "subcollection": "agile-sdlc-verify",
+  "createdAt": "2026-09-29",
+  "updatedAt": "2026-09-29",
+  "sourceVersion": "1.0",
+  "schemaVersion": "1",
+  "license": "CC-BY-4.0",
+  "relatedSlugs": [
+    "agile-sdlc-review-findings-template",
+    "agile-sdlc-code-review-guide",
+    "agile-sdlc-implement"
+  ]
+}

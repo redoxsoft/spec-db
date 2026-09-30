@@ -1,0 +1,23 @@
+{
+  "slug": "agile-sdlc-generate-prd",
+  "kind": "pipeline",
+  "title": "Agile Generate PRD",
+  "summary": "Turn an initiative brief into one PRD, updating the existing SpecX document when that title already exists. When the brief is a single capability, recommend a feature spec and leave the choice to the person.",
+  "tags": [
+    "agile-sdlc",
+    "domain.product",
+    "use-case.specification"
+  ],
+  "collection": "agile-sdlc",
+  "subcollection": "agile-sdlc-specify",
+  "createdAt": "2026-09-29",
+  "updatedAt": "2026-09-29",
+  "sourceVersion": "1.0",
+  "schemaVersion": "1",
+  "license": "CC-BY-4.0",
+  "relatedSlugs": [
+    "agile-sdlc-product-spec-template",
+    "agile-sdlc-requirements-quality-guide",
+    "agile-sdlc-artifact-routing-guide"
+  ]
+}

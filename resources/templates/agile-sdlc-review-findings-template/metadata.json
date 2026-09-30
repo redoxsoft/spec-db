@@ -1,0 +1,17 @@
+{
+  "slug": "agile-sdlc-review-findings-template",
+  "kind": "template",
+  "title": "Agile Review Findings Template",
+  "summary": "Written only when review runs. Records its blocking or non-blocking verdict and generic actionable findings with evidence, impact, and recommendations. Produced as `<Subject> - Agile Review Findings`.",
+  "tags": [
+    "agile-sdlc",
+    "domain.engineering",
+    "use-case.execution"
+  ],
+  "collection": "agile-sdlc",
+  "createdAt": "2026-09-29",
+  "updatedAt": "2026-09-29",
+  "sourceVersion": "1.0",
+  "schemaVersion": "1",
+  "license": "CC-BY-4.0"
+}

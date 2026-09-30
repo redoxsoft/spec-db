@@ -1,0 +1,123 @@
+{
+  "schemaVersion": "1",
+  "guidance": "Write concise review findings titled `<Subject> - Agile Review Findings`.\nState whether blocking findings exist. Zero findings is represented only by a concise non-blocking verdict; do not add an empty section or `none` placeholder.\nEach actual finding records severity, location, concrete evidence, impact, and a recommendation. Optional repeatable findings and notes are descendants of Verdict so absent content leaves no empty wrapper.\nGround findings in the reviewed change, governing intent, and repository behavior. Do not invent requirements, paste raw diffs or terminal output, or report unenforced personal formatting preferences as findings.",
+  "outline": [
+    {
+      "key": "document-status",
+      "title": "Document Status",
+      "guidance": "Date, the exact Target Revision and boundary that were reviewed, and optional reviewer, governing Work Item, and Delivery Record link. Omit unknown optional values rather than writing `none` or inventing them.",
+      "children": [
+        {
+          "key": "reviewer",
+          "title": "Reviewer",
+          "guidance": "Person or agent that performed the review. Omit when the identity is unavailable; do not use a placeholder.",
+          "cardinality": {
+            "min": 0,
+            "max": 1
+          }
+        },
+        {
+          "key": "date",
+          "title": "Date",
+          "guidance": "Date of the review, YYYY-MM-DD."
+        },
+        {
+          "key": "target-revision-and-boundary",
+          "title": "Target Revision and Boundary",
+          "guidance": "The persisted reviewed revision manifest: stable revision id, full base commit SHA, optional permitted-boundary description, and sorted boundary-file entries when dirty. Each entry contains its repository-relative path and content identity. Include the reviewed branch or range when relevant."
+        },
+        {
+          "key": "governing-work-item",
+          "title": "Governing Work Item",
+          "guidance": "Title of the work item, spec, or plan that bounded the change. Omit when none was provided; do not invent one or write a placeholder.",
+          "cardinality": {
+            "min": 0,
+            "max": 1
+          }
+        },
+        {
+          "key": "delivery-record",
+          "title": "Delivery Record",
+          "guidance": "Optional title or link to the Delivery Record for the reviewed change. Omit when unavailable.",
+          "cardinality": {
+            "min": 0,
+            "max": 1
+          }
+        }
+      ]
+    },
+    {
+      "key": "verdict",
+      "title": "Verdict",
+      "guidance": "Start with exactly blocking or non-blocking, then state in one or two sentences whether blocking findings exist. Zero findings is represented only by this concise non-blocking verdict, with no empty section or placeholder.",
+      "children": [
+        {
+          "key": "finding",
+          "title": "Finding",
+          "guidance": "Title each instance with a short name for the defect or risk, not \"Finding\". Omit every instance when the review found nothing. Every actual instance fills severity, location, evidence, impact, and recommendation; the children are schema-optional only because the repeatable instance itself is optional.",
+          "cardinality": {
+            "min": 0,
+            "max": null
+          },
+          "children": [
+            {
+              "key": "location",
+              "title": "Location",
+              "guidance": "The repository-relative file and smallest useful line or range. For a whole-file or generated-artifact issue, name the artifact and relevant region.",
+              "cardinality": {
+                "min": 0,
+                "max": 1
+              }
+            },
+            {
+              "key": "severity",
+              "title": "Severity",
+              "guidance": "Exactly blocking or non-blocking. blocking means the change is unsafe or incorrect until it is fixed. non-blocking means the change can ship with the observation.",
+              "cardinality": {
+                "min": 0,
+                "max": 1
+              }
+            },
+            {
+              "key": "evidence",
+              "title": "Evidence",
+              "guidance": "The concrete observed condition in the reviewed diff and the governing requirement, invariant, or repository behavior it conflicts with. Do not paste a raw diff.",
+              "cardinality": {
+                "min": 0,
+                "max": 1
+              }
+            },
+            {
+              "key": "impact",
+              "title": "Impact",
+              "guidance": "Why the observed condition matters: the incorrect behavior, risk, regression, or scope violation it can cause.",
+              "cardinality": {
+                "min": 0,
+                "max": 1
+              }
+            },
+            {
+              "key": "recommendation",
+              "title": "Recommendation",
+              "guidance": "A concrete change, specific enough that another person could apply it. A short snippet belongs here when it makes the recommendation precise.",
+              "cardinality": {
+                "min": 0,
+                "max": 1
+              }
+            }
+          ]
+        },
+        {
+          "key": "note",
+          "title": "Note",
+          "guidance": "Title each instance with a concise non-blocking observation that is not a finding, such as recognition of a clear approach. Omit all instances when there are no notes; do not write `none`. A personal formatting preference does not belong here.",
+          "cardinality": {
+            "min": 0,
+            "max": null
+          },
+          "children": []
+        }
+      ]
+    }
+  ]
+}

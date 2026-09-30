@@ -1,0 +1,275 @@
+{
+  "schemaVersion": "1",
+  "guidance": "Write a repository-grounded technical design titled `<Subject> - Agile Tech Spec` under the single Technical Design root.\nAlways state the supported technical approach. Add only optional named modules relevant to the change, and omit an entire module when it has no useful content. Infer reversible detail from inspected repository conventions, but do not invent architecture, requirements, interfaces, data models, or operational constraints. Preserve material decisions and affected boundaries when they exist. Leave consequential unknowns open for approval.",
+  "outline": [
+    {
+      "key": "technical-design",
+      "title": "Technical Design",
+      "guidance": "The complete technical design. Technical Approach is required so this root is always meaningful; every other module can be omitted as a whole.",
+      "children": [
+        {
+      "key": "context-and-constraints",
+      "title": "Context and Constraints",
+      "guidance": "Technical context, established constraints, and relevant existing behavior. Omit this module when the approach is understandable without separate context.",
+      "cardinality": {
+        "min": 0,
+        "max": 1
+      },
+      "children": [
+        {
+          "key": "technical-context",
+          "title": "Technical Context",
+          "guidance": "Repository-observed systems, modules, conventions, and current behavior relevant to the design.",
+          "cardinality": {
+            "min": 0,
+            "max": 1
+          }
+        },
+        {
+          "key": "constraint",
+          "title": "Constraint",
+          "guidance": "Title each instance with the concrete compatibility, performance, policy, dependency, or scope constraint.",
+          "cardinality": {
+            "min": 0,
+            "max": null
+          },
+          "children": []
+        }
+      ]
+    },
+    {
+      "key": "technical-approach",
+      "title": "Technical Approach",
+      "guidance": "The supported design approach and component responsibilities.",
+      "children": [
+        {
+          "key": "approach-overview",
+          "title": "Approach Overview",
+          "guidance": "The smallest design that fulfills the established intent and fits the repository."
+        },
+        {
+          "key": "component-or-responsibility",
+          "title": "Component or Responsibility",
+          "guidance": "Title each instance with the actual component or boundary. State its responsibility, relevant interfaces, dependencies, and failure behavior only where supported.",
+          "cardinality": {
+            "min": 0,
+            "max": null
+          },
+          "children": []
+        }
+      ]
+    },
+    {
+      "key": "decisions",
+      "title": "Decisions",
+      "guidance": "Material technical choices. Omit this module when no material choice needs recording.",
+      "cardinality": {
+        "min": 0,
+        "max": 1
+      },
+      "children": [
+        {
+          "key": "decision",
+          "title": "Decision",
+          "guidance": "Title each instance with the choice. State status, context, selected approach, rationale, supported alternatives, and trade-offs. Preserve unresolved choices as open.",
+          "cardinality": {
+            "min": 0,
+            "max": null
+          },
+          "children": []
+        }
+      ]
+    },
+    {
+      "key": "affected-boundaries",
+      "title": "Affected Boundaries",
+      "guidance": "Repository areas and contracts affected by the design, including adjacent areas that remain unchanged. Omit when the approach already establishes the complete boundary.",
+      "cardinality": {
+        "min": 0,
+        "max": 1
+      },
+      "children": [
+        {
+          "key": "affected-boundary",
+          "title": "Affected Boundary",
+          "guidance": "Title each instance with the module, service, interface, data boundary, or repository area. State the expected effect and what remains outside the design.",
+          "cardinality": {
+            "min": 0,
+            "max": null
+          },
+          "children": []
+        }
+      ]
+    },
+    {
+      "key": "verification",
+      "title": "Verification",
+      "guidance": "Observable evidence that would establish the design works as intended. Omit when verification is not established in this design.",
+      "cardinality": {
+        "min": 0,
+        "max": 1
+      },
+      "children": [
+        {
+          "key": "verification-item",
+          "title": "Verification Item",
+          "guidance": "Title each instance with the property or behavior evaluated. Name repository-supported checks or concrete observations without claiming unobserved results.",
+          "cardinality": {
+            "min": 0,
+            "max": null
+          },
+          "children": []
+        }
+      ]
+    },
+    {
+      "key": "api-and-interfaces",
+      "title": "API and Interfaces",
+      "guidance": "Interfaces added or changed by the design. Omit this module when no interface is affected.",
+      "cardinality": {
+        "min": 0,
+        "max": 1
+      },
+      "children": [
+        {
+          "key": "api-or-interface",
+          "title": "API or Interface",
+          "guidance": "Title each instance with the endpoint, event, command, or public interface. State the supported contract, compatibility, authorization, and error behavior that apply.",
+          "cardinality": {
+            "min": 0,
+            "max": null
+          },
+          "children": []
+        }
+      ]
+    },
+    {
+      "key": "data",
+      "title": "Data",
+      "guidance": "Data structures or persistence affected by the design. Omit this module when no data boundary is affected.",
+      "cardinality": {
+        "min": 0,
+        "max": 1
+      },
+      "children": [
+        {
+          "key": "data-change",
+          "title": "Data Change",
+          "guidance": "Title each instance with the model, schema, or data flow. State fields, constraints, ownership, and compatibility only where established.",
+          "cardinality": {
+            "min": 0,
+            "max": null
+          },
+          "children": []
+        }
+      ]
+    },
+    {
+      "key": "migration",
+      "title": "Migration",
+      "guidance": "Transition of existing state or consumers. Omit this module when no migration is needed.",
+      "cardinality": {
+        "min": 0,
+        "max": 1
+      },
+      "children": [
+        {
+          "key": "migration-consideration",
+          "title": "Migration Consideration",
+          "guidance": "Title each instance with the transition concern. State sequencing, compatibility, data safety, or validation supported by the design.",
+          "cardinality": {
+            "min": 0,
+            "max": null
+          },
+          "children": []
+        }
+      ]
+    },
+    {
+      "key": "security",
+      "title": "Security",
+      "guidance": "Relevant trust, access, privacy, secret, or abuse boundaries. Omit this module when no distinct security concern applies.",
+      "cardinality": {
+        "min": 0,
+        "max": 1
+      },
+      "children": [
+        {
+          "key": "security-consideration",
+          "title": "Security Consideration",
+          "guidance": "Title each instance with the concrete security or privacy concern and state the established control or unresolved decision.",
+          "cardinality": {
+            "min": 0,
+            "max": null
+          },
+          "children": []
+        }
+      ]
+    },
+    {
+      "key": "operations",
+      "title": "Operations",
+      "guidance": "Relevant reliability, observability, capacity, support, or runtime concerns. Omit this module when none applies.",
+      "cardinality": {
+        "min": 0,
+        "max": 1
+      },
+      "children": [
+        {
+          "key": "operational-consideration",
+          "title": "Operational Consideration",
+          "guidance": "Title each instance with the operational concern. State the expected signal, constraint, or failure handling supported by repository practice.",
+          "cardinality": {
+            "min": 0,
+            "max": null
+          },
+          "children": []
+        }
+      ]
+    },
+    {
+      "key": "rollout",
+      "title": "Rollout",
+      "guidance": "Introduction order or compatibility safeguards. Omit this module when rollout detail does not materially affect safety.",
+      "cardinality": {
+        "min": 0,
+        "max": 1
+      },
+      "children": [
+        {
+          "key": "rollout-consideration",
+          "title": "Rollout Consideration",
+          "guidance": "Title each instance with the rollout concern and state supported sequencing, safeguards, and observable completion conditions.",
+          "cardinality": {
+            "min": 0,
+            "max": null
+          },
+          "children": []
+        }
+      ]
+    },
+    {
+      "key": "rollback",
+      "title": "Rollback",
+      "guidance": "Safe reversal boundaries and data implications. Omit this module when rollback does not apply.",
+      "cardinality": {
+        "min": 0,
+        "max": 1
+      },
+      "children": [
+        {
+          "key": "rollback-consideration",
+          "title": "Rollback Consideration",
+          "guidance": "Title each instance with the rollback concern. State safe reversal boundaries, data implications, and verification supported by the design.",
+          "cardinality": {
+            "min": 0,
+            "max": null
+          },
+          "children": []
+        }
+      ]
+        }
+      ]
+    }
+  ]
+}

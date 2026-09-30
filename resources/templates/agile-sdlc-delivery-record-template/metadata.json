@@ -1,0 +1,20 @@
+{
+  "slug": "agile-sdlc-delivery-record-template",
+  "kind": "template",
+  "title": "Agile Delivery Record Template",
+  "summary": "Human-skimmable implementation summary, reusable Target Revision manifests, and append-only minimum evidence. Produced as `<Subject> - Agile Delivery Record`.",
+  "tags": [
+    "agile-sdlc",
+    "domain.engineering",
+    "use-case.execution"
+  ],
+  "collection": "agile-sdlc",
+  "createdAt": "2026-09-29",
+  "updatedAt": "2026-09-29",
+  "sourceVersion": "1.0",
+  "schemaVersion": "1",
+  "license": "CC-BY-4.0",
+  "relatedSlugs": [
+    "agile-sdlc-implement"
+  ]
+}

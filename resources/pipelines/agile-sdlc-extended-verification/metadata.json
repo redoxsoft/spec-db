@@ -1,0 +1,22 @@
+{
+  "slug": "agile-sdlc-extended-verification",
+  "kind": "pipeline",
+  "title": "Agile Extended Verification",
+  "summary": "Runs available long suites against a stored Target Revision that satisfies its persisted manifest semantics. Clean no-suite is not-applicable; an unavailable required suite blocks without changing implementation completion.",
+  "tags": [
+    "agile-sdlc",
+    "domain.engineering",
+    "use-case.execution"
+  ],
+  "collection": "agile-sdlc",
+  "subcollection": "agile-sdlc-verify",
+  "createdAt": "2026-09-29",
+  "updatedAt": "2026-09-29",
+  "sourceVersion": "1.0",
+  "schemaVersion": "1",
+  "license": "CC-BY-4.0",
+  "relatedSlugs": [
+    "agile-sdlc-delivery-record-template",
+    "agile-sdlc-test-strategy-guide"
+  ]
+}

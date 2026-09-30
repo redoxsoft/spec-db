@@ -1,0 +1,21 @@
+{
+  "slug": "agile-sdlc-test-strategy-guide",
+  "kind": "spec",
+  "title": "Agile Test Strategy Guide",
+  "summary": "How to choose test levels and risk-based coverage, manage test data, and distinguish trustworthy evidence from an unobserved or inapplicable check.",
+  "tags": [
+    "agile-sdlc",
+    "domain.engineering",
+    "use-case.specification"
+  ],
+  "collection": "agile-sdlc",
+  "createdAt": "2026-09-29",
+  "updatedAt": "2026-09-29",
+  "sourceVersion": "1.0",
+  "schemaVersion": "1",
+  "license": "CC-BY-4.0",
+  "relatedSlugs": [
+    "agile-sdlc-implement",
+    "agile-sdlc-generate-test-plan"
+  ]
+}

@@ -1,0 +1,137 @@
+{
+  "schemaVersion": "1",
+  "guidance": "Write the smallest complete durable execution contract for a bounded change, defect, or task, produced as `<Subject> - Agile Work Item`.\nAlways preserve the intended outcome, acceptance criteria, repository boundary, and verification approach. Add exclusions only when they clarify the boundary, defect evidence only when relevant, and risks, decisions, or assumptions only when material. Give provenance (`user-stated`, `repository-observed`, `agent-inferred`, or `unresolved`) only for material decisions and assumptions.\nUse repository-specific files, commands, observations, and conventions when evidence establishes them. Do not invent missing facts, architecture, product behavior, or verification results.",
+  "outline": [
+    {
+      "key": "document-status",
+      "title": "Document Status",
+      "guidance": "Status, work type, last updated date, and available originating evidence. Status is Draft, Under Review, Approved, or Superseded.",
+      "children": [
+        {
+          "key": "status",
+          "title": "Status",
+          "guidance": "Draft, Under Review, Approved, or Superseded."
+        },
+        {
+          "key": "work-type",
+          "title": "Work Type",
+          "guidance": "Exactly one of change, defect, or task. A change amends existing behavior or configuration. A defect is a broken behavior. A task is a scoped increment from an issue, diff, or notes that is neither a product amendment nor a defect."
+        },
+        {
+          "key": "last-updated",
+          "title": "Last Updated",
+          "guidance": "Date this document was last revised, YYYY-MM-DD."
+        },
+        {
+          "key": "originating-evidence",
+          "title": "Originating Evidence",
+          "guidance": "Issue, pull request, diff, commit, ticket, or notes this item came from. Name the source. Do not invent one when it is missing.",
+          "cardinality": {
+            "min": 0,
+            "max": 1
+          }
+        },
+        {
+          "key": "decision-or-assumption",
+          "title": "Decision or Assumption",
+          "guidance": "One material decision or assumption, its rationale and effect, and provenance exactly `user-stated`, `repository-observed`, `agent-inferred`, or `unresolved`. Omit routine repository facts and omit all instances when none is material. Title each instance with the decision.",
+          "cardinality": {
+            "min": 0,
+            "max": null
+          }
+        }
+      ]
+    },
+    {
+      "key": "intended-outcome",
+      "title": "Intended Outcome",
+      "guidance": "In one or two paragraphs, state why this work is needed and the observable outcome that must exist when it is complete. For a defect, include who is affected and the impact. Preserve the approved intent without expanding it into a product vision or adjacent objective.",
+      "children": [
+        {
+          "key": "defect-evidence",
+          "title": "Defect Evidence",
+          "guidance": "For a defect only, record available reproduction steps, expected versus actual behavior, and a confirmed root cause when known. Tag an unconfirmed cause `! [HYPOTHESIS]`. Omit for other work and when it adds no dependable evidence.",
+          "cardinality": {
+            "min": 0,
+            "max": 1
+          }
+        }
+      ]
+    },
+    {
+      "key": "acceptance-criteria",
+      "title": "Acceptance Criteria",
+      "guidance": "Verifiable criteria identified `AC-001` onward. Use Given / When / Then for an interaction, transition, or flow. For any other observable check, use concise declarative Target and Constraint fields. Add Violation only when a failure response or failure behavior is part of the contract. For a defect, each criterion is a regression check that would fail on the unfixed code. Title each instance with the behavior, not \"Acceptance Criterion\".",
+      "children": [
+        {
+          "key": "acceptance-criterion",
+          "title": "Acceptance Criterion",
+          "guidance": "Title each instance with the behavior, not \"Acceptance Criterion\". Use Given / When / Then for an interaction, transition, or flow. For any other observable check, use concise declarative Target and Constraint fields. Add Violation only when a failure response or failure behavior is part of the contract. For a defect, make the criterion a regression check that would fail on the unfixed code.",
+          "cardinality": {
+            "min": 1,
+            "max": null
+          }
+        }
+      ]
+    },
+    {
+      "key": "repository-boundary",
+      "title": "Repository Boundary and Permitted Files",
+      "guidance": "Name the repository, modules, directories, and files this work may create or edit, using exact files where known and bounded areas where discovery may reveal the final file set. Do not include opportunistic refactoring or unrelated formatting.",
+      "children": [
+        {
+          "key": "exclusions",
+          "title": "Exclusions and Non-Goals",
+          "guidance": "Material exclusions not already clear from the positive boundary. Omit when none adds clarity.",
+          "cardinality": {
+            "min": 0,
+            "max": 1
+          }
+        },
+        {
+          "key": "risk-or-advisory",
+          "title": "Risk or Advisory",
+          "guidance": "One material concern, likely impact, and established mitigation or follow-up. Omit all instances when no material risk or advisory is present. Title each instance with the concern.",
+          "cardinality": {
+            "min": 0,
+            "max": null
+          }
+        }
+      ]
+    },
+    {
+      "key": "verification-approach",
+      "title": "Verification Approach",
+      "guidance": "State how the acceptance criteria will be evaluated. Include the repository-native automated commands, concrete manual observations, or an explicit reason that a mode does not apply. Omit unused leaves rather than inventing evidence.",
+      "children": [
+        {
+          "key": "automated-commands",
+          "title": "Automated Commands",
+          "guidance": "Exact repository-native commands and the acceptance criteria each command evaluates. Omit when automated verification does not apply.",
+          "cardinality": {
+            "min": 0,
+            "max": 1
+          }
+        },
+        {
+          "key": "manual-observations",
+          "title": "Manual Observations",
+          "guidance": "Concrete actions, preconditions, and observable expected results. Omit when manual verification does not apply.",
+          "cardinality": {
+            "min": 0,
+            "max": 1
+          }
+        },
+        {
+          "key": "not-applicable-reason",
+          "title": "Not-Applicable Reason",
+          "guidance": "Explain why automated commands, manual observation, or both do not apply. Omit when both modes apply.",
+          "cardinality": {
+            "min": 0,
+            "max": 1
+          }
+        }
+      ]
+    }
+  ]
+}

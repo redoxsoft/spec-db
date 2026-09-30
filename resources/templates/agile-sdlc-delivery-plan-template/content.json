@@ -1,0 +1,206 @@
+{
+  "schemaVersion": "1",
+  "guidance": "Write a delivery plan under the single Delivery Plan root. Test Plan mode uses `<Subject> - Agile Test Plan`; Implementation Plan mode uses `<Subject> - Agile Implementation Plan`.\nAlways state the objective. Use actual repository boundaries, commands, environments, data conventions, and established design. Omit optional modules that are irrelevant or unsupported. Test Plan mode may omit execution increments. Implementation Plan mode may omit a dedicated scenario inventory when checks attached to the increments are sufficient. Do not invent modules, commands, dependencies, or release constraints.",
+  "outline": [
+    {
+      "key": "delivery-plan",
+      "title": "Delivery Plan",
+      "guidance": "The complete test or implementation plan. Objective and Scope is required and contains a required Objective, so this root is always meaningful; every other module can be omitted as a whole.",
+      "children": [
+        {
+      "key": "objective-and-scope",
+      "title": "Objective and Scope",
+      "guidance": "The delivery objective and its supported boundary.",
+      "children": [
+        {
+          "key": "objective",
+          "title": "Objective",
+          "guidance": "The observable delivery or verification objective."
+        },
+        {
+          "key": "scope",
+          "title": "Scope",
+          "guidance": "Included repository areas, behaviors, constraints, and explicit exclusions supported by the input and repository.",
+          "cardinality": {
+            "min": 0,
+            "max": 1
+          }
+        }
+      ]
+    },
+    {
+      "key": "prerequisites",
+      "title": "Prerequisites",
+      "guidance": "Established dependencies or preconditions. Omit this module when none applies.",
+      "cardinality": {
+        "min": 0,
+        "max": 1
+      },
+      "children": [
+        {
+          "key": "prerequisite",
+          "title": "Prerequisite",
+          "guidance": "Title each instance with the concrete prerequisite. State how its availability is established.",
+          "cardinality": {
+            "min": 0,
+            "max": null
+          },
+          "children": []
+        }
+      ]
+    },
+    {
+      "key": "strategy-and-risks",
+      "title": "Strategy and Risks",
+      "guidance": "The repository-grounded approach and material delivery or verification risks. Omit this module when no separate strategy or risk content is useful.",
+      "cardinality": {
+        "min": 0,
+        "max": 1
+      },
+      "children": [
+        {
+          "key": "strategy",
+          "title": "Strategy",
+          "guidance": "The overall approach and why it fits the objective, boundary, and repository conventions.",
+          "cardinality": {
+            "min": 0,
+            "max": 1
+          }
+        },
+        {
+          "key": "risk",
+          "title": "Risk",
+          "guidance": "Title each instance with the concrete risk. State its impact and supported mitigation.",
+          "cardinality": {
+            "min": 0,
+            "max": null
+          },
+          "children": []
+        }
+      ]
+    },
+    {
+      "key": "execution-increments",
+      "title": "Execution Increments",
+      "guidance": "Ordered, independently checkable increments when sequencing adds value. Test Plan mode may omit this module.",
+      "cardinality": {
+        "min": 0,
+        "max": 1
+      },
+      "children": [
+        {
+          "key": "execution-increment",
+          "title": "Execution Increment",
+          "guidance": "Title each instance with the result it establishes. State relevant target areas, dependencies, work, and checks supported by the repository.",
+          "cardinality": {
+            "min": 0,
+            "max": null
+          },
+          "children": []
+        }
+      ]
+    },
+    {
+      "key": "verification-scenarios",
+      "title": "Verification Scenarios",
+      "guidance": "Scenarios that need a dedicated inventory. Implementation Plan mode may omit this module when increment checks provide sufficient coverage.",
+      "cardinality": {
+        "min": 0,
+        "max": 1
+      },
+      "children": [
+        {
+          "key": "verification-scenario",
+          "title": "Verification Scenario",
+          "guidance": "Title each instance with the behavior or condition evaluated. State preconditions, action, expected observation, and applicable verification level without inventing implementation detail.",
+          "cardinality": {
+            "min": 0,
+            "max": null
+          },
+          "children": []
+        }
+      ]
+    },
+    {
+      "key": "environment-and-data",
+      "title": "Environment and Data",
+      "guidance": "Environment or data needs established by the repository. Omit this module when neither applies.",
+      "cardinality": {
+        "min": 0,
+        "max": 1
+      },
+      "children": [
+        {
+          "key": "environment",
+          "title": "Environment",
+          "guidance": "Relevant runtime, tools, services, configuration, or constraints.",
+          "cardinality": {
+            "min": 0,
+            "max": 1
+          }
+        },
+        {
+          "key": "data",
+          "title": "Data",
+          "guidance": "Fixtures, synthetic data, state, privacy constraints, or cleanup needs that apply.",
+          "cardinality": {
+            "min": 0,
+            "max": 1
+          }
+        }
+      ]
+    },
+    {
+      "key": "recovery-and-rollback",
+      "title": "Recovery and Rollback",
+      "guidance": "Recovery or rollback considerations that materially apply. Omit this module when neither applies.",
+      "cardinality": {
+        "min": 0,
+        "max": 1
+      },
+      "children": [
+        {
+          "key": "recovery",
+          "title": "Recovery",
+          "guidance": "How interrupted or failed work can return to a safe, understood state.",
+          "cardinality": {
+            "min": 0,
+            "max": 1
+          }
+        },
+        {
+          "key": "rollback",
+          "title": "Rollback",
+          "guidance": "How an applied change can be reversed safely when rollback is relevant.",
+          "cardinality": {
+            "min": 0,
+            "max": 1
+          }
+        }
+      ]
+    },
+    {
+      "key": "decisions",
+      "title": "Decisions",
+      "guidance": "Material settled or open decisions that affect the plan. Omit this module when no decision needs recording.",
+      "cardinality": {
+        "min": 0,
+        "max": 1
+      },
+      "children": [
+        {
+          "key": "decision",
+          "title": "Decision",
+          "guidance": "Title each instance with the decision. State its status, evidence or rationale, effect on the plan, and unresolved options when applicable.",
+          "cardinality": {
+            "min": 0,
+            "max": null
+          },
+          "children": []
+        }
+      ]
+        }
+      ]
+    }
+  ]
+}

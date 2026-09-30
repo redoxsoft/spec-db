@@ -1,0 +1,167 @@
+{
+  "schemaVersion": "1",
+  "guidance": "Write a product or feature specification under the single Product Specification root. PRD mode uses `<Subject> - Agile PRD`; Feature mode uses `<Subject> - Agile Feature Spec`.\nAlways state supported context and intent. Use bounded leeway for optional modules: infer repository-supported detail, emphasize initiative context and outcomes in PRD mode, and emphasize behavior and acceptance criteria in Feature mode. Omit optional modules that are irrelevant or unsupported. Do not add invented personas, stakeholders, metrics, traceability, requirements, or upstream documents. Preserve consequential unknowns as open decisions rather than resolving them without evidence.",
+  "outline": [
+    {
+      "key": "product-specification",
+      "title": "Product Specification",
+      "guidance": "The complete product or feature specification. Context and Intent is required so this root is always meaningful; omit every optional child module that lacks useful supported content.",
+      "children": [
+        {
+          "key": "context-and-intent",
+          "title": "Context and Intent",
+          "guidance": "State the supported current condition, why the subject matters, and the outcome or behavior this document intends to establish. Keep the detail appropriate to the selected mode and do not prescribe unsupported implementation detail."
+        },
+        {
+          "key": "users-and-stakeholders",
+          "title": "Users and Stakeholders",
+          "guidance": "People or systems materially affected by the subject. Omit this module when no useful user or stakeholder information is established.",
+          "cardinality": {
+            "min": 0,
+            "max": 1
+          },
+          "children": [
+            {
+              "key": "user-or-stakeholder",
+              "title": "User or Stakeholder",
+              "guidance": "Title each instance with the concrete user, stakeholder, or affected system. State only the supported need, responsibility, or impact.",
+              "cardinality": {
+                "min": 0,
+                "max": null
+              }
+            }
+          ]
+        },
+        {
+          "key": "outcomes-and-success-evidence",
+          "title": "Outcomes and Success Evidence",
+          "guidance": "Desired outcomes and evidence that would demonstrate them. PRD mode may emphasize this module. Omit it when no separate outcome or evidence entry is useful.",
+          "cardinality": {
+            "min": 0,
+            "max": 1
+          },
+          "children": [
+            {
+              "key": "outcome-or-success-evidence",
+              "title": "Outcome or Success Evidence",
+              "guidance": "Title each instance with the concrete desired outcome or evidence. Distinguish a desired result from an established measurement source, and include quantitative measures only when supplied or evidenced.",
+              "cardinality": {
+                "min": 0,
+                "max": null
+              }
+            }
+          ]
+        },
+        {
+          "key": "scope-and-requirements",
+          "title": "Scope and Requirements",
+          "guidance": "Supported scope boundaries, requirements, and material exclusions. Omit this module when Context and Intent already states the complete bounded subject.",
+          "cardinality": {
+            "min": 0,
+            "max": 1
+          },
+          "children": [
+            {
+              "key": "scope-item-or-requirement",
+              "title": "Scope Item or Requirement",
+              "guidance": "Title each instance with the capability, constraint, or boundary. State the required result and relevant conditions without inventing detail. Use identifiers only when they help the document or already govern the work.",
+              "cardinality": {
+                "min": 0,
+                "max": null
+              }
+            },
+            {
+              "key": "non-goal",
+              "title": "Non-Goal",
+              "guidance": "Title each instance with an excluded capability, behavior, audience, configuration, or integration that materially clarifies scope, and state why it is outside this document. Omit all instances when none adds a useful boundary.",
+              "cardinality": {
+                "min": 0,
+                "max": null
+              }
+            }
+          ]
+        },
+        {
+          "key": "behaviors-and-journeys",
+          "title": "Behaviors and Journeys",
+          "guidance": "Observable behavior or meaningful journeys. Feature mode may emphasize this module. Omit it when behavior or journey detail is not relevant.",
+          "cardinality": {
+            "min": 0,
+            "max": 1
+          },
+          "children": [
+            {
+              "key": "behavior-or-journey",
+              "title": "Behavior or Journey",
+              "guidance": "Title each instance with the observable behavior or journey goal. Describe supported preconditions, interactions, rules, states, outcomes, or recovery where they matter.",
+              "cardinality": {
+                "min": 0,
+                "max": null
+              }
+            }
+          ]
+        },
+        {
+          "key": "acceptance-criteria",
+          "title": "Acceptance Criteria",
+          "guidance": "Observable completion conditions. Feature mode may emphasize this module. Omit it when acceptance criteria are not established by the source.",
+          "cardinality": {
+            "min": 0,
+            "max": 1
+          },
+          "children": [
+            {
+              "key": "acceptance-criterion",
+              "title": "Acceptance Criterion",
+              "guidance": "Title each instance with the behavior being evaluated. Use Given / When / Then for an interaction, transition, or flow. For any other observable check, use concise declarative Target and Constraint fields. Add Violation only when a failure response or failure behavior is part of the contract.",
+              "cardinality": {
+                "min": 0,
+                "max": null
+              }
+            }
+          ]
+        },
+        {
+          "key": "risks-and-dependencies",
+          "title": "Risks and Dependencies",
+          "guidance": "Material uncertainty, constraints, and external dependencies. Omit this module when none needs recording.",
+          "cardinality": {
+            "min": 0,
+            "max": 1
+          },
+          "children": [
+            {
+              "key": "risk-or-dependency",
+              "title": "Risk or Dependency",
+              "guidance": "Title each instance with the concrete concern. State its relevance, likely impact, and known mitigation or dependency condition.",
+              "cardinality": {
+                "min": 0,
+                "max": null
+              }
+            }
+          ]
+        },
+        {
+          "key": "open-decisions",
+          "title": "Open Decisions",
+          "guidance": "Unresolved consequential choices. Omit this module when none exists; do not turn unsupported guesses into settled content.",
+          "cardinality": {
+            "min": 0,
+            "max": 1
+          },
+          "children": [
+            {
+              "key": "open-decision",
+              "title": "Open Decision",
+              "guidance": "Title each instance with the decision needed. State the known options, evidence, trade-offs, and what depends on resolution.",
+              "cardinality": {
+                "min": 0,
+                "max": null
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

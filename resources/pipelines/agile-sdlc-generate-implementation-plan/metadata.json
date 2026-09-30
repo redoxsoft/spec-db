@@ -1,0 +1,22 @@
+{
+  "slug": "agile-sdlc-generate-implementation-plan",
+  "kind": "pipeline",
+  "title": "Agile Generate Implementation Plan",
+  "summary": "Turn an upstream spec or brief into one implementation plan, updating the existing SpecX document when that title already exists.",
+  "tags": [
+    "agile-sdlc",
+    "domain.engineering",
+    "use-case.planning"
+  ],
+  "collection": "agile-sdlc",
+  "subcollection": "agile-sdlc-specify",
+  "createdAt": "2026-09-29",
+  "updatedAt": "2026-09-29",
+  "sourceVersion": "1.0",
+  "schemaVersion": "1",
+  "license": "CC-BY-4.0",
+  "relatedSlugs": [
+    "agile-sdlc-delivery-plan-template",
+    "agile-sdlc-tech-design-standards"
+  ]
+}

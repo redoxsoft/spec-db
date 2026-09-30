@@ -1,0 +1,22 @@
+{
+  "slug": "agile-sdlc-generate-tech-spec",
+  "kind": "pipeline",
+  "title": "Agile Generate Tech Spec",
+  "summary": "Turn engineering notes or an upstream spec into one technical design grounded in the workspace, updating the existing SpecX document when that title already exists.",
+  "tags": [
+    "agile-sdlc",
+    "domain.engineering",
+    "use-case.specification"
+  ],
+  "collection": "agile-sdlc",
+  "subcollection": "agile-sdlc-specify",
+  "createdAt": "2026-09-29",
+  "updatedAt": "2026-09-29",
+  "sourceVersion": "1.0",
+  "schemaVersion": "1",
+  "license": "CC-BY-4.0",
+  "relatedSlugs": [
+    "agile-sdlc-technical-design-template",
+    "agile-sdlc-tech-design-standards"
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "schemaVersion": "1",
+  "inputVarDefinitions": [],
+  "iteratorFields": [],
+  "steps": [
+    { "key": "scope-and-lock", "name": "Scope the Change and Lock the Contract" },
+    { "key": "build-and-verify", "name": "Build, Check, and Fix Within the Boundary" },
+    { "key": "record-and-hand-off", "name": "Write the Delivery Record and Hand Off" }
+  ]
+}
