@@ -17,7 +17,7 @@ Trivial request -> Implement -> Delivery Record
 Work Item       -> Implement -> Delivery Record
 ```
 
-The first route applies only to a bounded low-risk typo, copy, simple configuration, or one-line fix with clear intent, deterministic criteria, exact permitted paths and verification, and no material decision, risk, ambiguity, or cross-run resumability need. Its compact approved contract lives only in pipeline run state; the Delivery Record is its only required durable document. All other work uses a durable Work Item. Product Spec, Technical Design, and Delivery Plan are independent optional artifacts.
+The first route applies only to a bounded low-risk typo, copy, simple configuration, or one-line fix with clear intent, deterministic criteria, exact permitted paths and verification, and no material decision, risk, ambiguity, or cross-run resumability need. Its compact approved contract lives only in pipeline run state; it requires no Work Item or Work Item template, but its only required durable document is a Delivery Record in the SpecX document workspace. All other work uses a durable Work Item. Product Spec, Technical Design, and Delivery Plan are independent optional artifacts.
 
 Review, extended verification, and synchronization are independent optional pipelines. No pipeline launches another pipeline. Five knowledge specs provide reusable judgment, six templates provide durable document shape, and task files contain all procedure.
 
@@ -75,9 +75,9 @@ Shared `metadata.json` fields:
 | `templateSlug` | Unset. |
 | `relatedSlugs` | Omitted through Milestone 2. From Milestone 3 onward, every entry resolves to an existing `agile-sdlc-*` resource. |
 
-### Produced document titles
+### Produced document identity
 
-Pipelines create or update SpecX documents by **exact title**. A filesystem path is never a write destination; ignore any path a user supplies.
+Pipelines create or update SpecX documents by durable id when one is known and otherwise by **exact title**. A filesystem path is never a document write destination. Workspace folder placement is a separate concern governed below.
 
 | Produced by | Title |
 |---|---|
@@ -93,6 +93,59 @@ Pipelines create or update SpecX documents by **exact title**. A filesystem path
 If a target title already exists, update it in place. Never create a second document for the same subject.
 
 Optional pipelines preserve an explicitly supplied Delivery Record title/reference first and infer `<Subject> - Agile Delivery Record` only when none was supplied. Ambiguity requires one selection; it never causes silent duplicate creation. The selected exact title is persisted across tasks.
+
+### Runtime artifact hierarchy
+
+Imported collection resources are reusable inputs, not destinations for runtime work. Recommend `Project Work` as the runtime base folder, while allowing an explicit team override or a locally customized collection default. This contract does not assume that the host provides a workspace-settings key.
+
+```text
+workspace-root/
+├── <Imported collection>/              # protected reusable resources
+└── Project Work/                       # configurable runtime base
+    ├── Initiatives/                    # PRDs remain flat
+    │   └── <Initiative> - Agile PRD
+    ├── Features/
+    │   └── <Feature>/
+    │       ├── Feature Spec, Tech Spec, and plans
+    │       └── Work/
+    │           └── Work Items, Delivery Records, and Review Findings
+    └── Work/
+        └── <Subject>/                  # no feature anchor
+            └── Work Items, Delivery Records, and Review Findings
+```
+
+Do not create per-PRD or per-Work-Item folders. Derive `<Initiative>`, `<Feature>`, and `<Subject>` from the already approved subject, applying only sanitization required by the host. Do not strip semantic prefixes or introduce another normalization scheme.
+
+The protected import boundary is established from imported resources' collection metadata and the ancestry in the fetched folder hierarchy. A folder name, including `Agile SDLC`, is not proof that a folder is imported or protected.
+
+### Placement contract
+
+Placement is resolved once by the producing pipeline's scope task and persisted per artifact as exact artifact id/reference, `create` or `update` disposition, `folderId`, informational `folderPath`, and any advisory. Implement persists separate records for its Work Item and Delivery Record; existing artifacts in different folders keep different records. Later tasks use the correct artifact's record and never recompute placement.
+
+An existing exact-title artifact is always updated in its current folder. Its durable id is authoritative across tasks: after a human move or folder rename, re-read by id, write in the artifact's current folder, note the changed display path, and never relocate it. Defaults, overrides, and governing-source folders apply only when creating a new artifact; they never migrate an artifact at workspace root, in a manually moved folder, or in any other unconventional location.
+
+For a new artifact, use this decision map:
+
+1. Use an explicit valid folder override.
+2. Otherwise use the governing source artifact's folder when that artifact type inherits placement.
+3. Otherwise ensure and use the output-specific default under the runtime base.
+4. Never create a runtime artifact anywhere inside the protected import boundary. If an override, governing source, or existing counterpart folder is protected, skip that candidate and continue to the next valid feature `Work` or standalone default, with one concise advisory for the final fallback.
+5. Ask only when artifact identity is ambiguous. Missing or conflicting placement evidence falls back deterministically with an advisory because placement is reversible.
+
+Output-specific defaults and inheritance are:
+
+- A PRD is created directly in `Initiatives`; PRDs do not get individual folders.
+- A Feature Spec establishes `Features/<Feature>`, even when a PRD is its source.
+- A Tech Spec, Test Plan, or Implementation Plan inherits the folder of its explicitly supplied primary Feature Spec or other governing feature-level source. Without a feature anchor, use `Work/<Subject>` and advise that standalone placement was used.
+- Implement places a new Work Item and Delivery Record in `<Feature>/Work` when a valid governing Work Item or feature-level source establishes a feature folder. Otherwise it uses `Work/<Subject>`. When both are new they normally share that valid destination; when either already exists, its own update placement remains separate.
+- Review follows a valid existing Delivery Record folder, then a valid existing Work Item folder; a protected candidate is skipped for a new Findings document. If neither governs placement, it uses the same feature-backed or standalone Work rule.
+- Extended Verification and Sync Specs create no folders and update the exact Delivery Record or living artifact in place.
+
+When candidate sources disagree, the explicit governing source wins: the primary Feature Spec for feature-level generation, the Work Item for implementation, and the Delivery Record for optional verification or synchronization. If no governing source has been established, use the deterministic output default with an advisory.
+
+Placement lookup must remain economical. Use a persisted artifact id first. Otherwise resolve an exact title or explicit reference and read that artifact's cheap folder property. Fetch the folder hierarchy only to ensure a known path or verify ancestry, including protection. Never list folder contents to discover artifacts, detect title collisions, select among candidates, or decide placement. If a not-yet-created output's persisted `folderId` disappears before writing, re-ensure the exact persisted `folderPath` and use its replacement id; this preserves the scope decision rather than recomputing it. If that exact path cannot be re-established, stop `blocked` for the environment.
+
+The contract has converged when no new runtime artifact can enter an imported-resource descendant through an override, source, counterpart, or default; every later task receives a separate placement record for each artifact it writes; existing artifacts are found by id and updated in their current folders; missing create-folder ids re-ensure only the persisted path; and no path requires a folder-content listing.
 
 ---
 
@@ -272,7 +325,7 @@ Beyond R1–R12, each pipeline's task files must contain the following. This is 
 
 ### 6.1 `implement` — the core path
 
-`scope-and-lock` accepts raw input, an existing Work Item, or Review Findings and inspects before asking. A true trivial change persists a compact approved execution contract with request reference, subject, outcome, criteria, exact paths, and verification, without requiring a Work Item template or document workspace. All nontrivial, risky, ambiguous, or cross-run-resumable work creates or updates one complete Work Item. One preview remains mandatory.
+`scope-and-lock` accepts raw input, an existing Work Item, or Review Findings and inspects before asking. A true trivial change persists a compact approved execution contract with request reference, subject, outcome, criteria, exact paths, and verification, without requiring a Work Item or Work Item template; it may resolve Delivery Record placement before the document workspace is used, but recording still requires that workspace. All nontrivial, risky, ambiguous, or cross-run-resumable work creates or updates one complete Work Item. One preview remains mandatory.
 
 `build-and-verify` reloads either approved contract, implements and repairs within its boundary, runs the recorded checks, and evaluates every criterion without inventing a pass. Once repository identity exists, it persists one Target Revision manifest and an ordered event list that references its revision id; an early blocked or needs_input result before checks may contain neither.
 

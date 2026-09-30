@@ -2,7 +2,7 @@
   "slug": "agile-sdlc-artifact-routing-guide",
   "kind": "spec",
   "title": "Agile Artifact Routing Guide",
-  "summary": "Sole authority for choosing the default Work Item-to-Delivery Record route or an independent optional Product Spec, Technical Design, or Delivery Plan when uncertainty warrants one.",
+  "summary": "Sole authority for choosing lean Agile SDLC artifacts and organizing runtime work outside protected imported collections.",
   "tags": [
     "agile-sdlc",
     "domain.product",
@@ -10,7 +10,7 @@
   ],
   "collection": "agile-sdlc",
   "createdAt": "2026-09-29",
-  "updatedAt": "2026-09-29",
+  "updatedAt": "2026-09-30",
   "sourceVersion": "1.0",
   "schemaVersion": "1",
   "license": "CC-BY-4.0",

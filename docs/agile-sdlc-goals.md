@@ -274,7 +274,7 @@ Use the least formal artifact that preserves intent and safety.
 
 ### 6.1 Default paths
 
-A bounded low-risk typo, copy, simple configuration, or one-line fix with clear intent, one or a few deterministic criteria, exact permitted repository paths and verification, and no material decision, risk, ambiguity, or cross-run resumability need may use a compact execution contract in pipeline run state. It still receives one three-line approval preview. It does not require a Work Item, its template, or a document workspace; its Delivery Record is the only required durable document.
+A bounded low-risk typo, copy, simple configuration, or one-line fix with clear intent, one or a few deterministic criteria, exact permitted repository paths and verification, and no material decision, risk, ambiguity, or cross-run resumability need may use a compact execution contract in pipeline run state. It still receives one three-line approval preview. It does not require a Work Item or its template; its Delivery Record is the only required durable document, so the SpecX document workspace must be available by recording time.
 
 All nontrivial, risky, ambiguous, or resumable work uses a durable Work Item. The Implement pipeline may create it from loose evidence, so a user does not need to run a specification pipeline first. A compact fast-path contract is not a cross-run checkpoint: interruption before the Delivery Record is written may require intake to be rerun.
 
@@ -475,10 +475,11 @@ Goal-completion claims require adversarial validation of the active templates, t
 14. **Legible happy path:** A first-time technical user can follow a small defect from short request through preview, execution state, and delivery evidence, and can explain what changed and how it was verified.
 15. **Legible hard stop:** A risk-sensitive change presents one concrete unresolved decision, shows why work is waiting, and resumes after the decision without stopping on the same condition again.
 16. **Evidence drill-down:** Every claimed acceptance result can be traced to a command, concrete observation, repository fact, artifact, or stated verification limitation without exposing raw internal reasoning.
-17. **True trivial fast path:** Complete a bounded low-risk one-line change with one three-line approval, no Work Item dependency, and one Delivery Record; verify that interruption before recording does not claim cross-run recovery.
+17. **True trivial fast path:** Complete a bounded low-risk one-line change with one three-line approval, no Work Item or Work Item-template dependency, and one Delivery Record in the SpecX document workspace; verify that interruption before recording does not claim cross-run recovery.
 18. **Deterministic dirty revision:** Recompute a stored manifest across regular files, symlinks, submodules, missing paths, and untracked files; accept current HEAD equal to or descended from the stored base when all boundary identities and changed paths still match, ignore unrelated outside-boundary commits, accept committing exactly the implementation, and block on boundary drift.
 19. **Zero-event stop:** Record an early blocked or needs_input implementation before checks without inventing a revision or event id; cite its durable Work Item decision or Originating Request.
 20. **Interrupted sync:** Resume after interruption between a living-spec update and its event, append only the missing truthful event, skip completed targets, and block on ambiguous partial state.
+21. **Predictable artifact placement:** Never create runtime work in an imported collection tree, including beside an existing runtime artifact there; preserve existing artifacts in place, keep separate Work Item and Delivery Record placements, and use durable artifact ids across later human folder moves without broad content scans.
 
 ---
 

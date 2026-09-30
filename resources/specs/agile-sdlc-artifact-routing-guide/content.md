@@ -36,6 +36,42 @@ Product Spec, Technical Design, and Delivery Plan are independent options. Each 
 
 One optional artifact may be enough. Existing repository conventions or an already-approved decision may resolve the uncertainty without any additional artifact.
 
+## Workspace Organization <!-- key: workspace-organization -->
+
+Runtime project work belongs outside imported collection resources. `Project Work` is the recommended runtime base, but a team may explicitly choose another base or customize the collection default.
+
+```text
+Project Work/
+├── Initiatives/
+│   └── <Initiative> - Agile PRD
+├── Features/
+│   └── <Feature>/
+│       ├── Feature Spec, Tech Spec, and plans
+│       └── Work/
+│           └── Work Items, Delivery Records, and Review Findings
+└── Work/
+    └── <Subject>/
+        └── Work Items, Delivery Records, and Review Findings
+```
+
+PRDs remain flat in `Initiatives`; there is no folder per PRD. A feature has one `Features/<Feature>` folder, with delivery artifacts under its `Work` child. Work without a feature anchor uses `Work/<Subject>`; there is no folder per Work Item.
+
+An imported collection and its descendants are protected from runtime output. Protection comes from imported-resource collection metadata and folder ancestry, not from a fixed folder name. A similarly named team folder is not protected merely because of its name, and a renamed imported folder remains protected.
+
+## Placement Principles <!-- key: placement-principles -->
+
+Artifact identity and folder placement are distinct. A durable artifact id governs when available; an exact title or explicit reference resolves identity otherwise. Each output keeps its own create/update disposition, folder id, informational folder path, and advisory. A later human folder move does not change identity: update by id in the artifact's current folder and never relocate it.
+
+Existing artifacts are updated in their current folders. This includes artifacts at workspace root, artifacts moved by a person, and artifacts in unconventional locations. New defaults do not migrate prior work.
+
+For new artifacts, an explicit valid folder override has precedence, followed by the governing source artifact's folder, then the artifact's default under the runtime base. No new runtime artifact may be created in the protected import tree, including by colocation with an existing Work Item, Delivery Record, or Review Findings there. Skip any protected override, source, or counterpart candidate, continue to a valid feature `Work` or standalone default, and produce one advisory rather than a hard stop. Missing placement evidence also uses a deterministic fallback with an advisory; only ambiguous artifact identity requires a decision.
+
+Feature Specs establish `Features/<Feature>` even when they originate from a PRD. Tech Specs and plans follow their primary Feature Spec or other governing feature source. Work Items, Delivery Records, and Review Findings use the feature's `Work` folder when feature-backed and `Work/<Subject>` otherwise. Review follows an existing Delivery Record or Work Item location. Extended verification and synchronization update existing artifacts and create no folders.
+
+When sources disagree, use the artifact that governs the work: the primary Feature Spec for feature-level generation, the Work Item for implementation, and the Delivery Record for later verification or synchronization.
+
+Predictable placement should not require browsing folder contents. Persisted ids, exact artifact references, cheap direct folder properties, and the cheaply fetched known folder hierarchy provide sufficient evidence. Folder-content listings are expensive and are not a dependable way to discover identity, detect collisions, or choose a destination. If a persisted folder id for a not-yet-created output disappears, re-ensure only its exact persisted path; this preserves the decision rather than rerunning precedence.
+
 ## Routing Signals <!-- key: routing-signals -->
 
 Artifact choice follows unresolved uncertainty, not work size or category alone.
