@@ -1,9 +1,0 @@
-{
-  "schemaVersion": "1",
-  "inputVarDefinitions": [],
-  "iteratorFields": [],
-  "steps": [
-    { "key": "scope-and-confirm", "name": "Scope the Feature and Confirm" },
-    { "key": "draft-and-hand-off", "name": "Draft the Feature Spec and Hand Off" }
-  ]
-}
