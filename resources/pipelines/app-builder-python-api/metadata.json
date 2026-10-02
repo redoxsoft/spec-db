@@ -1,0 +1,23 @@
+{
+  "slug": "app-builder-python-api",
+  "kind": "pipeline",
+  "title": "App Builder Python API",
+  "summary": "Standalone Python HTTP API. Choose FastAPI or Flask, a database, and how it runs.",
+  "tags": [
+    "app-builder",
+    "domain.engineering",
+    "use-case.execution"
+  ],
+  "collection": "app-builder",
+  "subcollection": "app-builder-backends",
+  "createdAt": "2026-09-30",
+  "updatedAt": "2026-09-30",
+  "sourceVersion": "1.0",
+  "schemaVersion": "1",
+  "license": "CC-BY-4.0",
+  "relatedSlugs": [
+    "app-builder-python-api-contract",
+    "app-builder-api-standards",
+    "app-builder-project-development-guide"
+  ]
+}

@@ -1,0 +1,20 @@
+**Goal:** Run the static-site checks and hand off the directory and commands.
+
+**Scope:** This task runs the checks for the approved build tool, repairs only inside the approved directory, and reports the outcome. It must not deploy, claim a commit, or ask a new product question.
+
+**Verification / Definition of Done:**
+- [ ] Approved strings were reloaded, or the task stopped `blocked` and named the missing string.
+- [ ] Vite: `npm run lint`, `npm test`, and `npm run build` were run and their exit statuses were recorded. Plain: `index.html`, `css/styles.css`, and `js/main.js` were checked and no Node build was required.
+- [ ] Each applicable check in Verification Checks was recorded with what was observed. An inapplicable check was omitted.
+- [ ] Repair stayed inside the directory and stopped when no concrete in-boundary change remained or the same failure returned with no new evidence.
+- [ ] The handoff states outcome, directory, stack, checks and exit statuses, user commands, limitations, and next action, and does not say the project was committed, deployed, or submitted, and does not expose internal field names.
+- [ ] The handoff offers the draft project guide for later work without reading it or starting another pipeline.
+
+**Instructions:**
+
+1. Set state to `verifying`. Reload `status`, `name`, `targetDir`, `buildTool`, `toolchain`, and `overwrite`. If `status` is not `approved` or a required string is missing, stop `blocked` and name it. Do not ask.
+2. Read Verification Checks in "App Builder Static Website Contract". For Vite, also read Scaffolding Baseline (Day 0) in "App Builder Web Standards" for lint, test, and the build bar. Re-read Topology only to know which paths a repair may edit. Do not open another standard.
+3. Write only inside the resolved `targetDir`. Do not follow a path that escapes it. A repair may edit files this run created and, when `overwrite` is `granted`, planned paths from the contract tree. Do not delete or replace any other existing file. Do not change `buildTool`. Do not invent version specifiers or write `latest`. Do not install a missing Node or npm. Do not claim a pass without an observed result.
+4. For `vite`, from the directory, install project dependencies if the lockfile is missing, then run `npm run lint`, `npm test`, and `npm run build`. Record each exit status. For `plain`, confirm `index.html` links `css/styles.css` and `js/main.js`. Do not run a Node build. Do not treat a plain site as failed because Node is absent.
+5. Walk the verification checks that apply to the approved `buildTool`. Record pass or fail from files and exit codes. Continue repairing while a concrete change inside the boundary can address a failure. Stop when no such change remains, the same failure returns with no new evidence, or the next change would mix the stacks, add a business feature, or weaken a required check. A remaining required failure is `failed`. Name the command, its exit status, and why repair stopped. Do not describe that failure as a pass.
+6. On success, finish `done`. The user-facing handoff names the outcome, the directory, whether the stack is Vite or plain HTML, each check and exit status, and the next commands. Vite commands are `npm install`, `npm run dev`, `npm run lint`, `npm test`, `npm run build`, and `npm run preview`. Plain: open `index.html` locally. `npx serve` is optional text and is not a required check. Ask the user to confirm the heading shows the display name and that styles load. Do not deploy, push, tag, merge, or run `docker build`. Do not claim the project was committed, deployed, or submitted. The handoff does not expose internal field names. Run git only when the user explicitly asks in this run. Offer the imported App Builder Project Development Guide as a draft starting point for later work; if Agile SDLC is installed, name its optional Agile Bootstrap Project Guide for repository-specific adaptation. Do not load the guide or start that pipeline in this run.

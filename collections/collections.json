@@ -59,6 +59,53 @@
       "parentId": "agile-sdlc",
       "order": 3,
       "status": "active"
+    },
+    {
+      "id": "app-builder",
+      "displayName": "App Builder",
+      "description": "Opinionated hello-world starters for websites, web apps, APIs, and mobile apps.",
+      "order": 6,
+      "status": "active"
+    },
+    {
+      "id": "app-builder-websites",
+      "displayName": "Websites",
+      "description": "Starters for a static site and a Next.js website.",
+      "parentId": "app-builder",
+      "order": 1,
+      "status": "active"
+    },
+    {
+      "id": "app-builder-frontend",
+      "displayName": "Frontend Web Apps",
+      "description": "The React and Vite web app starter.",
+      "parentId": "app-builder",
+      "order": 2,
+      "status": "active"
+    },
+    {
+      "id": "app-builder-fullstack",
+      "displayName": "Full-Stack Web Apps",
+      "description": "Starters for a Next.js full-stack app and a React app with a separate API.",
+      "parentId": "app-builder",
+      "order": 3,
+      "status": "active"
+    },
+    {
+      "id": "app-builder-backends",
+      "displayName": "Backends and APIs",
+      "description": "Starters for a Node.js API and a Python API.",
+      "parentId": "app-builder",
+      "order": 4,
+      "status": "active"
+    },
+    {
+      "id": "app-builder-mobile",
+      "displayName": "Mobile Apps",
+      "description": "Starters for an Expo app and a Flutter app.",
+      "parentId": "app-builder",
+      "order": 5,
+      "status": "active"
     }
   ]
 }

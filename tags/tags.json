@@ -118,6 +118,16 @@
       "parentId": "use-case",
       "order": 6,
       "status": "active"
+    },
+    {
+      "id": "app-builder",
+      "displayName": "App Builder",
+      "description": "Pipelines and standards for opinionated hello-world application starters.",
+      "applicableKinds": ["spec", "pipeline"],
+      "ui": "facet",
+      "parentId": "use-case",
+      "order": 7,
+      "status": "active"
     }
   ]
 }

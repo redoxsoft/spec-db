@@ -1,0 +1,17 @@
+{
+  "slug": "agile-sdlc-project-development-guide",
+  "kind": "spec",
+  "title": "Agile Project Development Guide",
+  "summary": "Draft, adaptable defaults for code structure, UX, styling, state, APIs, data, diagnostics, and testing as a project grows.",
+  "tags": [
+    "agile-sdlc",
+    "domain.engineering",
+    "use-case.execution"
+  ],
+  "collection": "agile-sdlc",
+  "createdAt": "2026-09-30",
+  "updatedAt": "2026-09-30",
+  "sourceVersion": "1.0",
+  "schemaVersion": "1",
+  "license": "CC-BY-4.0"
+}

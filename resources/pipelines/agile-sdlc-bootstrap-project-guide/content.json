@@ -1,0 +1,8 @@
+{
+  "schemaVersion": "1",
+  "inputVarDefinitions": [],
+  "iteratorFields": [],
+  "steps": [
+    { "key": "inspect-confirm-and-write", "name": "Inspect, Confirm, and Write the Project Guide" }
+  ]
+}

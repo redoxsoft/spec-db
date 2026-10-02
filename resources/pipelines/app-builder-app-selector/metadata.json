@@ -1,0 +1,28 @@
+{
+  "slug": "app-builder-app-selector",
+  "kind": "pipeline",
+  "title": "App Builder App Selector",
+  "summary": "Asks three intent questions and starts one of the nine App Builder generators. Name, directory, and remaining stack choices stay in that generator.",
+  "tags": [
+    "app-builder",
+    "domain.engineering",
+    "use-case.execution"
+  ],
+  "collection": "app-builder",
+  "createdAt": "2026-10-01",
+  "updatedAt": "2026-10-01",
+  "sourceVersion": "1.0",
+  "schemaVersion": "1",
+  "license": "CC-BY-4.0",
+  "relatedSlugs": [
+    "app-builder-static-website",
+    "app-builder-nextjs-website",
+    "app-builder-react-vite-webapp",
+    "app-builder-nextjs-fullstack",
+    "app-builder-react-separate-api",
+    "app-builder-nodejs-api",
+    "app-builder-python-api",
+    "app-builder-expo-react-native",
+    "app-builder-flutter-app"
+  ]
+}

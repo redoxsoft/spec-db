@@ -1,0 +1,23 @@
+{
+  "slug": "app-builder-expo-react-native",
+  "kind": "pipeline",
+  "title": "App Builder Expo React Native",
+  "summary": "Cross-platform iOS and Android app using Expo, React Native, Expo Router, and TypeScript.",
+  "tags": [
+    "app-builder",
+    "domain.engineering",
+    "use-case.execution"
+  ],
+  "collection": "app-builder",
+  "subcollection": "app-builder-mobile",
+  "createdAt": "2026-09-30",
+  "updatedAt": "2026-09-30",
+  "sourceVersion": "1.0",
+  "schemaVersion": "1",
+  "license": "CC-BY-4.0",
+  "relatedSlugs": [
+    "app-builder-expo-react-native-contract",
+    "app-builder-mobile-standards",
+    "app-builder-project-development-guide"
+  ]
+}

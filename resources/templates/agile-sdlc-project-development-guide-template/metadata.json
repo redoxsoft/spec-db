@@ -1,0 +1,17 @@
+{
+  "slug": "agile-sdlc-project-development-guide-template",
+  "kind": "template",
+  "title": "Agile Project Development Guide Template",
+  "summary": "Shape for the optional project-owned Project Development Guide, with applicable sections and a Draft or Approved adoption status for each.",
+  "tags": [
+    "agile-sdlc",
+    "domain.engineering",
+    "use-case.planning"
+  ],
+  "collection": "agile-sdlc",
+  "createdAt": "2026-10-01",
+  "updatedAt": "2026-10-01",
+  "sourceVersion": "1.0",
+  "schemaVersion": "1",
+  "license": "CC-BY-4.0"
+}

@@ -1,0 +1,17 @@
+{
+  "slug": "app-builder-project-development-guide",
+  "kind": "spec",
+  "title": "App Builder Project Development Guide",
+  "summary": "Draft, adaptable defaults for code structure, UX, styling, state, APIs, data, diagnostics, and testing after a starter is created.",
+  "tags": [
+    "app-builder",
+    "domain.engineering",
+    "use-case.execution"
+  ],
+  "collection": "app-builder",
+  "createdAt": "2026-09-30",
+  "updatedAt": "2026-09-30",
+  "sourceVersion": "1.0",
+  "schemaVersion": "1",
+  "license": "CC-BY-4.0"
+}

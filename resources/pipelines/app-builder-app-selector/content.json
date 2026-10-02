@@ -1,0 +1,9 @@
+{
+  "schemaVersion": "1",
+  "inputVarDefinitions": [],
+  "iteratorFields": [],
+  "steps": [
+    { "key": "choose-starter", "name": "Choose Starter" },
+    { "key": "start-selected-pipeline", "name": "Start Selected Pipeline" }
+  ]
+}

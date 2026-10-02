@@ -60,6 +60,8 @@ Other work request   -> Work item -> Implement and verify -> Delivery record
 
 Specification generation, independent review, extended verification, and living-document synchronization are optional capabilities. Removing an optional capability must not break the default path.
 
+A small project development guide may provide defaults for maintainable code and consistent agent choices. A one-time bootstrap may adapt that guide to a repository, but ordinary implementation remains usable without bootstrap or a project-owned guide.
+
 The collection should also be a clear example of how to use the Spec DB resource types:
 
 - **Pipelines** contain execution and orchestration.
@@ -74,6 +76,7 @@ Agent context, tool calls, and elapsed time are finite resources. A workflow tha
 
 - Minimize the instructions and reference material loaded on the default path.
 - Read repository files and knowledge specs only when they are relevant to the current decision.
+- Project guides must expose an applicability index and independently keyed concerns so a task can read only the sections it needs.
 - Do not re-read unchanged rules merely because execution moved to another task.
 - Persist distilled decisions and evidence so later tasks do not have to reconstruct them.
 - Prefer one capable execution pass with targeted checks over several agents repeating the same analysis.
@@ -365,6 +368,8 @@ Specs are reference material:
 - review heuristics;
 - domain-specific standards.
 
+An imported development guide is a draft starting point. When a team has a project-owned guide, its approved sections govern the applicable work. A draft section supplies a forward-looking default for new or touched code; the agent weighs it against repository evidence and records a consequential choice in the existing work contract. The guide must not cause a broad refactor or a new approval gate by itself.
+
 A task references a spec only when that knowledge is relevant. Prefer the whole short document or one stable section. If a rule must be followed on every run, put it directly in the task instead of requiring an unconditional spec load.
 
 Do not make consecutive tasks reload the same unchanged spec. Persist the decision or concise derived constraint that the earlier task obtained from it. Fine-grained section references help only when they reduce context; they must not become a reason to scatter procedure across many specs.
@@ -433,6 +438,7 @@ A team should be able to:
 - remove specification synchronization without changing implementation;
 - replace a knowledge spec with its own engineering guide;
 - simplify a template without rewriting task orchestration.
+- adapt a compact development guide to its repository, approve relevant sections, and revise them later without changing pipeline procedure.
 
 Customization should mainly involve replacing guidance, changing optional templates, or selecting pipelines. It should not require editing a web of exact-title references across the entire collection.
 
@@ -448,7 +454,7 @@ Agile SDLC is not:
 - a requirement to create every possible document;
 - a mechanism for agents to push, merge, deploy, or perform destructive production actions without explicit authorization;
 - a guarantee that self-verification replaces independent review for every change;
-- a collection of stack-specific implementation standards.
+- an exhaustive stack-specific implementation handbook.
 - a requirement to launch a companion agent or re-read the complete rule set before completing routine work.
 
 ---
@@ -480,6 +486,7 @@ Goal-completion claims require adversarial validation of the active templates, t
 19. **Zero-event stop:** Record an early blocked or needs_input implementation before checks without inventing a revision or event id; cite its durable Work Item decision or Originating Request.
 20. **Interrupted sync:** Resume after interruption between a living-spec update and its event, append only the missing truthful event, skip completed targets, and block on ambiguous partial state.
 21. **Predictable artifact placement:** Never create runtime work in an imported collection tree, including beside an existing runtime artifact there; preserve existing artifacts in place, keep separate Work Item and Delivery Record placements, and use durable artifact ids across later human folder moves without broad content scans.
+22. **Project development guidance:** A fresh or brownfield change consults only applicable guide sections. A draft leads to a forward-looking, scoped decision; an approved project section is followed or a material exception is raised. The default path still works when bootstrap has not run.
 
 ---
 

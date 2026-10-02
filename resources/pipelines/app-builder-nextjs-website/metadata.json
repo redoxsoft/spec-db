@@ -1,0 +1,23 @@
+{
+  "slug": "app-builder-nextjs-website",
+  "kind": "pipeline",
+  "title": "App Builder Next.js Website",
+  "summary": "Starting point for a multi-page Next.js App Router site. Choose static export or a Next.js server.",
+  "tags": [
+    "app-builder",
+    "domain.engineering",
+    "use-case.execution"
+  ],
+  "collection": "app-builder",
+  "subcollection": "app-builder-websites",
+  "createdAt": "2026-09-30",
+  "updatedAt": "2026-09-30",
+  "sourceVersion": "1.0",
+  "schemaVersion": "1",
+  "license": "CC-BY-4.0",
+  "relatedSlugs": [
+    "app-builder-nextjs-website-contract",
+    "app-builder-web-standards",
+    "app-builder-project-development-guide"
+  ]
+}

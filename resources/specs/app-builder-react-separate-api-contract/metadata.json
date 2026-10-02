@@ -1,0 +1,17 @@
+{
+  "slug": "app-builder-react-separate-api-contract",
+  "kind": "spec",
+  "title": "App Builder React Separate API Contract",
+  "summary": "Tree, pins, and checks for the React app with a separate API.",
+  "tags": ["app-builder", "domain.engineering", "use-case.execution"],
+  "collection": "app-builder",
+  "createdAt": "2026-09-30",
+  "updatedAt": "2026-09-30",
+  "sourceVersion": "1.0",
+  "schemaVersion": "1",
+  "license": "CC-BY-4.0",
+  "relatedSlugs": [
+    "app-builder-web-standards",
+    "app-builder-api-standards"
+  ]
+}

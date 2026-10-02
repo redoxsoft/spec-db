@@ -1,0 +1,16 @@
+{
+  "slug": "app-builder-flutter-app-contract",
+  "kind": "spec",
+  "title": "App Builder Flutter App Contract",
+  "summary": "Tree, pins, and checks for the Flutter app starter.",
+  "tags": ["app-builder", "domain.engineering", "use-case.execution"],
+  "collection": "app-builder",
+  "createdAt": "2026-09-30",
+  "updatedAt": "2026-09-30",
+  "sourceVersion": "1.0",
+  "schemaVersion": "1",
+  "license": "CC-BY-4.0",
+  "relatedSlugs": [
+    "app-builder-mobile-standards"
+  ]
+}

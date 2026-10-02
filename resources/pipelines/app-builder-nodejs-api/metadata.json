@@ -1,0 +1,23 @@
+{
+  "slug": "app-builder-nodejs-api",
+  "kind": "pipeline",
+  "title": "App Builder Node.js API",
+  "summary": "Standalone Node.js HTTP API. Choose Fastify or Express, a database, and how it runs.",
+  "tags": [
+    "app-builder",
+    "domain.engineering",
+    "use-case.execution"
+  ],
+  "collection": "app-builder",
+  "subcollection": "app-builder-backends",
+  "createdAt": "2026-09-30",
+  "updatedAt": "2026-09-30",
+  "sourceVersion": "1.0",
+  "schemaVersion": "1",
+  "license": "CC-BY-4.0",
+  "relatedSlugs": [
+    "app-builder-nodejs-api-contract",
+    "app-builder-api-standards",
+    "app-builder-project-development-guide"
+  ]
+}

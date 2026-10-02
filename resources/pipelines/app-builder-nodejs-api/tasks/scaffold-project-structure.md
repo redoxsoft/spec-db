@@ -1,0 +1,21 @@
+**Goal:** Create the Node.js API tree, pinned manifest, and toolchain config for the approved tokens.
+
+**Scope:** This task writes directories, empty source files, and config. It must not implement routes, the app factory, or tests, and it must not install or build.
+
+**Verification / Definition of Done:**
+- [ ] Approved strings were reloaded, or the task stopped `blocked` and named the missing string.
+- [ ] `package.json` has `"type": "module"` and scripts `dev`, `build`, `start`, `test`, and `lint`, and its specifiers match the Context rows for this framework and database.
+- [ ] `better-sqlite3` is `12.11.1` when SQLite is selected. TypeScript stays `5.9.3`. ESLint stays `9.39.5`.
+- [ ] `Dockerfile` exists only for `decide-later` and `long-running` and contains `USER node`. Database files exist only for `sqlite` or `postgresql`.
+- [ ] A pre-existing planned path was replaced only when `overwrite` was `granted`. No install or build was run.
+
+**Instructions:**
+
+1. Set state to `scaffolding`. Reload `status`, `name`, `targetDir`, `httpFramework`, `database`, `runMode`, `toolchain`, and `overwrite`. If `status` is not `approved` or a required string is missing, stop `blocked` and name it. Do not ask.
+2. Re-read Context and Topology in "App Builder Node.js API Contract". Also read Topology & Directory Structure in "App Builder API Standards" for the Node layout and mandatory repo files. Do not open another standard.
+3. Write only inside the resolved `targetDir`. Create it when it is missing. Do not follow a path that escapes it. Do not treat the imported collection as a destination. Do not deploy, push, tag, merge, or run `docker build`. Replace a pre-existing planned path only when `overwrite` is `granted`. Do not delete any other existing file. If `overwrite` is `not-needed` and a planned path already exists, stop `failed` and do not ask. Do not install a missing toolchain.
+4. Create the Topology files that match the tokens. Skip `src/db/`, `drizzle/`, and `drizzle.config.ts` when `database` is `none`. Skip `Dockerfile` and `src/server.ts` when `runMode` is `serverless`. Skip `src/local-preview.ts` otherwise. Leave route and app modules empty for Wire Routes and Health.
+5. Write `package.json` with `"type": "module"`. The package `name` is the display name stored as `name`, lowercased, with spaces turned into hyphens. Scripts: `dev` is `tsx watch src/server.ts` when a server entry exists, otherwise `tsx watch src/local-preview.ts`; `build` is `tsc`; `start` is `node dist/server.js` when a server entry exists, otherwise a message that serverless mode has no listen entry; `test` is `vitest run`; `lint` is `eslint .`. Copy only the Context rows this framework and database need. Copy each specifier exactly. Do not write `latest`. Do not upgrade TypeScript to 6 or 7, or ESLint to 10. SQLite uses `better-sqlite3` `12.11.1`.
+6. `tsconfig.json` sets `strict` true, `module` and `moduleResolution` `Node16`, `target` `ES2022`, `outDir` `dist`, `rootDir` `src`, `esModuleInterop` true, `skipLibCheck` true, `noEmitOnError` true, and `include` to `src/**/*.ts` so root `vitest.config.ts` and `drizzle.config.ts` do not emit JavaScript. Exclude `src/__tests__` and `**/*.test.ts`. `vitest.config.ts` sets `environment` to `node` and `include` to `src/__tests__/**/*.test.ts`. `eslint.config.js` is flat config using `@eslint/js` recommended and `typescript-eslint` recommended. Do not write an `.eslintrc` file.
+7. `.gitignore` covers `node_modules`, `dist`, `.env`, and `data/`. `.env.example` always has `PORT` and `NODE_ENV`. `sqlite` adds `SQLITE_PATH` default `./data/app.db`. `postgresql` adds a `DATABASE_URL` placeholder only. `.github/workflows/ci.yml` uses Node 22 and runs `npm ci`, `npm run lint`, `npm run build`, and `npm test`. Do not start PostgreSQL or Docker in that workflow.
+8. For `decide-later` and `long-running`, the Dockerfile is multi-stage `node:22-alpine`. Stage 1 runs `npm ci` and `npm run build`. Stage 2 copies `dist` and production `node_modules`, sets `USER node`, exposes `3000`, and runs `node dist/server.js`. When a database is selected, `drizzle/0000_init.sql` creates `_scaffold_meta` with `IF NOT EXISTS`, and `drizzle.config.ts` points at that schema and dialect. Do not run `npm install`, `npm run build`, or `npm test`.

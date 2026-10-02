@@ -1,0 +1,21 @@
+{
+  "slug": "agile-sdlc-bootstrap-project-guide",
+  "kind": "pipeline",
+  "title": "Agile Bootstrap Project Guide",
+  "summary": "Optional one-time, repeatable setup that adapts the draft development guide to a repository and records the team's chosen conventions in a project-owned document.",
+  "tags": [
+    "agile-sdlc",
+    "domain.engineering",
+    "use-case.planning"
+  ],
+  "collection": "agile-sdlc",
+  "createdAt": "2026-10-01",
+  "updatedAt": "2026-10-01",
+  "sourceVersion": "1.0",
+  "schemaVersion": "1",
+  "license": "CC-BY-4.0",
+  "relatedSlugs": [
+    "agile-sdlc-project-development-guide",
+    "agile-sdlc-project-development-guide-template"
+  ]
+}

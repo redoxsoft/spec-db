@@ -1,0 +1,24 @@
+{
+  "slug": "app-builder-react-separate-api",
+  "kind": "pipeline",
+  "title": "App Builder React Separate API",
+  "summary": "Vite frontend in `frontend/` and an API in `backend/`. Choose the API runtime, database, and how the API runs.",
+  "tags": [
+    "app-builder",
+    "domain.engineering",
+    "use-case.execution"
+  ],
+  "collection": "app-builder",
+  "subcollection": "app-builder-fullstack",
+  "createdAt": "2026-09-30",
+  "updatedAt": "2026-09-30",
+  "sourceVersion": "1.0",
+  "schemaVersion": "1",
+  "license": "CC-BY-4.0",
+  "relatedSlugs": [
+    "app-builder-react-separate-api-contract",
+    "app-builder-web-standards",
+    "app-builder-api-standards",
+    "app-builder-project-development-guide"
+  ]
+}

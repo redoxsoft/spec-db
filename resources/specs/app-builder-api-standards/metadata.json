@@ -1,0 +1,17 @@
+{
+  "slug": "app-builder-api-standards",
+  "kind": "spec",
+  "title": "App Builder API Standards",
+  "summary": "Architectural standards for standalone Node.js and Python HTTP APIs.",
+  "tags": [
+    "app-builder",
+    "domain.engineering",
+    "use-case.execution"
+  ],
+  "collection": "app-builder",
+  "createdAt": "2026-09-30",
+  "updatedAt": "2026-09-30",
+  "sourceVersion": "1.0",
+  "schemaVersion": "1",
+  "license": "CC-BY-4.0"
+}

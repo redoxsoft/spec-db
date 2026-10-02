@@ -1,0 +1,23 @@
+{
+  "slug": "app-builder-flutter-app",
+  "kind": "pipeline",
+  "title": "App Builder Flutter App",
+  "summary": "Cross-platform iOS and Android app using Flutter and Dart.",
+  "tags": [
+    "app-builder",
+    "domain.engineering",
+    "use-case.execution"
+  ],
+  "collection": "app-builder",
+  "subcollection": "app-builder-mobile",
+  "createdAt": "2026-09-30",
+  "updatedAt": "2026-09-30",
+  "sourceVersion": "1.0",
+  "schemaVersion": "1",
+  "license": "CC-BY-4.0",
+  "relatedSlugs": [
+    "app-builder-flutter-app-contract",
+    "app-builder-mobile-standards",
+    "app-builder-project-development-guide"
+  ]
+}

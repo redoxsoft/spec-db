@@ -328,6 +328,28 @@ function checkRefs(resources: LoadedResource[]) {
   }
 }
 
+async function checkProjectGuideMirrors(resources: LoadedResource[]) {
+  const bySlug = new Map(resources.map((resource) => [resource.meta.slug, resource]))
+  const agile = bySlug.get('agile-sdlc-project-development-guide')
+  const app = bySlug.get('app-builder-project-development-guide')
+  if (!agile || !app) return // missing resources are reported by relatedSlugs checks
+
+  const agilePath = path.join(agile.dir, 'content.md')
+  const appPath = path.join(app.dir, 'content.md')
+  try {
+    const [agileText, appText] = await Promise.all([
+      readFile(agilePath, 'utf8'),
+      readFile(appPath, 'utf8'),
+    ])
+    const withoutTitle = (value: string) => value.slice(value.indexOf('\n') + 1)
+    if (withoutTitle(agileText) !== withoutTitle(appText)) {
+      fail(appPath, 'project development guide body must match the Agile guide')
+    }
+  } catch {
+    // validateSpec reports a missing content.md for either resource.
+  }
+}
+
 async function validateSpec(
   resource: LoadedResource,
   collections: CollectionLookup,
@@ -525,6 +547,7 @@ async function main() {
   const byId = validateTagHierarchy(tagsParsed.data)
   const resources = await loadResources(byId, collectionIds)
   checkRefs(resources)
+  await checkProjectGuideMirrors(resources)
 
   for (const resource of resources) {
     if (resource.meta.kind === 'spec') await validateSpec(resource, collectionIds)

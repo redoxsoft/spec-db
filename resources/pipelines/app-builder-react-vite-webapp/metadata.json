@@ -1,0 +1,23 @@
+{
+  "slug": "app-builder-react-vite-webapp",
+  "kind": "pipeline",
+  "title": "App Builder React Vite Web App",
+  "summary": "Client-side React and Vite starter for dashboards, portals, and interactive tools. TypeScript, Tailwind, Vitest, and npm are fixed.",
+  "tags": [
+    "app-builder",
+    "domain.engineering",
+    "use-case.execution"
+  ],
+  "collection": "app-builder",
+  "subcollection": "app-builder-frontend",
+  "createdAt": "2026-09-30",
+  "updatedAt": "2026-09-30",
+  "sourceVersion": "1.0",
+  "schemaVersion": "1",
+  "license": "CC-BY-4.0",
+  "relatedSlugs": [
+    "app-builder-react-vite-webapp-contract",
+    "app-builder-web-standards",
+    "app-builder-project-development-guide"
+  ]
+}

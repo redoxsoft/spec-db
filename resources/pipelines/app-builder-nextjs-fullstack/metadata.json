@@ -1,0 +1,24 @@
+{
+  "slug": "app-builder-nextjs-fullstack",
+  "kind": "pipeline",
+  "title": "App Builder Next.js Full-Stack",
+  "summary": "One Next.js project with App Router UI and Route Handlers. Choose a database and how the server runs.",
+  "tags": [
+    "app-builder",
+    "domain.engineering",
+    "use-case.execution"
+  ],
+  "collection": "app-builder",
+  "subcollection": "app-builder-fullstack",
+  "createdAt": "2026-09-30",
+  "updatedAt": "2026-09-30",
+  "sourceVersion": "1.0",
+  "schemaVersion": "1",
+  "license": "CC-BY-4.0",
+  "relatedSlugs": [
+    "app-builder-nextjs-fullstack-contract",
+    "app-builder-web-standards",
+    "app-builder-api-standards",
+    "app-builder-project-development-guide"
+  ]
+}

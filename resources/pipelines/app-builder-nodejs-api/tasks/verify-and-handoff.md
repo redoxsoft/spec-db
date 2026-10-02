@@ -1,0 +1,22 @@
+**Goal:** Install dependencies, run build, lint, and the health test, and hand off the directory and commands.
+
+**Scope:** This task runs the checks for the approved tokens, repairs only inside the approved directory, and reports the outcome. It must not deploy, run `docker build`, require a live PostgreSQL server, or ask a new product question.
+
+**Verification / Definition of Done:**
+- [ ] Approved strings were reloaded, or the task stopped `blocked` and named the missing string.
+- [ ] `npm install` produced `package-lock.json`. `npm run build`, `npm run lint`, and `npm test` exit statuses were recorded, and the test covers `/health/live`.
+- [ ] Applicable verification checks were recorded, including the Dockerfile rule and the framework's OpenAPI route.
+- [ ] An unreachable PostgreSQL was a limitation, not a failure, when `/health/live` and `tsc` exited 0.
+- [ ] Repair stayed inside the directory and stopped when no concrete in-boundary change remained or the same failure returned with no new evidence.
+- [ ] The handoff states outcome, directory, stack, checks and exit statuses, user commands, limitations, and next action, and does not say the project was committed, deployed, or submitted, and does not expose internal field names.
+- [ ] The handoff offers the draft project guide for later work without reading it or starting another pipeline.
+
+**Instructions:**
+
+1. Set state to `verifying`. Reload `status`, `name`, `targetDir`, `httpFramework`, `database`, `runMode`, `toolchain`, and `overwrite`. If `status` is not `approved` or a required string is missing, stop `blocked` and name it. Do not ask.
+2. Read Verification Checks in "App Builder Node.js API Contract" and Quality Baseline & Verification in "App Builder API Standards" for build, lint, lockfile, and health test. Re-read Topology only to know which paths a repair may edit. Do not open another standard.
+3. Write only inside the resolved `targetDir`. Do not follow a path that escapes it. A repair may edit files this run created and, when `overwrite` is `granted`, planned paths from the contract tree. Do not delete or replace any other existing file. Do not change tokens or a pinned specifier. Do not install a missing Node or npm. Do not claim a pass without an observed result.
+4. From the directory, run `npm install` and confirm `package-lock.json` exists. Run `npm run build`, `npm run lint`, and `npm test`; record all three exit statuses. After any repair, rerun the affected checks and lint before declaring success. Do not start PostgreSQL and do not run `docker build`.
+5. Walk the verification checks that apply to this framework, database, and run mode. When PostgreSQL is unreachable, the process still boots and `/health/ready` returns 503. That is still a pass when `/health/live`, build, lint, and test checks pass. `npm run build` is the `tsc` command. Record the limitation. Do not fail the scaffold for that 503.
+6. Continue repairing while a concrete change inside the boundary can address a failure. Stop when no such change remains, the same failure returns with no new evidence, or the next change would add auth or a business resource, upgrade TypeScript, ESLint, or `better-sqlite3`, or weaken a required check. A remaining required failure is `failed`. Name the command, its exit status, and why repair stopped. Do not describe that failure as a pass.
+7. On success, finish `done`. The user-facing handoff names the outcome, the directory, Fastify or Express, the database, and the run mode, plus each check and exit status. Next commands are `npm run dev`, `npm run lint`, `npm test`, and `npm run build`. Ask the user to open `http://localhost:3000/health/live`, `/health/ready`, and `/openapi.json`. Fastify also has `/docs`. Ready may be `not_configured`, `ok`, or 503 when PostgreSQL is down. Do not deploy, push, tag, merge, or run `docker build`. Do not claim the project was committed, deployed, or submitted. The handoff does not expose internal field names. Run git only when the user explicitly asks in this run. Offer the imported App Builder Project Development Guide as a draft starting point for later work; if Agile SDLC is installed, name its optional Agile Bootstrap Project Guide for repository-specific adaptation. Do not load the guide or start that pipeline in this run.

@@ -1,0 +1,17 @@
+{
+  "slug": "app-builder-mobile-standards",
+  "kind": "spec",
+  "title": "App Builder Mobile Standards",
+  "summary": "Architectural standards for Expo React Native and Flutter applications.",
+  "tags": [
+    "app-builder",
+    "domain.engineering",
+    "use-case.execution"
+  ],
+  "collection": "app-builder",
+  "createdAt": "2026-09-30",
+  "updatedAt": "2026-09-30",
+  "sourceVersion": "1.0",
+  "schemaVersion": "1",
+  "license": "CC-BY-4.0"
+}

@@ -19,7 +19,7 @@ Work Item       -> Implement -> Delivery Record
 
 The first route applies only to a bounded low-risk typo, copy, simple configuration, or one-line fix with clear intent, deterministic criteria, exact permitted paths and verification, and no material decision, risk, ambiguity, or cross-run resumability need. Its compact approved contract lives only in pipeline run state; it requires no Work Item or Work Item template, but its only required durable document is a Delivery Record in the SpecX document workspace. All other work uses a durable Work Item. Product Spec, Technical Design, and Delivery Plan are independent optional artifacts.
 
-Review, extended verification, and synchronization are independent optional pipelines. No pipeline launches another pipeline. Five knowledge specs provide reusable judgment, six templates provide durable document shape, and task files contain all procedure.
+Review, extended verification, synchronization, and Project Guide bootstrap are independent optional pipelines. No pipeline launches another pipeline. Six knowledge specs provide reusable judgment, seven templates provide durable document shape, and task files contain all procedure.
 
 ---
 
@@ -89,6 +89,7 @@ Pipelines create or update SpecX documents by durable id when one is known and o
 | `implement` intake | `<Subject> - Agile Work Item` |
 | `implement`, `extended-verification`, `sync-specs` | `<Subject> - Agile Delivery Record` |
 | `review` | `<Subject> - Agile Review Findings` |
+| `bootstrap-project-guide` | `Project Development Guide` |
 
 If a target title already exists, update it in place. Never create a second document for the same subject.
 
@@ -104,6 +105,8 @@ workspace-root/
 └── Project Work/                       # configurable runtime base
     ├── Initiatives/                    # PRDs remain flat
     │   └── <Initiative> - Agile PRD
+    ├── Standards/
+    │   └── Project Development Guide
     ├── Features/
     │   └── <Feature>/
     │       ├── Feature Spec, Tech Spec, and plans
@@ -155,7 +158,7 @@ These are what make the pack predictable. Every milestone verification checks th
 
 **R1 — Tasks are self-sufficient.** A `tasks/<key>.md` states its whole procedure: what to ask, what to do, what to write, when to stop, and what the handoff looks like. The pack has **no per-pipeline rules specs**. A task never tells the agent to go read the procedure somewhere else.
 
-**R2 — Knowledge is referenced conditionally.** A drafting or evaluation task reads at most one knowledge spec, by full title, only when the source and repository have not already established the needed judgment. A later task never rereads the same unchanged spec; it reloads the persisted decision or constraint. The core implementation path does not read the Artifact Routing Guide.
+**R2 — Knowledge is referenced conditionally.** A scope task may read only applicable Project Development Guide sections and persist a concise guide basis. A later drafting, build, or evaluation task uses that basis without reloading the unchanged guide and reads at most one other knowledge spec, by full title, only when source and repository evidence have not established the needed judgment. The trivial implementation fast path loads no guide, and the core implementation path does not read the Artifact Routing Guide.
 
 **R3 — No counters.** No retry counts, attempt limits, cycle budgets, or `delivery_cycle_count`. Stopping is always expressed as a condition on the current action, never as a tally carried across turns.
 
@@ -183,7 +186,7 @@ Both the initial failure and later passing event remain durable evidence.
 
 **R13 — Legible state and handoff.** Every task exposes a concise state such as inspecting, drafting, implementing, verifying, waiting, recording, or blocked. Every final handoff contains outcome, decision, artifact, evidence, and next action without exposing internal context keys.
 
-**R14 — Exact wiring.** `relatedSlugs` contains only templates instantiated, knowledge specs explicitly referenced, and direct producer/consumer relationships. Every edge resolves. Optional pipelines may point inward to retained core resources, but retained specs, templates, and core pipelines never point outward to optional review, extended-verification, or sync pipelines, so deleting those three pipeline directories leaves no dangling edge.
+**R14 — Exact wiring.** `relatedSlugs` contains only templates instantiated, knowledge specs explicitly referenced, and direct producer/consumer relationships. Every edge resolves. Optional pipelines may point inward to retained core resources, but retained specs, templates, and core pipelines never point outward to optional review, extended-verification, sync, or bootstrap pipelines, so deleting any of those four pipeline directories leaves no dangling edge.
 
 ### Task file shape
 
@@ -205,9 +208,9 @@ numbered steps
 
 ## 5. Target inventory
 
-Twenty resources, against forty-two in v1.
+Twenty-three resources: six knowledge specs, seven templates, and ten pipelines.
 
-### 5.1 Knowledge specs — 5
+### 5.1 Knowledge specs — 6
 
 `resources/specs/<slug>/metadata.json` + `content.md`. Collection `agile-sdlc`, no subcollection. H1 exactly equals `metadata.title`. Sections start at H2 and carry `<!-- key: ... -->`.
 
@@ -222,10 +225,11 @@ Two markdown notes when porting from v1. A plain `>` blockquote degrades to a pa
 | `agile-sdlc-tech-design-standards` | Agile Technical Design Standards | `domain.engineering`, `use-case.specification` | How to document architecture, decision records, schemas and migrations; brownfield safety; isolation zones **as advice for scoping a change**, not as an enforcement mechanism. |
 | `agile-sdlc-test-strategy-guide` | Agile Test Strategy Guide | `domain.engineering`, `use-case.specification` | Test levels and how to choose them; risk-based coverage; tests live in code; what counts as evidence (command, exit code, counts) and why a skipped required test is not a pass; no raw logs in markdown. |
 | `agile-sdlc-code-review-guide` | Agile Code Review Guide | `domain.engineering`, `use-case.execution` | The seven review pillars **as a checklist to consult**; two severities, blocking and non-blocking; what makes a finding actionable; the ban on style bike-shedding. |
+| `agile-sdlc-project-development-guide` | Agile Project Development Guide | `domain.engineering`, `use-case.execution` | Draft, adaptable defaults for future code; applicable sections are scoped during intake and their chosen direction is persisted for later tasks. |
 
 Specs remain compact reusable references. Routing procedure, approvals, persistence, write boundaries, outcomes, and handoffs stay in task files.
 
-### 5.2 Templates — 6
+### 5.2 Templates — 7
 
 `resources/templates/<slug>/metadata.json` + `content.json`. Collection `agile-sdlc`, no subcollection. Outlines must satisfy the CONTRIBUTING invariants: top-level nodes fixed, no required node under an optional ancestor, depth at most 4, keys unique tree-wide. Every fixed top-level node is inherently meaningful or has required meaningful content; optional modules are optional descendants and are omitted as a whole when absent. No empty wrapper or placeholder is required.
 
@@ -237,6 +241,7 @@ Specs remain compact reusable references. Routing procedure, approvals, persiste
 | `agile-sdlc-delivery-plan-template` | Agile Delivery Plan Template | `domain.engineering`, `use-case.planning` | Shared by Generate Test Plan and Generate Implementation Plan. See 5.2.4. |
 | `agile-sdlc-delivery-record-template` | Agile Delivery Record Template | `domain.engineering`, `use-case.execution` | The single append-only delivery history. See 5.2.5. |
 | `agile-sdlc-review-findings-template` | Agile Review Findings Template | `domain.engineering`, `use-case.execution` | Actionable output written only when review runs. See 5.2.6. |
+| `agile-sdlc-project-development-guide-template` | Agile Project Development Guide Template | `domain.engineering`, `use-case.planning` | Shape for the optional project-owned guide; the imported spec supplies its default content. |
 
 Dropped or consolidated: the separate product, feature, test, and implementation plan templates, plus `implementation-summary`, `verification-report`, `remediation-record`, `implementation-record`, `review-report`, `change-request`, `bug-spec`, `work-scope-brief`, and `delivery-summary`.
 
@@ -299,9 +304,9 @@ Top-level, all fixed: `document-status`, `verdict`.
 - `verdict`: blocking findings exist, or none do, in one or two sentences. Its optional repeatable `finding` children each carry `location`, `severity` (`blocking` or `non-blocking`), `evidence`, `impact`, and `recommendation`; every actual finding fills all five. Optional repeatable `note` children hold useful observations that are not findings.
 - Zero findings is represented only by the concise non-blocking verdict. It creates no finding or note instance, empty section, or `none` placeholder.
 
-### 5.3 Pipelines — 9
+### 5.3 Pipelines — 10
 
-`resources/pipelines/<slug>/metadata.json` + `content.json` + `tasks/<step-key>.md`. All carry a subcollection. Nineteen task files in total, against thirty in v1.
+`resources/pipelines/<slug>/metadata.json` + `content.json` + `tasks/<step-key>.md`. The bootstrap pipeline sits at the collection root; the other pipelines carry a subcollection. Twenty task files in total.
 
 | Slug | Title | Subcollection | Tags | Steps: `key` — name |
 |---|---|---|---|---|
@@ -314,6 +319,7 @@ Top-level, all fixed: `document-status`, `verdict`.
 | `agile-sdlc-review` | Agile Review | `agile-sdlc-verify` | `domain.engineering`, `use-case.execution` | `scope-review` — Scope the Diff and Confirm; `evaluate-and-report` — Evaluate the Diff and Write Findings |
 | `agile-sdlc-extended-verification` | Agile Extended Verification | `agile-sdlc-verify` | `domain.engineering`, `use-case.execution` | `scope-suites` — Scope the Suites and Confirm; `run-and-record` — Run the Suites and Record Evidence |
 | `agile-sdlc-sync-specs` | Agile Sync Specs | `agile-sdlc-verify` | `domain.engineering`, `use-case.execution` | `scope-sync` — Scope the Living Specs and Confirm; `sync-and-record` — Update Living Specs and Record |
+| `agile-sdlc-bootstrap-project-guide` | Agile Bootstrap Project Guide | — | `domain.engineering`, `use-case.planning` | `inspect-confirm-and-write` — Inspect, Confirm, and Write the Project Guide |
 
 `address-review` has no canonical equivalent. Applying review findings is `implement` with `<Subject> - Agile Review Findings` as intake; `scope-and-lock` selects the compact trivial contract only when every fast-path condition holds and otherwise creates or updates `<Subject> - Agile Work Item`. Say so in the review pipeline's handoff.
 
@@ -337,7 +343,7 @@ Beyond R1–R12, each pipeline's task files must contain the following. This is 
 
 `draft-and-hand-off` must reload the complete persisted drafting contract and stop when it is missing or unapproved; it never relies on prior conversation. It instantiates its template by exact title — PRD and Feature Spec share Agile Product Spec Template, Test Plan and Implementation Plan share Agile Delivery Plan Template, and Tech Spec uses Agile Technical Design Template at slug `agile-sdlc-technical-design-template`. It conditionally reads at most one mapped knowledge spec and never rereads the Routing Guide. It preserves produced titles, tags unresolved items `? [NEEDS_INPUT]` and proposals `* [PROPOSAL]`, self-checks within the drafting pass, and emits the five-line outcome/decision/artifact/evidence/next-action handoff. These pipelines never modify source code.
 
-### 6.3 The three optional pipelines
+### 6.3 Optional pipelines
 
 `review` is read-only on code and living specs and never mutates Delivery Record. An empty diff completes `done` / `not-applicable`. A non-empty diff persists the source boundary, Target Revision and reviewed boundary path list, Work Item, subject, findings title, and optional exact Delivery Record title, evaluates with the Code Review Guide, and writes one Findings document. Findings and notes are optional Verdict descendants; zero findings appears only as a concise non-blocking verdict. Writing findings is `done` even when the verdict is blocking.
 
@@ -345,3 +351,4 @@ Beyond R1–R12, each pipeline's task files must contain the following. This is 
 
 `sync-specs` selects one stored revision manifest and preflights every target living-spec path against the persisted implementation permitted boundary before editing. Overlap blocks before mutation. Gate mapping preserves upstream failed, blocked, and needs_input; missing or unreadable state is blocked. It persists each deterministic target change before mutation, processes one target at a time, and appends that target's sync event immediately. Resume reconciliation compares intent, actual content, and event state, repairs only a missing truthful event, skips completed work, and blocks on ambiguity. Zero targets append one no-op event; no transactionality is claimed.
 
+`bootstrap-project-guide` is optional and independent. It inspects repository evidence, proposes only applicable imported guide sections, and asks once for the team's choices. It creates or updates one project-owned `Project Development Guide` document from Agile Project Development Guide Template, preserving its stable keys and each section's Draft or Approved status. Existing Approved decisions continue to govern until a revision is accepted. It does not edit repository files or imported resources.

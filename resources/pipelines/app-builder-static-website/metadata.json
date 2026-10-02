@@ -1,0 +1,23 @@
+{
+  "slug": "app-builder-static-website",
+  "kind": "pipeline",
+  "title": "App Builder Static Website",
+  "summary": "Starting point for landing pages, portfolios, or small business sites. Choose Vite with TypeScript and Tailwind, or plain HTML, CSS, and JavaScript.",
+  "tags": [
+    "app-builder",
+    "domain.engineering",
+    "use-case.execution"
+  ],
+  "collection": "app-builder",
+  "subcollection": "app-builder-websites",
+  "createdAt": "2026-09-30",
+  "updatedAt": "2026-09-30",
+  "sourceVersion": "1.0",
+  "schemaVersion": "1",
+  "license": "CC-BY-4.0",
+  "relatedSlugs": [
+    "app-builder-static-website-contract",
+    "app-builder-web-standards",
+    "app-builder-project-development-guide"
+  ]
+}

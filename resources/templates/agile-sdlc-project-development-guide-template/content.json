@@ -1,0 +1,90 @@
+{
+  "schemaVersion": "1",
+  "guidance": "Create one project-owned document titled `Project Development Guide`. The imported Agile Project Development Guide supplies the proposed defaults; this template supplies shape only. Render the document title as H1, fixed Purpose and Adoption and Standards as H2, included concerns as H3, and their keyed Adoption subsections as H4. Keep the stable keys. Include only concerns applicable to this repository, omit empty concerns, and preserve unrelated existing sections on update. Each included concern needs its keyed Adoption subsection with `Status: Draft` or `Status: Approved` and `Applies to`. Approved records an accepted future convention, not a claim that all existing code complies. Keep a prior Approved decision identifiable while a proposed revision remains Draft. Do not invent repository facts, rules, or approval.",
+  "outline": [
+    {
+      "key": "purpose-and-adoption",
+      "title": "Purpose and Adoption",
+      "guidance": "Name the repository, the guide's scope, the difference between Draft and Approved section status, and how applicable rules govern new or touched code. State that product requirements and explicit team decisions take precedence. Include a compact index of included concern keys and applicability so later tasks can select concerns without reading Standards. Keep this concise and project-specific. Do not nest concern sections here."
+    },
+    {
+      "key": "standards",
+      "title": "Standards",
+      "guidance": "Container for only the concerns applicable to this repository. Each included concern is independently keyed and has its keyed Adoption subsection.",
+      "children": [
+        {
+          "key": "code-structure",
+          "title": "Code Structure and Boundaries",
+          "guidance": "If applicable, state the chosen future direction for feature placement, module boundaries, handlers, and useful abstractions. Distinguish observed practice from a target and note any gradual adoption gap. Include the keyed Adoption subsection.",
+          "cardinality": { "min": 0, "max": 1 },
+          "children": [
+            { "key": "code-structure-adoption", "title": "Adoption", "guidance": "Status: Draft or Approved; Applies to: the relevant code. Include a short rationale or exception when material.", "cardinality": { "min": 0, "max": 1 } }
+          ]
+        },
+        {
+          "key": "user-experience",
+          "title": "User Experience and Accessibility",
+          "guidance": "If applicable, state the chosen future direction for core interaction states, accessibility, and supported layouts. Distinguish observed practice from a target and note any gradual adoption gap. Include the keyed Adoption subsection.",
+          "cardinality": { "min": 0, "max": 1 },
+          "children": [
+            { "key": "user-experience-adoption", "title": "Adoption", "guidance": "Status: Draft or Approved; Applies to: the relevant interfaces. Include a short rationale or exception when material.", "cardinality": { "min": 0, "max": 1 } }
+          ]
+        },
+        {
+          "key": "styling",
+          "title": "Styling and UI Components",
+          "guidance": "If applicable, state the chosen future direction for styling method, small token set, and repeated components. Distinguish observed practice from a target and note any gradual adoption gap. Include the keyed Adoption subsection.",
+          "cardinality": { "min": 0, "max": 1 },
+          "children": [
+            { "key": "styling-adoption", "title": "Adoption", "guidance": "Status: Draft or Approved; Applies to: the relevant interfaces. Include a short rationale or exception when material.", "cardinality": { "min": 0, "max": 1 } }
+          ]
+        },
+        {
+          "key": "state-and-data-flow",
+          "title": "State and Data Flow",
+          "guidance": "If applicable, state the chosen future direction for state ownership, remote data, navigation state, and mutation feedback. Distinguish observed practice from a target and note any gradual adoption gap. Include the keyed Adoption subsection.",
+          "cardinality": { "min": 0, "max": 1 },
+          "children": [
+            { "key": "state-and-data-flow-adoption", "title": "Adoption", "guidance": "Status: Draft or Approved; Applies to: the relevant applications. Include a short rationale or exception when material.", "cardinality": { "min": 0, "max": 1 } }
+          ]
+        },
+        {
+          "key": "api-boundaries",
+          "title": "API and External Boundaries",
+          "guidance": "If applicable, state the chosen future direction for validation, authorization, external calls, errors, and compatibility. Distinguish observed practice from a target and note any gradual adoption gap. Include the keyed Adoption subsection.",
+          "cardinality": { "min": 0, "max": 1 },
+          "children": [
+            { "key": "api-boundaries-adoption", "title": "Adoption", "guidance": "Status: Draft or Approved; Applies to: the relevant service or client boundary. Include a short rationale or exception when material.", "cardinality": { "min": 0, "max": 1 } }
+          ]
+        },
+        {
+          "key": "persistence",
+          "title": "Persistence and Migrations",
+          "guidance": "If applicable, state the chosen future direction for durable data, schema changes, migration safety, and data access. Distinguish observed practice from a target and note any gradual adoption gap. Include the keyed Adoption subsection.",
+          "cardinality": { "min": 0, "max": 1 },
+          "children": [
+            { "key": "persistence-adoption", "title": "Adoption", "guidance": "Status: Draft or Approved; Applies to: the relevant durable data. Include a short rationale or exception when material.", "cardinality": { "min": 0, "max": 1 } }
+          ]
+        },
+        {
+          "key": "configuration-and-diagnostics",
+          "title": "Configuration and Diagnostics",
+          "guidance": "If applicable, state the chosen future direction for runtime configuration, secrets, failure reporting, and operational checks. Distinguish observed practice from a target and note any gradual adoption gap. Include the keyed Adoption subsection.",
+          "cardinality": { "min": 0, "max": 1 },
+          "children": [
+            { "key": "configuration-and-diagnostics-adoption", "title": "Adoption", "guidance": "Status: Draft or Approved; Applies to: the relevant runtime or device storage. Include a short rationale or exception when material.", "cardinality": { "min": 0, "max": 1 } }
+          ]
+        },
+        {
+          "key": "tests-and-checks",
+          "title": "Tests and Routine Checks",
+          "guidance": "If applicable, state the chosen future direction for focused behavior checks, regression coverage, and repository-native commands. Distinguish observed practice from a target and note any gradual adoption gap. Include the keyed Adoption subsection.",
+          "cardinality": { "min": 0, "max": 1 },
+          "children": [
+            { "key": "tests-and-checks-adoption", "title": "Adoption", "guidance": "Status: Draft or Approved; Applies to: the relevant repository checks. Include a short rationale or exception when material.", "cardinality": { "min": 0, "max": 1 } }
+          ]
+        }
+      ]
+    }
+  ]
+}

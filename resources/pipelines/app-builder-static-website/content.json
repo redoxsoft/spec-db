@@ -1,0 +1,12 @@
+{
+  "schemaVersion": "1",
+  "inputVarDefinitions": [],
+  "iteratorFields": [],
+  "steps": [
+    { "key": "discover-parameters", "name": "Discover Parameters" },
+    { "key": "verify-prerequisites", "name": "Verify Prerequisites" },
+    { "key": "scaffold-site-structure", "name": "Scaffold Site Structure" },
+    { "key": "wire-styles-and-assets", "name": "Wire Styles and Assets" },
+    { "key": "verify-and-handoff", "name": "Verify and Hand Off" }
+  ]
+}

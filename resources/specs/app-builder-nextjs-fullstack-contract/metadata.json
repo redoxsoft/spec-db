@@ -1,0 +1,17 @@
+{
+  "slug": "app-builder-nextjs-fullstack-contract",
+  "kind": "spec",
+  "title": "App Builder Next.js Full-Stack Contract",
+  "summary": "Tree, pins, and checks for the Next.js full-stack starter.",
+  "tags": ["app-builder", "domain.engineering", "use-case.execution"],
+  "collection": "app-builder",
+  "createdAt": "2026-09-30",
+  "updatedAt": "2026-09-30",
+  "sourceVersion": "1.0",
+  "schemaVersion": "1",
+  "license": "CC-BY-4.0",
+  "relatedSlugs": [
+    "app-builder-web-standards",
+    "app-builder-api-standards"
+  ]
+}

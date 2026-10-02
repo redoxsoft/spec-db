@@ -1,0 +1,16 @@
+{
+  "slug": "app-builder-nextjs-website-contract",
+  "kind": "spec",
+  "title": "App Builder Next.js Website Contract",
+  "summary": "Tree, pins, and checks for the Next.js website starter.",
+  "tags": ["app-builder", "domain.engineering", "use-case.execution"],
+  "collection": "app-builder",
+  "createdAt": "2026-09-30",
+  "updatedAt": "2026-09-30",
+  "sourceVersion": "1.0",
+  "schemaVersion": "1",
+  "license": "CC-BY-4.0",
+  "relatedSlugs": [
+    "app-builder-web-standards"
+  ]
+}
