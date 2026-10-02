@@ -56,6 +56,7 @@ Include this when the work introduces or modifies an HTTP, RPC, or messaging end
 5. **Success response.** The status, such as `200 OK` or `201 Created`, and the payload structure.
 6. **Errors.** How errors are communicated, including relevant statuses (`400`, `401`, `404`, `409`, `422`) and the error payload.
 7. **Idempotency and concurrency.** Whether a mutating operation supports an idempotency key or an optimistic concurrency check.
+8. **Compatibility.** A change to an existing published contract is additive by default: new request fields are optional, existing fields keep their meaning, and no field is renamed, removed, or reused for a new meaning without a migration path for current callers. A new version is a last resort for a break that cannot be avoided. The design names the success and failure behavior existing callers rely on and states whether the change preserves it.
 
 JSON examples, OpenAPI fragments, or type definitions are all fit, as long as a person and a test can read the contract the same way.
 

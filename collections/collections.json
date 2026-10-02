@@ -2,44 +2,23 @@
   "schemaVersion": "1",
   "collections": [
     {
-      "id": "ai-sdlc",
-      "displayName": "AI-SDLC",
-      "description": "End-to-end specs, templates, and pipelines for agent-driven delivery.",
-      "order": 1,
-      "status": "active"
-    },
-    {
-      "id": "product-prism",
-      "displayName": "Product Prism",
-      "description": "PRD feature-list rules, document format, and the generator pipeline.",
-      "order": 2,
-      "status": "active"
-    },
-    {
-      "id": "builder",
-      "displayName": "Builder",
-      "description": "Discovery, scaffolding, planning, and build specs and pipelines.",
-      "order": 3,
-      "status": "active"
-    },
-    {
       "id": "onboarding",
       "displayName": "Onboarding",
       "description": "Guided first-run pipelines for getting started in WorkX.",
-      "order": 4,
+      "order": 3,
       "status": "active"
     },
     {
       "id": "agile-sdlc",
       "displayName": "Agile SDLC",
       "description": "A lean agent-executed delivery lifecycle: one self-verifying implement pipeline, optional specification pipelines, and optional review and verification gates.",
-      "order": 5,
+      "order": 1,
       "status": "active"
     },
     {
       "id": "agile-sdlc-specify",
       "displayName": "Specify",
-      "description": "The five document-generation pipelines for PRDs, feature specs, tech specs, test plans, and implementation plans.",
+      "description": "The four document-generation pipelines for PRDs and feature specs, tech specs, test plans, and implementation plans.",
       "parentId": "agile-sdlc",
       "order": 1,
       "status": "active"
@@ -64,7 +43,7 @@
       "id": "app-builder",
       "displayName": "App Builder",
       "description": "Opinionated hello-world starters for websites, web apps, APIs, and mobile apps.",
-      "order": 6,
+      "order": 2,
       "status": "active"
     },
     {

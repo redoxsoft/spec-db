@@ -4,7 +4,7 @@ Maintain **`app-builder`** as a catalog of nine independent hello-world generato
 
 The product charter is [app-builder-goals.md](app-builder-goals.md) and wins over this playbook. Authoring rules for the repository itself are [CONTRIBUTING.md](../CONTRIBUTING.md); everything here is additional.
 
-Execution order is [app-builder-milestones.md](app-builder-milestones.md). This document is the contract those milestones are checked against. Resources outside the `app-builder-*` namespace are out of scope, including the Builder collection and Node Boilerplate Generator.
+Execution order is [app-builder-milestones.md](app-builder-milestones.md). This document is the contract those milestones are checked against. Resources outside the `app-builder-*` namespace are out of scope.
 
 Historical source, read-only while authoring: `/Users/dhaundiyal/src/pipeline-generator/collections/app-builder`. Open the named source file when writing a resource. Do not reconstruct pins, trees, or toolchain floors from memory.
 
@@ -37,7 +37,7 @@ Add to `collections/collections.json` and `tags/tags.json` in the same change as
 | `app-builder-backends` | Backends and APIs | `app-builder` | Node.js API and Python API pipelines. |
 | `app-builder-mobile` | Mobile Apps | `app-builder` | Expo and Flutter pipelines. |
 
-Collection `order` is `6`. Subcollection `order` follows the table from 1 to 5. Description: "Opinionated hello-world starters for websites, web apps, APIs, and mobile apps."
+Collection `order` is `2`. Subcollection `order` follows the table from 1 to 5. Description: "Opinionated hello-world starters for websites, web apps, APIs, and mobile apps."
 
 New tag, appended under parent `use-case`:
 

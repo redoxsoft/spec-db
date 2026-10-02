@@ -4,25 +4,26 @@
 
 A code review is an independent look at whether a change meets its contract, fits the architecture, and stays inside its scope. Consult these seven pillars as a checklist. Findings are individual items. A review does not need a section for each pillar.
 
-1. **Correctness and logic.** Algorithmic soundness, edge cases, null and undefined safety, error propagation, and preservation of state invariants.
+1. **Correctness and logic.** The change meets each acceptance criterion of its governing Work Item when one exists. Algorithmic soundness, edge cases, null and undefined safety, error propagation, and preservation of state invariants.
 2. **Architectural alignment.** Consistency with the governing `ADR-xxx` decisions, separation of layers (for example, no raw SQL in a controller), and component boundaries.
 3. **Maintainability.** Small focused functions, expressive names, no dead or commented-out code, and complexity a reader can follow.
-4. **Security and secrets.** No hardcoded secrets or credentials, parameterized queries, output encoding where content is rendered, and authentication and authorization checks where the contract requires them.
+4. **Security and secrets.** No hardcoded secrets or credentials, parameterized queries, output encoding where content is rendered, and authentication and authorization checks where the contract requires them. Whether or not the contract mentions it, an existing access check is not removed or weakened, and secrets, credentials, and personal data do not appear in logs.
 5. **Performance and resources.** Computational cost, no N+1 query patterns, handles and connections closed, and I/O that does not block the caller without a reason.
-6. **Test quality.** Tests assert observable behavior. New edge cases have coverage. Execution is deterministic.
+6. **Test quality.** Tests assert observable behavior and fail when the behavior they cover is missing. New edge cases have coverage. Execution is deterministic.
 7. **Scope discipline.** Every modified file and line traces to the governing task, requirement, or defect. Unrelated legacy code stays as it was.
 
 A finding may name the pillar it relates to. That name is a label on the finding, not a heading the report is required to include.
 
 ## Severities <!-- key: findings-taxonomy -->
 
-Findings use exactly two severities: blocking and non-blocking.
+Findings use exactly two severities: blocking and non-blocking. A finding that could be either is blocking. A severity is never lowered to reach a pass.
 
 ### Blocking <!-- key: blocking -->
 
 A blocking finding means the change is unsafe or incorrect until it is fixed. This severity covers:
 
-- A security vulnerability, a data-loss risk, a broken build, a regression in core logic, or an edit outside the agreed scope.
+- A security vulnerability, a removed or weakened access check, secrets or personal data written to logs, a data-loss risk, a broken build, a regression in core logic, or an edit outside the agreed scope.
+- An unmet acceptance criterion of the governing Work Item.
 - A significant flaw, an unhandled edge case, an N+1 query pattern, a missing test for new behavior, or missing error recovery.
 
 ### Non-Blocking <!-- key: non-blocking -->

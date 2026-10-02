@@ -9,6 +9,7 @@ A test strategy says how an implementation is verified. It balances rigor with t
 1. **Tests live in code.** Assertions, mocks, steps, and fixtures belong in the executable suite (`*.spec.ts`, `test_*.py`, and the repository's equivalents), not in a markdown table.
 2. **Strategy lives in the plan.** The plan holds the distribution across levels, the critical risk scenarios, and the coverage matrix.
 3. **Markdown holds a summary.** A specification records a short account of a run. Raw execution traces stay with the test report or the continuous-integration run.
+4. **A test can fail.** A test for new or changed behavior fails when that behavior is missing or broken. A test that passes regardless, because it mocks past the thing under test or asserts only its own setup, is not evidence.
 
 ## Test Levels <!-- key: test-levels -->
 

@@ -1,0 +1,22 @@
+{
+  "slug": "agile-sdlc-defect-diagnosis-guide",
+  "kind": "spec",
+  "title": "Agile Defect Diagnosis Guide",
+  "summary": "How to diagnose a defect before fixing it: confirm it is a defect, reproduce it, separate a confirmed root cause from a hypothesis, fix the cause, and add a regression check that fails on the unfixed code.",
+  "tags": [
+    "agile-sdlc",
+    "domain.engineering",
+    "use-case.execution"
+  ],
+  "collection": "agile-sdlc",
+  "createdAt": "2026-10-02",
+  "updatedAt": "2026-10-02",
+  "sourceVersion": "1.0",
+  "schemaVersion": "1",
+  "license": "CC-BY-4.0",
+  "relatedSlugs": [
+    "agile-sdlc-implement",
+    "agile-sdlc-work-item-template",
+    "agile-sdlc-test-strategy-guide"
+  ]
+}

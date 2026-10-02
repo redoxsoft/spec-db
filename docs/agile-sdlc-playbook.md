@@ -81,8 +81,8 @@ Pipelines create or update SpecX documents by durable id when one is known and o
 
 | Produced by | Title |
 |---|---|
-| `generate-prd` | `<Subject> - Agile PRD` |
-| `generate-feature-spec` | `<Subject> - Agile Feature Spec` |
+| `generate-product-spec` (PRD mode) | `<Subject> - Agile PRD` |
+| `generate-product-spec` (Feature mode) | `<Subject> - Agile Feature Spec` |
 | `generate-tech-spec` | `<Subject> - Agile Tech Spec` |
 | `generate-test-plan` | `<Subject> - Agile Test Plan` |
 | `generate-implementation-plan` | `<Subject> - Agile Implementation Plan` |
@@ -208,9 +208,9 @@ numbered steps
 
 ## 5. Target inventory
 
-Twenty-three resources: six knowledge specs, seven templates, and ten pipelines.
+Twenty-three resources: seven knowledge specs, seven templates, and nine pipelines.
 
-### 5.1 Knowledge specs — 6
+### 5.1 Knowledge specs — 7
 
 `resources/specs/<slug>/metadata.json` + `content.md`. Collection `agile-sdlc`, no subcollection. H1 exactly equals `metadata.title`. Sections start at H2 and carry `<!-- key: ... -->`.
 
@@ -225,6 +225,7 @@ Two markdown notes when porting from v1. A plain `>` blockquote degrades to a pa
 | `agile-sdlc-tech-design-standards` | Agile Technical Design Standards | `domain.engineering`, `use-case.specification` | How to document architecture, decision records, schemas and migrations; brownfield safety; isolation zones **as advice for scoping a change**, not as an enforcement mechanism. |
 | `agile-sdlc-test-strategy-guide` | Agile Test Strategy Guide | `domain.engineering`, `use-case.specification` | Test levels and how to choose them; risk-based coverage; tests live in code; what counts as evidence (command, exit code, counts) and why a skipped required test is not a pass; no raw logs in markdown. |
 | `agile-sdlc-code-review-guide` | Agile Code Review Guide | `domain.engineering`, `use-case.execution` | The seven review pillars **as a checklist to consult**; two severities, blocking and non-blocking; what makes a finding actionable; the ban on style bike-shedding. |
+| `agile-sdlc-defect-diagnosis-guide` | Agile Defect Diagnosis Guide | `domain.engineering`, `use-case.execution` | Defect diagnosis only, read during durable `defect` intake: confirm it is a defect, evidence, reproduction, confirmed root cause versus hypothesis, the fix, and a regression check that fails on the unfixed code. |
 | `agile-sdlc-project-development-guide` | Agile Project Development Guide | `domain.engineering`, `use-case.execution` | Draft, adaptable defaults for future code; applicable sections are scoped during intake and their chosen direction is persisted for later tasks. |
 
 Specs remain compact reusable references. Routing procedure, approvals, persistence, write boundaries, outcomes, and handoffs stay in task files.
@@ -236,7 +237,7 @@ Specs remain compact reusable references. Routing procedure, approvals, persiste
 | Slug | Title | Tags | Notes |
 |---|---|---|---|
 | `agile-sdlc-work-item-template` | Agile Work Item Template | `domain.engineering`, `use-case.specification` | The bounded execution contract for a change, defect, or task. See 5.2.1. |
-| `agile-sdlc-product-spec-template` | Agile Product Spec Template | `domain.product`, `use-case.specification` | Shared by Generate PRD and Generate Feature Spec. See 5.2.2. |
+| `agile-sdlc-product-spec-template` | Agile Product Spec Template | `domain.product`, `use-case.specification` | Used by Generate Product Spec in PRD and Feature modes. See 5.2.2. |
 | `agile-sdlc-technical-design-template` | Agile Technical Design Template | `domain.engineering`, `use-case.specification` | Generic technical design. See 5.2.3. |
 | `agile-sdlc-delivery-plan-template` | Agile Delivery Plan Template | `domain.engineering`, `use-case.planning` | Shared by Generate Test Plan and Generate Implementation Plan. See 5.2.4. |
 | `agile-sdlc-delivery-record-template` | Agile Delivery Record Template | `domain.engineering`, `use-case.execution` | The single append-only delivery history. See 5.2.5. |
@@ -304,15 +305,14 @@ Top-level, all fixed: `document-status`, `verdict`.
 - `verdict`: blocking findings exist, or none do, in one or two sentences. Its optional repeatable `finding` children each carry `location`, `severity` (`blocking` or `non-blocking`), `evidence`, `impact`, and `recommendation`; every actual finding fills all five. Optional repeatable `note` children hold useful observations that are not findings.
 - Zero findings is represented only by the concise non-blocking verdict. It creates no finding or note instance, empty section, or `none` placeholder.
 
-### 5.3 Pipelines — 10
+### 5.3 Pipelines — 9
 
-`resources/pipelines/<slug>/metadata.json` + `content.json` + `tasks/<step-key>.md`. The bootstrap pipeline sits at the collection root; the other pipelines carry a subcollection. Twenty task files in total.
+`resources/pipelines/<slug>/metadata.json` + `content.json` + `tasks/<step-key>.md`. The bootstrap pipeline sits at the collection root; the other pipelines carry a subcollection. Eighteen task files in total.
 
 | Slug | Title | Subcollection | Tags | Steps: `key` — name |
 |---|---|---|---|---|
 | `agile-sdlc-implement` | Agile Implement | `agile-sdlc-deliver` | `domain.engineering`, `use-case.execution` | `scope-and-lock` — Scope the Change and Lock the Contract; `build-and-verify` — Build, Check, and Fix Within the Boundary; `record-and-hand-off` — Write the Delivery Record and Hand Off |
-| `agile-sdlc-generate-feature-spec` | Agile Generate Feature Spec | `agile-sdlc-specify` | `domain.product`, `use-case.specification` | `scope-and-confirm` — Scope the Feature and Confirm; `draft-and-hand-off` — Draft the Feature Spec and Hand Off |
-| `agile-sdlc-generate-prd` | Agile Generate PRD | `agile-sdlc-specify` | `domain.product`, `use-case.specification` | `scope-and-confirm` — Scope the Initiative and Confirm; `draft-and-hand-off` — Draft the PRD and Hand Off |
+| `agile-sdlc-generate-product-spec` | Agile Generate Product Spec | `agile-sdlc-specify` | `domain.product`, `use-case.specification` | `scope-and-confirm` — Scope the Brief and Confirm the Mode; `draft-and-hand-off` — Draft the Product Spec and Hand Off |
 | `agile-sdlc-generate-tech-spec` | Agile Generate Tech Spec | `agile-sdlc-specify` | `domain.engineering`, `use-case.specification` | `scope-and-confirm` — Scope the Technical Design and Confirm; `draft-and-hand-off` — Draft the Tech Spec and Hand Off |
 | `agile-sdlc-generate-test-plan` | Agile Generate Test Plan | `agile-sdlc-specify` | `domain.engineering`, `use-case.specification` | `scope-and-confirm` — Scope the Test Strategy and Confirm; `draft-and-hand-off` — Draft the Test Plan and Hand Off |
 | `agile-sdlc-generate-implementation-plan` | Agile Generate Implementation Plan | `agile-sdlc-specify` | `domain.engineering`, `use-case.planning` | `scope-and-confirm` — Scope the Plan and Confirm; `draft-and-hand-off` — Draft the Implementation Plan and Hand Off |

@@ -31,16 +31,6 @@
       "status": "active"
     },
     {
-      "id": "domain.marketing",
-      "displayName": "Marketing",
-      "description": "Go-to-market, messaging, and launch content.",
-      "applicableKinds": ["spec", "template", "pipeline"],
-      "ui": "facet",
-      "parentId": "domain",
-      "order": 3,
-      "status": "active"
-    },
-    {
       "id": "domain.business",
       "displayName": "Business",
       "description": "Commercial, operational, and team process work across the organization.",
@@ -70,16 +60,6 @@
       "status": "active"
     },
     {
-      "id": "use-case.discovery",
-      "displayName": "Discovery",
-      "description": "Researching problems, users, and ideas before committing to build.",
-      "applicableKinds": ["spec", "template", "pipeline"],
-      "ui": "facet",
-      "parentId": "use-case",
-      "order": 2,
-      "status": "active"
-    },
-    {
       "id": "use-case.planning",
       "displayName": "Planning",
       "description": "Kickoffs, roadmaps, proposals, and preparing for work.",
@@ -97,16 +77,6 @@
       "ui": "facet",
       "parentId": "use-case",
       "order": 4,
-      "status": "active"
-    },
-    {
-      "id": "ai-sdlc",
-      "displayName": "AI SDLC",
-      "description": "Templates, guidelines, and executable pipelines for an agent-driven software delivery lifecycle.",
-      "applicableKinds": ["spec", "template", "pipeline"],
-      "ui": "facet",
-      "parentId": "use-case",
-      "order": 5,
       "status": "active"
     },
     {

@@ -1,0 +1,9 @@
+{
+  "schemaVersion": "1",
+  "inputVarDefinitions": [],
+  "iteratorFields": [],
+  "steps": [
+    { "key": "scope-and-confirm", "name": "Scope the Brief and Confirm the Mode" },
+    { "key": "draft-and-hand-off", "name": "Draft the Product Spec and Hand Off" }
+  ]
+}

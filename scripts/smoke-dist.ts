@@ -60,9 +60,9 @@ async function main() {
   }
 
   const packageSamples = [
-    'generated/packages/template/feature-spec-lite.json',
-    'generated/packages/pipeline/project-discovery.json',
-    'generated/packages/spec/discovery-rules.json',
+    'generated/packages/template/agile-sdlc-work-item-template.json',
+    'generated/packages/pipeline/agile-sdlc-implement.json',
+    'generated/packages/spec/agile-sdlc-code-review-guide.json',
   ]
   for (const rel of packageSamples) {
     const raw = await readFile(path.join(DIST, rel), 'utf8')

@@ -18,7 +18,7 @@ Canonical registry: [`collections.json`](./collections.json). A resource has at 
 
 | Field | Description |
 |-------|-------------|
-| `id` | Stable kebab-case id (e.g. `ai-sdlc`) |
+| `id` | Stable kebab-case id (e.g. `agile-sdlc`) |
 | `displayName` | Catalog label and workspace folder name. Immutable after merge |
 | `description` | Collection page copy (editable) |
 | `parentId` | Omitted or `null` for a top-level collection. A sub-collection points at a top-level id |

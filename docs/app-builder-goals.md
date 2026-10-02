@@ -347,7 +347,6 @@ App Builder is not:
 - a feature, authentication, billing, or content-management generator;
 - a deployment, hosting, or store-submission pipeline;
 - a SpecX document workflow with templates and delivery records;
-- the Builder collection’s discovery-to-build path, or the Node Boilerplate Generator;
 - a place to upgrade framework majors during a port;
 - a guarantee that later (Day-2) architecture sentences are implemented in the hello-world tree; those sentences are non-binding and must not stop a run;
 - a requirement to launch a companion agent or reload every standard before writing files.

@@ -29,7 +29,7 @@ When the user clicks **Import** in the detail modal with `embed=true`, Spec DB p
 {
   "type": "spec-db:import:requested",
   "kind": "template",
-  "slug": "feature-spec-lite"
+  "slug": "agile-sdlc-work-item-template"
 }
 ```
 
@@ -44,8 +44,8 @@ With `embed=true`, the catalog supports multi-select + **Import (N)**. Spec DB p
   "type": "spec-db:import:batch-requested",
   "batchId": "550e8400-e29b-41d4-a716-446655440000",
   "items": [
-    { "kind": "pipeline", "slug": "project-discovery" },
-    { "kind": "pipeline", "slug": "milestone-builder" }
+    { "kind": "pipeline", "slug": "agile-sdlc-implement" },
+    { "kind": "pipeline", "slug": "agile-sdlc-review" }
   ]
 }
 ```
@@ -65,10 +65,10 @@ On a collection page (`?collection=<id>`, optional `?subcollection=<id>`), the p
 {
   "type": "spec-db:import:collection-requested",
   "batchId": "550e8400-e29b-41d4-a716-446655440000",
-  "collectionId": "ai-sdlc",
+  "collectionId": "agile-sdlc",
   "items": [
-    { "kind": "template", "slug": "ai-sdlc-prd-template" },
-    { "kind": "spec", "slug": "ai-sdlc-prd-vs-feature-spec-guidelines" }
+    { "kind": "template", "slug": "agile-sdlc-product-spec-template" },
+    { "kind": "spec", "slug": "agile-sdlc-requirements-quality-guide" }
   ]
 }
 ```
@@ -143,7 +143,7 @@ Spec DB does **not** send full document bodies over `postMessage`. Hosts must no
 
 Examples:
 
-- `/generated/packages/template/feature-spec-lite.json`
+- `/generated/packages/template/agile-sdlc-work-item-template.json`
 - `/generated/packages/spec/corporate-ramayana.json`
 - `/generated/packages/pipeline/my-pipeline.json`
 

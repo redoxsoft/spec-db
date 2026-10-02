@@ -54,7 +54,7 @@ Every resource needs a `metadata.json`. Validate against [`schemas/metadata.sche
   "title": "Human title",
   "summary": "One or two sentences for catalog cards.",
   "tags": ["domain.product", "use-case.specification"],
-  "collection": "builder",
+  "collection": "agile-sdlc",
   "createdAt": "2026-08-02",
   "updatedAt": "2026-08-02",
   "sourceVersion": "1.0",
@@ -119,7 +119,7 @@ Every resource needs a `metadata.json`. Validate against [`schemas/metadata.sche
 - Outline `key` values must be **unique tree-wide**.
 - Omit `cardinality` for fixed sections (defaults to `{ "min": 1, "max": 1 }`). Use `"max": null` for unbounded repeats.
 - Outline must pass **SpecX-aligned structure invariants** (below). `npm run check` fails otherwise.
-- See `resources/templates/feature-spec-lite/` for hierarchy + optional leaf; `team-retrospective` for optional list (Pattern B).
+- See `resources/templates/agile-sdlc-work-item-template/`: `exclusions` is an optional leaf (Pattern A); `risk-or-advisory` is an optional list (Pattern B).
 
 ### Template outline invariants (required)
 
@@ -252,7 +252,7 @@ Prose for this section…
 - Optional `metadata.templateSlug` must reference an existing template.
 - No `![](…)` or other media embeds.
 - Import packaging converts markdown to typed blocks (`paragraph`, lists, `code_block`, `callout`, `table`, `divider`). Unsupported constructs degrade to paragraph; structural errors fail `npm run check`.
-- See `resources/specs/discovery-rules/` for a package-friendly example.
+- See `resources/specs/agile-sdlc-code-review-guide/` for a package-friendly example.
 
 ---
 
