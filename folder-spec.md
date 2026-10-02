@@ -90,8 +90,9 @@ Dual mode. Controls must not fight.
 - Sidebar heading is **Collections** (not “Collections Folders”). Folder icons are for hierarchy, not the section title.
 - Sidebar lists top-level collections (`AI-SDLC`, `Product Prism`, `Builder`, …).
 - Opening a collection leaves Library. Library filters do not apply.
-- Page: title + description, primary import CTA, sub-collection tiles, then resource cards.
-- Each child tile is a link to `?collection=…&subcollection=…` and shows that child’s **direct importable-file count** (host-allowlisted). The scoped page’s CTA imports only that child. **Hide** a tile when that count is 0 (same rule as a disabled collection CTA). Do not keep an empty tile with a “switch product” tooltip.
+- Page: title + description, primary import CTA, then every resource in the collection, sub-collection files included.
+- **By folder** (default) shows collection-root cards under “Top level”, then one section per sub-collection in registry `order`. Each section heading is a link to `?collection=…&subcollection=…` and shows that child’s description and **direct importable-file count** (host-allowlisted). The scoped page shows and imports only that child. **Hide** a section when that count is 0 (same rule as a disabled collection CTA).
+- **All** shows the same cards in one list, grouped by kind. The By folder / All switch appears only when the collection has a non-empty sub-collection. A scoped sub-collection page has no switch.
 - Local kind tabs (All / Templates / Specs / Pipelines) change **what you see**, not **what you import**. Persistent helper next to the CTA, e.g. “Imports all 16 SpecX files in AI-SDLC, not only the Templates tab.”
 
 **Two different counts. Do not mix them up:**
@@ -99,15 +100,15 @@ Dual mode. Controls must not fight.
 | Surface | Count |
 |---|---|
 | Collection hero CTA | **Descendant-inclusive** — collection-root files **plus** every sub-collection file, host-allowlisted. Matches exactly what the CTA imports (§1.9) |
-| Sub-collection tile | **Direct only** — that child's own files, host-allowlisted |
+| Sub-collection section heading | **Direct only** — that child's own files, host-allowlisted |
 | Scoped sub-collection page CTA | That child only (its direct count) |
 
-Because the hero number is descendant-inclusive, it will exceed the cards visible on the page whenever sub-collections exist. Show the breakdown so the arithmetic is legible to the user, e.g. “Import 16 SpecX files — 6 here, 10 in sub-folders.” Never render a hero count that silently disagrees with what the button does.
+The hero number is descendant-inclusive, so it can exceed the cards visible on the page when a kind tab or search narrows them. Show the breakdown so the arithmetic is legible to the user, e.g. “Import 16 SpecX files — 6 here, 10 in sub-folders.” Never render a hero count that silently disagrees with what the button does.
 
 - CTA count and copy are host-aware: “Import 16 SpecX files” / “Import 8 pipelines”. Never a generic `resourcesCount` that includes dropped kinds. Never “exact folder replica.”
 - **Canonical CTA label** (single wording across spec, prototype, and UI): `Import {n} {host} files` — “Import 16 SpecX files”, “Import 8 pipelines”. Retire “Import Entire Folder” and “Import folder into SpecX”; the label must carry the host-aware count, which a fixed string cannot.
 - If the allowlist leaves **zero** importable files: hide/disable the CTA; do not postMessage; backends must not create folders.
-- **Standalone (non-embed) Spec DB has no collection CTA.** The collection page renders normally — hero, description, tiles, cards — and each card keeps its `/import?kind=&slug=` deep link, but the pack-level CTA is **hidden**, not disabled-with-a-tooltip. Multi-item handoff has no standalone transport (§4.1) and a dead button on the primary affordance is worse than its absence. A standalone `/import?collection=` deep link is a deliberate non-goal for v1; revisit only if standalone traffic matters.
+- **Standalone (non-embed) Spec DB has no collection CTA.** The collection page renders normally — hero, description, folder sections, cards — and each card keeps its `/import?kind=&slug=` deep link, but the pack-level CTA is **hidden**, not disabled-with-a-tooltip. Multi-item handoff has no standalone transport (§4.1) and a dead button on the primary affordance is worse than its absence. A standalone `/import?collection=` deep link is a deliberate non-goal for v1; revisit only if standalone traffic matters.
 - Card import inside a collection still imports that one file and still creates the hierarchy needed for **that** file.
 
 **Search**
@@ -500,10 +501,10 @@ Existing internal GET/validate-by-id stay for user-driven moves.
 
 - Dual-mode sidebar: Library (kinds) + **Collections** (top-level registry entries). Remove Domain / Use Case from the sidebar.
 - Library page: Domain + Use Case dropdowns in the header (Library only).
-- Collection page: hero (title, description, host-aware CTA + helper text), clickable sub-collection tiles (direct importable-file count), local kind tabs, cards without collection chips.
+- Collection page: hero (title, description, host-aware CTA + helper text), local kind tabs, a By folder / All switch, and every descendant card without collection chips. By folder puts cards under clickable sub-collection headings (direct importable-file count).
 - URL: `?collection=ai-sdlc` opens folder view; optional `?subcollection=`; Library `kind` + `tag` params do not apply while a collection is selected.
 - CTA → `spec-db:import:collection-requested` (embed) only when importable count > 0. **Standalone renders no pack CTA at all** (§1.6): multi-item handoff has no standalone transport, so hide the button rather than shipping a dead control. Single-card Import stays `import:requested` / deep link in both modes.
-- Hero CTA count is descendant-inclusive; sub-collection tile counts are direct-only; render the breakdown (§1.6).
+- Hero CTA count is descendant-inclusive; sub-collection heading counts are direct-only; render the breakdown (§1.6).
 - Local kind tabs must not shrink the collection message `items`.
 - Host `kinds=` slices `items` and the CTA count. Zero importable → no CTA.
 
@@ -637,7 +638,7 @@ Do not deploy Spec DB generated JSON with the new keys until both BEs accept the
 - Top-level import ensures both `[AI-SDLC]` and `[AI-SDLC, Planning]` when the work list has root and child items; a scoped Planning import does not import collection-root files.
 - SpecX-only embed of a collection that has a pipelines-only child → that child folder is **not** created; CTA omits pipelines.
 - Zero importable kinds → no CTA, no ensure, no folders.
-- Collection hero count is **descendant-inclusive** and equals the number of items the CTA actually sends; each sub-collection tile shows its **direct** count only; the page states the breakdown so the two numbers reconcile on screen.
+- Collection hero count is **descendant-inclusive** and equals the number of items the CTA actually sends; each sub-collection heading shows its **direct** count only; the page states the breakdown so the two numbers reconcile on screen.
 - Standalone (non-embed) collection page → no pack CTA at all (not a disabled one); cards still deep-link to `/import?kind=&slug=`.
 - Collection import whose work list resolves to empty → **HTTP 200**, `results: []`, `folders: []`, no folders created, and the toast reads “nothing to import” rather than a failure.
 - A requested slug missing from the pulled host registry → that item alone fails `SLUG_NOT_IN_COLLECTION`; every other item in the pack still imports.

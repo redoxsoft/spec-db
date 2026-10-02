@@ -18,7 +18,7 @@ Intent -> numbered choices -> one preview -> starter directory -> observed check
 
 Each generator is one pipeline. The nine generators do not launch another pipeline. The React + separate API generator writes `frontend/` and `backend/` itself. App Builder App Selector is the exception: after confirmation it starts one generator by that generator’s exact catalog title. It does not write a starter.
 
-Day-0 standards are web, API, and mobile. A generator reads only the standards its source pipeline lists. The Project Development Guide is offered at handoff for later work and is not loaded during generation. Specs, the selector, and the absence of templates sit on the collection. Generator pipelines sit in a subcollection.
+Day-0 standards are web, API, and mobile. A generator reads only the standards its source pipeline lists. The Project Development Guide is offered at handoff for later work and is not loaded during generation. There are no templates. App Builder App Selector sits at the collection root as the place to start. Each generator sits in a subcollection with its contract. Mobile standards sit with the mobile generators, its only users. Web standards, API standards, and the Project Development Guide serve several folders and sit in Standards.
 
 `catalog.md` in the source is an index. It does not become a resource. `websites/static-website-generator-old/` is an obsolete copy and is not imported.
 
@@ -30,14 +30,15 @@ Add to `collections/collections.json` and `tags/tags.json` in the same change as
 
 | id | displayName | parentId | Holds |
 |---|---|---|---|
-| `app-builder` | App Builder | — | The pack. Specs and App Builder App Selector sit here with no subcollection. |
-| `app-builder-websites` | Websites | `app-builder` | Static site and Next.js website pipelines. |
-| `app-builder-frontend` | Frontend Web Apps | `app-builder` | The React + Vite pipeline. |
-| `app-builder-fullstack` | Full-Stack Web Apps | `app-builder` | Next.js full-stack and React + separate API pipelines. |
-| `app-builder-backends` | Backends and APIs | `app-builder` | Node.js API and Python API pipelines. |
-| `app-builder-mobile` | Mobile Apps | `app-builder` | Expo and Flutter pipelines. |
+| `app-builder` | App Builder | — | The pack. Only App Builder App Selector sits at the root. |
+| `app-builder-websites` | Websites | `app-builder` | Static site and Next.js website pipelines and their contracts. |
+| `app-builder-frontend` | Frontend Web Apps | `app-builder` | The React + Vite pipeline and its contract. |
+| `app-builder-fullstack` | Full-Stack Web Apps | `app-builder` | Next.js full-stack and React + separate API pipelines and their contracts. |
+| `app-builder-backends` | Backends and APIs | `app-builder` | Node.js API and Python API pipelines and their contracts. |
+| `app-builder-mobile` | Mobile Apps | `app-builder` | Expo and Flutter pipelines, their contracts, and mobile standards. |
+| `app-builder-standards` | Standards | `app-builder` | Web standards, API standards, and the Project Development Guide. |
 
-Collection `order` is `2`. Subcollection `order` follows the table from 1 to 5. Description: "Opinionated hello-world starters for websites, web apps, APIs, and mobile apps."
+Collection `order` is `2`. Subcollection `order` follows the table from 1 to 6. Description: "Opinionated hello-world starters for websites, web apps, APIs, and mobile apps."
 
 New tag, appended under parent `use-case`:
 
@@ -74,7 +75,7 @@ Shared `metadata.json` fields:
 | `sourceVersion` | `"1.0"` |
 | `license` | `"CC-BY-4.0"` |
 | `collection` | `"app-builder"` |
-| `subcollection` | Generator pipelines only. Specs and App Builder App Selector omit it. |
+| `subcollection` | Every resource except App Builder App Selector. Section 6 gives each resource's value. |
 | `createdAt` / `updatedAt` | The date the resource is written, `YYYY-MM-DD`. |
 | `inputVarDefinitions` | `[]` on every pipeline. |
 | `iteratorFields` | `[]` on every pipeline. |
@@ -221,7 +222,7 @@ Twenty-three resources: 3 day-0 standards, 1 later-work guide, 9 contracts, 10 p
 
 ### 6.1 Standards and guide — 4
 
-`resources/specs/<slug>/metadata.json` + `content.md`. Collection `app-builder`, no subcollection. H1 exactly equals `metadata.title`. Sections start at H2 and carry `<!-- key: ... -->`. No body before the first H2.
+`resources/specs/<slug>/metadata.json` + `content.md`. Collection `app-builder`. Mobile standards use subcollection `app-builder-mobile`; the other three use `app-builder-standards`. H1 exactly equals `metadata.title`. Sections start at H2 and carry `<!-- key: ... -->`. No body before the first H2.
 
 Port the prose, trees, and tables. Drop sentences that say every pipeline must run a procedure. A standard may say what a generated project includes.
 
@@ -261,7 +262,7 @@ Move source “Core Rules” and “Error Handling & Recovery” into the tasks 
 | `app-builder-expo-react-native-contract` | App Builder Expo React Native Contract | `mobile-apps/expo-react-native-generator` |
 | `app-builder-flutter-app-contract` | App Builder Flutter App Contract | `mobile-apps/flutter-app-generator` |
 
-Each source directory’s `scaffold-rules.md` is the contract source.
+Each source directory’s `scaffold-rules.md` is the contract source. Each contract uses the same subcollection as its generator in section 6.3.
 
 ### 6.3 Generator pipelines — 9
 

@@ -29,10 +29,13 @@ Add to `collections/collections.json` and `tags/tags.json` in the same change as
 
 | id | displayName | parentId | Holds |
 |---|---|---|---|
-| `agile-sdlc` | Agile SDLC | — | The pack. Specs and templates sit here with no subcollection. |
-| `agile-sdlc-specify` | Specify | `agile-sdlc` | The five document-generation pipelines. |
-| `agile-sdlc-deliver` | Deliver | `agile-sdlc` | The `implement` pipeline. |
-| `agile-sdlc-verify` | Verify | `agile-sdlc` | Review, extended verification, and spec sync. |
+| `agile-sdlc` | Agile SDLC | — | The pack. Only the Artifact Routing Guide sits at the root, as the place to start. |
+| `agile-sdlc-specify` | Specify | `agile-sdlc` | The four document-generation pipelines, the templates they fill, and the requirements and technical design guides. |
+| `agile-sdlc-deliver` | Deliver | `agile-sdlc` | The `implement` pipeline, its Work Item and Delivery Record templates, and the defect diagnosis guide. |
+| `agile-sdlc-verify` | Verify | `agile-sdlc` | Review, extended verification, and spec sync, with the review findings template and code review guide. |
+| `agile-sdlc-standards` | Standards | `agile-sdlc` | Guidance used across stages: the project development guide, its template, the bootstrap pipeline, and the test strategy guide. |
+
+Each resource sits in the folder of the job that uses it. A resource used by more than one stage goes in Standards. Subcollection `order` follows the table from 1 to 4.
 
 Collection description: "A lean agent-executed delivery lifecycle: one self-verifying implement pipeline, optional specification pipelines, and optional review and verification gates."
 
@@ -70,7 +73,7 @@ Shared `metadata.json` fields:
 | `sourceVersion` | `"1.0"` |
 | `license` | `"CC-BY-4.0"` |
 | `collection` | `"agile-sdlc"` |
-| `subcollection` | Pipelines only. Specs and templates omit it. |
+| `subcollection` | Every resource except the Artifact Routing Guide. Section 5 gives each resource's value. |
 | `createdAt` / `updatedAt` | The date the milestone is executed, `YYYY-MM-DD`. |
 | `templateSlug` | Unset. |
 | `relatedSlugs` | Omitted through Milestone 2. From Milestone 3 onward, every entry resolves to an existing `agile-sdlc-*` resource. |
@@ -212,37 +215,37 @@ Twenty-three resources: seven knowledge specs, seven templates, and nine pipelin
 
 ### 5.1 Knowledge specs — 7
 
-`resources/specs/<slug>/metadata.json` + `content.md`. Collection `agile-sdlc`, no subcollection. H1 exactly equals `metadata.title`. Sections start at H2 and carry `<!-- key: ... -->`.
+`resources/specs/<slug>/metadata.json` + `content.md`. Collection `agile-sdlc`, subcollection from the table. H1 exactly equals `metadata.title`. Sections start at H2 and carry `<!-- key: ... -->`.
 
 These hold domain judgment only. If a sentence tells an agent what to do in what order, it belongs in a task file instead.
 
 Two markdown notes when porting from v1. A plain `>` blockquote degrades to a paragraph and makes `npm run check` emit a warning — v1's requirements guide does this today; use a GitHub alert (`> [!IMPORTANT]`) or ordinary prose instead. LaTeX fragments such as `$\rightarrow$` and `$\boxed{...}$` appear throughout v1; replace them with plain text, since they render as literal source.
 
-| Slug | Title | Tags | Carries |
-|---|---|---|---|
-| `agile-sdlc-artifact-routing-guide` | Agile Artifact Routing Guide | `domain.product`, `use-case.planning` | Sole routing authority: the default Work Item to Delivery Record route; Work Item modes for change, defect, and loose evidence; independent optional Product Spec, Technical Design, and Delivery Plan; risk advisories and consequential decision boundaries. |
-| `agile-sdlc-requirements-quality-guide` | Agile Requirements Quality Guide | `domain.product`, `use-case.specification` | Requirement and acceptance-criterion quality only: testability, observable behavior, non-goals, uncertainty tags, and identifiers. It does not select or split artifacts. |
-| `agile-sdlc-tech-design-standards` | Agile Technical Design Standards | `domain.engineering`, `use-case.specification` | How to document architecture, decision records, schemas and migrations; brownfield safety; isolation zones **as advice for scoping a change**, not as an enforcement mechanism. |
-| `agile-sdlc-test-strategy-guide` | Agile Test Strategy Guide | `domain.engineering`, `use-case.specification` | Test levels and how to choose them; risk-based coverage; tests live in code; what counts as evidence (command, exit code, counts) and why a skipped required test is not a pass; no raw logs in markdown. |
-| `agile-sdlc-code-review-guide` | Agile Code Review Guide | `domain.engineering`, `use-case.execution` | The seven review pillars **as a checklist to consult**; two severities, blocking and non-blocking; what makes a finding actionable; the ban on style bike-shedding. |
-| `agile-sdlc-defect-diagnosis-guide` | Agile Defect Diagnosis Guide | `domain.engineering`, `use-case.execution` | Defect diagnosis only, read during durable `defect` intake: confirm it is a defect, evidence, reproduction, confirmed root cause versus hypothesis, the fix, and a regression check that fails on the unfixed code. |
-| `agile-sdlc-project-development-guide` | Agile Project Development Guide | `domain.engineering`, `use-case.execution` | Draft, adaptable defaults for future code; applicable sections are scoped during intake and their chosen direction is persisted for later tasks. |
+| Slug | Title | Subcollection | Tags | Carries |
+|---|---|---|---|---|
+| `agile-sdlc-artifact-routing-guide` | Agile Artifact Routing Guide | — | `domain.product`, `use-case.planning` | Sole routing authority: the default Work Item to Delivery Record route; Work Item modes for change, defect, and loose evidence; independent optional Product Spec, Technical Design, and Delivery Plan; risk advisories and consequential decision boundaries. |
+| `agile-sdlc-requirements-quality-guide` | Agile Requirements Quality Guide | `agile-sdlc-specify` | `domain.product`, `use-case.specification` | Requirement and acceptance-criterion quality only: testability, observable behavior, non-goals, uncertainty tags, and identifiers. It does not select or split artifacts. |
+| `agile-sdlc-tech-design-standards` | Agile Technical Design Standards | `agile-sdlc-specify` | `domain.engineering`, `use-case.specification` | How to document architecture, decision records, schemas and migrations; brownfield safety; isolation zones **as advice for scoping a change**, not as an enforcement mechanism. |
+| `agile-sdlc-test-strategy-guide` | Agile Test Strategy Guide | `agile-sdlc-standards` | `domain.engineering`, `use-case.specification` | Test levels and how to choose them; risk-based coverage; tests live in code; what counts as evidence (command, exit code, counts) and why a skipped required test is not a pass; no raw logs in markdown. |
+| `agile-sdlc-code-review-guide` | Agile Code Review Guide | `agile-sdlc-verify` | `domain.engineering`, `use-case.execution` | The seven review pillars **as a checklist to consult**; two severities, blocking and non-blocking; what makes a finding actionable; the ban on style bike-shedding. |
+| `agile-sdlc-defect-diagnosis-guide` | Agile Defect Diagnosis Guide | `agile-sdlc-deliver` | `domain.engineering`, `use-case.execution` | Defect diagnosis only, read during durable `defect` intake: confirm it is a defect, evidence, reproduction, confirmed root cause versus hypothesis, the fix, and a regression check that fails on the unfixed code. |
+| `agile-sdlc-project-development-guide` | Agile Project Development Guide | `agile-sdlc-standards` | `domain.engineering`, `use-case.execution` | Draft, adaptable defaults for future code; applicable sections are scoped during intake and their chosen direction is persisted for later tasks. |
 
 Specs remain compact reusable references. Routing procedure, approvals, persistence, write boundaries, outcomes, and handoffs stay in task files.
 
 ### 5.2 Templates — 7
 
-`resources/templates/<slug>/metadata.json` + `content.json`. Collection `agile-sdlc`, no subcollection. Outlines must satisfy the CONTRIBUTING invariants: top-level nodes fixed, no required node under an optional ancestor, depth at most 4, keys unique tree-wide. Every fixed top-level node is inherently meaningful or has required meaningful content; optional modules are optional descendants and are omitted as a whole when absent. No empty wrapper or placeholder is required.
+`resources/templates/<slug>/metadata.json` + `content.json`. Collection `agile-sdlc`, subcollection from the table. Outlines must satisfy the CONTRIBUTING invariants: top-level nodes fixed, no required node under an optional ancestor, depth at most 4, keys unique tree-wide. Every fixed top-level node is inherently meaningful or has required meaningful content; optional modules are optional descendants and are omitted as a whole when absent. No empty wrapper or placeholder is required.
 
-| Slug | Title | Tags | Notes |
-|---|---|---|---|
-| `agile-sdlc-work-item-template` | Agile Work Item Template | `domain.engineering`, `use-case.specification` | The bounded execution contract for a change, defect, or task. See 5.2.1. |
-| `agile-sdlc-product-spec-template` | Agile Product Spec Template | `domain.product`, `use-case.specification` | Used by Generate Product Spec in PRD and Feature modes. See 5.2.2. |
-| `agile-sdlc-technical-design-template` | Agile Technical Design Template | `domain.engineering`, `use-case.specification` | Generic technical design. See 5.2.3. |
-| `agile-sdlc-delivery-plan-template` | Agile Delivery Plan Template | `domain.engineering`, `use-case.planning` | Shared by Generate Test Plan and Generate Implementation Plan. See 5.2.4. |
-| `agile-sdlc-delivery-record-template` | Agile Delivery Record Template | `domain.engineering`, `use-case.execution` | The single append-only delivery history. See 5.2.5. |
-| `agile-sdlc-review-findings-template` | Agile Review Findings Template | `domain.engineering`, `use-case.execution` | Actionable output written only when review runs. See 5.2.6. |
-| `agile-sdlc-project-development-guide-template` | Agile Project Development Guide Template | `domain.engineering`, `use-case.planning` | Shape for the optional project-owned guide; the imported spec supplies its default content. |
+| Slug | Title | Subcollection | Tags | Notes |
+|---|---|---|---|---|
+| `agile-sdlc-work-item-template` | Agile Work Item Template | `agile-sdlc-deliver` | `domain.engineering`, `use-case.specification` | The bounded execution contract for a change, defect, or task. See 5.2.1. |
+| `agile-sdlc-product-spec-template` | Agile Product Spec Template | `agile-sdlc-specify` | `domain.product`, `use-case.specification` | Used by Generate Product Spec in PRD and Feature modes. See 5.2.2. |
+| `agile-sdlc-technical-design-template` | Agile Technical Design Template | `agile-sdlc-specify` | `domain.engineering`, `use-case.specification` | Generic technical design. See 5.2.3. |
+| `agile-sdlc-delivery-plan-template` | Agile Delivery Plan Template | `agile-sdlc-specify` | `domain.engineering`, `use-case.planning` | Shared by Generate Test Plan and Generate Implementation Plan. See 5.2.4. |
+| `agile-sdlc-delivery-record-template` | Agile Delivery Record Template | `agile-sdlc-deliver` | `domain.engineering`, `use-case.execution` | The single append-only delivery history. See 5.2.5. |
+| `agile-sdlc-review-findings-template` | Agile Review Findings Template | `agile-sdlc-verify` | `domain.engineering`, `use-case.execution` | Actionable output written only when review runs. See 5.2.6. |
+| `agile-sdlc-project-development-guide-template` | Agile Project Development Guide Template | `agile-sdlc-standards` | `domain.engineering`, `use-case.planning` | Shape for the optional project-owned guide; the imported spec supplies its default content. |
 
 Dropped or consolidated: the separate product, feature, test, and implementation plan templates, plus `implementation-summary`, `verification-report`, `remediation-record`, `implementation-record`, `review-report`, `change-request`, `bug-spec`, `work-scope-brief`, and `delivery-summary`.
 
@@ -307,7 +310,7 @@ Top-level, all fixed: `document-status`, `verdict`.
 
 ### 5.3 Pipelines — 9
 
-`resources/pipelines/<slug>/metadata.json` + `content.json` + `tasks/<step-key>.md`. The bootstrap pipeline sits at the collection root; the other pipelines carry a subcollection. Eighteen task files in total.
+`resources/pipelines/<slug>/metadata.json` + `content.json` + `tasks/<step-key>.md`. Every pipeline carries a subcollection. Eighteen task files in total.
 
 | Slug | Title | Subcollection | Tags | Steps: `key` — name |
 |---|---|---|---|---|
@@ -319,7 +322,7 @@ Top-level, all fixed: `document-status`, `verdict`.
 | `agile-sdlc-review` | Agile Review | `agile-sdlc-verify` | `domain.engineering`, `use-case.execution` | `scope-review` — Scope the Diff and Confirm; `evaluate-and-report` — Evaluate the Diff and Write Findings |
 | `agile-sdlc-extended-verification` | Agile Extended Verification | `agile-sdlc-verify` | `domain.engineering`, `use-case.execution` | `scope-suites` — Scope the Suites and Confirm; `run-and-record` — Run the Suites and Record Evidence |
 | `agile-sdlc-sync-specs` | Agile Sync Specs | `agile-sdlc-verify` | `domain.engineering`, `use-case.execution` | `scope-sync` — Scope the Living Specs and Confirm; `sync-and-record` — Update Living Specs and Record |
-| `agile-sdlc-bootstrap-project-guide` | Agile Bootstrap Project Guide | — | `domain.engineering`, `use-case.planning` | `inspect-confirm-and-write` — Inspect, Confirm, and Write the Project Guide |
+| `agile-sdlc-bootstrap-project-guide` | Agile Bootstrap Project Guide | `agile-sdlc-standards` | `domain.engineering`, `use-case.planning` | `inspect-confirm-and-write` — Inspect, Confirm, and Write the Project Guide |
 
 `address-review` has no canonical equivalent. Applying review findings is `implement` with `<Subject> - Agile Review Findings` as intake; `scope-and-lock` selects the compact trivial contract only when every fast-path condition holds and otherwise creates or updates `<Subject> - Agile Work Item`. Say so in the review pipeline's handoff.
 

@@ -23,7 +23,7 @@ export function CollectionKindTabs({
     <div
       role="tablist"
       aria-label="Resource type"
-      className="mb-6 flex flex-wrap gap-2"
+      className="flex flex-wrap gap-2"
     >
       {options.map(({ id, label, icon: Icon, iconClassName }) => {
         const selected = kind === id

@@ -23,6 +23,14 @@ export type ResolvedCollectionPage =
       subcollection: CatalogCollection | null
     }
 
+export type ChildFolder = { child: CatalogCollection; count: number }
+
+/** Cards under one heading. `folder` is null for collection-root items. */
+export type FolderSection = {
+  folder: ChildFolder | null
+  items: CatalogLiteItem[]
+}
+
 export type PackCopy = {
   count: number
   here: number
@@ -96,7 +104,10 @@ function allowlisted(
   return allowedKinds.includes(item.kind)
 }
 
-/** Files the pack CTA imports. Top-level includes every sub-collection file. */
+/**
+ * Files the pack CTA imports, which are also the page's cards.
+ * Top-level includes every sub-collection file.
+ */
 export function importPackItems(
   catalog: readonly CatalogLiteItem[],
   collectionId: string,
@@ -113,8 +124,8 @@ export function importPackItems(
   )
 }
 
-/** Cards on this page: collection root, or the open child. Not descendants. */
-export function directPageItems(
+/** Files that sit directly in the collection root, or in the open child. */
+function directPageItems(
   catalog: readonly CatalogLiteItem[],
   collectionId: string,
   subcollectionId: string | null,
@@ -130,7 +141,7 @@ export function directPageItems(
   )
 }
 
-export function directChildCount(
+function directChildCount(
   catalog: readonly CatalogLiteItem[],
   collectionId: string,
   childId: string,
@@ -144,7 +155,7 @@ export function directChildCount(
   ).length
 }
 
-/** Host-aware noun for tile counts. Mixed allowlists stay generic. */
+/** Host-aware noun for folder counts. Mixed allowlists stay generic. */
 export function packUnit(allowedKinds: readonly ResourceKind[]): string {
   const hasSpecx = allowedKinds.some(
     (kind) => kind === 'spec' || kind === 'template',
@@ -208,12 +219,13 @@ export function packCopy(options: {
   }
 }
 
-export function activeChildTiles(
+/** Active children in display order, with their direct allowlisted count. Empty ones are hidden. */
+export function activeChildFolders(
   collections: readonly CatalogCollection[],
   collectionId: string,
   catalog: readonly CatalogLiteItem[],
   allowedKinds: readonly ResourceKind[],
-): Array<{ child: CatalogCollection; count: number }> {
+): ChildFolder[] {
   return collections
     .filter(
       (entry) => entry.status === 'active' && entry.parentId === collectionId,
@@ -223,7 +235,22 @@ export function activeChildTiles(
       child,
       count: directChildCount(catalog, collectionId, child.id, allowedKinds),
     }))
-    .filter((tile) => tile.count > 0)
+    .filter((folder) => folder.count > 0)
+}
+
+/** Root items first, then one section per folder in order. Sections with no items are dropped. */
+export function groupByFolder(
+  items: readonly CatalogLiteItem[],
+  folders: readonly ChildFolder[],
+): FolderSection[] {
+  const sections: FolderSection[] = [
+    { folder: null, items: items.filter((item) => !item.subcollection) },
+    ...folders.map((folder) => ({
+      folder,
+      items: items.filter((item) => item.subcollection === folder.child.id),
+    })),
+  ]
+  return sections.filter((section) => section.items.length > 0)
 }
 
 export function collectionSearchTargets(

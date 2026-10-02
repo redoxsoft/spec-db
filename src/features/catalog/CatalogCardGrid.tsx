@@ -12,6 +12,9 @@ type CatalogCardGridProps = {
   onToggleSelected?: (item: CatalogLiteItem) => void
 }
 
+/** Card behavior shared by every grid on a page. */
+export type CardGridOptions = Omit<CatalogCardGridProps, 'items' | 'grouped'>
+
 export function CatalogCardGrid({
   items,
   grouped,

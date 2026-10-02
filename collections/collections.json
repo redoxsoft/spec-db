@@ -18,7 +18,7 @@
     {
       "id": "agile-sdlc-specify",
       "displayName": "Specify",
-      "description": "The four document-generation pipelines for PRDs and feature specs, tech specs, test plans, and implementation plans.",
+      "description": "Pipelines that write PRDs and feature specs, tech specs, test plans, and implementation plans, with the templates and guides they use.",
       "parentId": "agile-sdlc",
       "order": 1,
       "status": "active"
@@ -26,7 +26,7 @@
     {
       "id": "agile-sdlc-deliver",
       "displayName": "Deliver",
-      "description": "The implement pipeline that builds a change, runs its checks, and records the result.",
+      "description": "The implement pipeline that builds a change, runs its checks, and records the result, with its Work Item and Delivery Record templates and the defect diagnosis guide.",
       "parentId": "agile-sdlc",
       "order": 2,
       "status": "active"
@@ -34,9 +34,17 @@
     {
       "id": "agile-sdlc-verify",
       "displayName": "Verify",
-      "description": "Pipelines for review, extended verification, and spec sync.",
+      "description": "Pipelines for review, extended verification, and spec sync, with the review findings template and code review guide.",
       "parentId": "agile-sdlc",
       "order": 3,
+      "status": "active"
+    },
+    {
+      "id": "agile-sdlc-standards",
+      "displayName": "Standards",
+      "description": "Guidance shared across stages: the project development guide, the pipeline that adapts it to a repository, and the test strategy guide.",
+      "parentId": "agile-sdlc",
+      "order": 4,
       "status": "active"
     },
     {
@@ -49,7 +57,7 @@
     {
       "id": "app-builder-websites",
       "displayName": "Websites",
-      "description": "Starters for a static site and a Next.js website.",
+      "description": "Starters for a static site and a Next.js website, with their contracts.",
       "parentId": "app-builder",
       "order": 1,
       "status": "active"
@@ -57,7 +65,7 @@
     {
       "id": "app-builder-frontend",
       "displayName": "Frontend Web Apps",
-      "description": "The React and Vite web app starter.",
+      "description": "The React and Vite web app starter, with its contract.",
       "parentId": "app-builder",
       "order": 2,
       "status": "active"
@@ -65,7 +73,7 @@
     {
       "id": "app-builder-fullstack",
       "displayName": "Full-Stack Web Apps",
-      "description": "Starters for a Next.js full-stack app and a React app with a separate API.",
+      "description": "Starters for a Next.js full-stack app and a React app with a separate API, with their contracts.",
       "parentId": "app-builder",
       "order": 3,
       "status": "active"
@@ -73,7 +81,7 @@
     {
       "id": "app-builder-backends",
       "displayName": "Backends and APIs",
-      "description": "Starters for a Node.js API and a Python API.",
+      "description": "Starters for a Node.js API and a Python API, with their contracts.",
       "parentId": "app-builder",
       "order": 4,
       "status": "active"
@@ -81,9 +89,17 @@
     {
       "id": "app-builder-mobile",
       "displayName": "Mobile Apps",
-      "description": "Starters for an Expo app and a Flutter app.",
+      "description": "Starters for an Expo app and a Flutter app, with their contracts and the mobile standards.",
       "parentId": "app-builder",
       "order": 5,
+      "status": "active"
+    },
+    {
+      "id": "app-builder-standards",
+      "displayName": "Standards",
+      "description": "Guidance shared across starters: web and API standards and the project development guide.",
+      "parentId": "app-builder",
+      "order": 6,
       "status": "active"
     }
   ]

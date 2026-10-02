@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react'
-import { Link, useSearchParams } from 'react-router-dom'
 import { LoaderCircle, SearchX, SlidersHorizontal } from 'lucide-react'
 import type {
   CatalogCollection,
@@ -11,16 +10,20 @@ import {
   type SpecDbImportItem,
 } from '../../lib/importHandoff'
 import { BatchImportBar } from './BatchImportBar'
-import { CatalogCardGrid } from './CatalogCardGrid'
+import { CatalogCardGrid, type CardGridOptions } from './CatalogCardGrid'
+import { CollectionFolderSections } from './CollectionFolderSections'
 import { CollectionKindTabs } from './CollectionKindTabs'
+import { CollectionLink } from './CollectionLink'
 import { CollectionPackCta } from './CollectionPackCta'
 import { CollectionSearchHits } from './CollectionSearchHits'
-import { CollectionTiles } from './CollectionTiles'
-import { browseCollectionParams } from './browseParams'
 import {
-  activeChildTiles,
+  CollectionViewToggle,
+  type CollectionView,
+} from './CollectionViewToggle'
+import {
+  activeChildFolders,
   collectionSearchTargets,
-  directPageItems,
+  groupByFolder,
   importPackItems,
   packCopy,
   resolveCollectionPage,
@@ -95,8 +98,8 @@ export function CollectionBrowse({
   onToggleSelected,
   onClearSelection,
 }: CollectionBrowseProps) {
-  const [params] = useSearchParams()
   const [localKind, setLocalKind] = useState<KindFilter>('all')
+  const [view, setView] = useState<CollectionView>('folders')
 
   useEffect(() => {
     setLocalKind('all')
@@ -128,12 +131,13 @@ export function CollectionBrowse({
         ) : (
           <CollectionReady
             page={page}
-            params={params}
             catalog={catalog}
             allowedKinds={allowedKinds}
             embed={embed}
             localKind={localKind}
             onLocalKind={setLocalKind}
+            view={view}
+            onView={setView}
             searching={searching}
             searchError={searchError}
             resolvedQuery={resolvedQuery}
@@ -165,13 +169,14 @@ export function CollectionBrowse({
 
 function CollectionReady({
   page,
-  params,
   catalog,
   collections,
   allowedKinds,
   embed,
   localKind,
   onLocalKind,
+  view,
+  onView,
   searching,
   searchError,
   resolvedQuery,
@@ -186,13 +191,14 @@ function CollectionReady({
   onToggleSelected,
 }: {
   page: Extract<ReturnType<typeof resolveCollectionPage>, { status: 'ready' }>
-  params: URLSearchParams
   catalog: CatalogLiteItem[]
   collections: CatalogCollection[]
   allowedKinds: ResourceKind[]
   embed: boolean
   localKind: KindFilter
   onLocalKind: (kind: KindFilter) => void
+  view: CollectionView
+  onView: (view: CollectionView) => void
   searching: boolean
   searchError: string | null
   resolvedQuery: string
@@ -222,29 +228,33 @@ function CollectionReady({
     displayName: current.displayName,
     allowedKinds,
   })
-  const tiles = page.subcollection
+  const folders = page.subcollection
     ? []
-    : activeChildTiles(
+    : activeChildFolders(
         collections,
         page.collection.id,
         catalog,
         allowedKinds,
       )
   const visible = filterCatalog(
-    directPageItems(catalog, page.collection.id, scopedId, allowedKinds),
+    pack,
     { kind: localKind, q: resolvedQuery, tags: [] },
     allowedKinds,
     searchSlugs,
   )
   const showPackCta = embed && copy.count > 0
+  const byFolder = folders.length > 0 && view === 'folders'
   const grouped = localKind === 'all' && allowedKinds.length > 1
+  const cards: CardGridOptions = {
+    searching,
+    onSelect,
+    selectionEnabled,
+    selectedKeys,
+    onToggleSelected,
+  }
   const hits = resolvedQuery
     ? collectionSearchTargets(collectionHits, collections)
     : []
-  const parentSearch = browseCollectionParams(
-    params,
-    page.collection.id,
-  ).toString()
 
   function handleImport(force: boolean) {
     if (!showPackCta) return
@@ -265,25 +275,13 @@ function CollectionReady({
       <div className="mb-8 flex items-start justify-between gap-4">
         <div className="min-w-0">
           {page.subcollection ? (
-            <Link
-              to={{ pathname: '/', search: parentSearch }}
-              onClick={(event) => {
-                if (
-                  event.metaKey ||
-                  event.ctrlKey ||
-                  event.shiftKey ||
-                  event.altKey ||
-                  event.button !== 0
-                ) {
-                  return
-                }
-                event.preventDefault()
-                onOpenCollection(page.collection.id)
-              }}
+            <CollectionLink
+              collectionId={page.collection.id}
+              onOpenCollection={onOpenCollection}
               className="text-sm font-medium text-brand-700 hover:text-brand-800"
             >
               {page.collection.displayName}
-            </Link>
+            </CollectionLink>
           ) : null}
           <h1 className="text-3xl font-bold tracking-tight text-gray-900">
             {current.displayName}
@@ -310,18 +308,16 @@ function CollectionReady({
         </div>
       </div>
 
-      <CollectionTiles
-        collectionId={page.collection.id}
-        tiles={tiles}
-        unit={copy.unit}
-        onOpenCollection={onOpenCollection}
-      />
-
-      <CollectionKindTabs
-        allowedKinds={allowedKinds}
-        kind={localKind}
-        onChange={onLocalKind}
-      />
+      <div className="mb-6 flex flex-wrap items-center justify-between gap-3 empty:hidden">
+        <CollectionKindTabs
+          allowedKinds={allowedKinds}
+          kind={localKind}
+          onChange={onLocalKind}
+        />
+        {folders.length > 0 ? (
+          <CollectionViewToggle view={view} onChange={onView} />
+        ) : null}
+      </div>
 
       {searching ? (
         <div
@@ -345,15 +341,17 @@ function CollectionReady({
           <p className="mt-1 max-w-sm text-gray-500">{searchError}</p>
         </div>
       ) : visible.length > 0 ? (
-        <CatalogCardGrid
-          items={visible}
-          grouped={grouped}
-          searching={searching}
-          onSelect={onSelect}
-          selectionEnabled={selectionEnabled}
-          selectedKeys={selectedKeys}
-          onToggleSelected={onToggleSelected}
-        />
+        byFolder ? (
+          <CollectionFolderSections
+            collectionId={page.collection.id}
+            sections={groupByFolder(visible, folders)}
+            unit={copy.unit}
+            onOpenCollection={onOpenCollection}
+            cards={cards}
+          />
+        ) : (
+          <CatalogCardGrid items={visible} grouped={grouped} {...cards} />
+        )
       ) : searching ? null : resolvedQuery ? (
         <p className="py-10 text-center text-sm text-gray-500">
           No resources match your search.
@@ -361,10 +359,6 @@ function CollectionReady({
       ) : localKind !== 'all' ? (
         <p className="py-10 text-center text-sm text-gray-500">
           No resources in this tab.
-        </p>
-      ) : tiles.length > 0 ? (
-        <p className="text-sm text-gray-500">
-          Resources in this collection are in the folders above.
         </p>
       ) : (
         <p className="py-10 text-center text-sm text-gray-500">
