@@ -3,7 +3,7 @@
   "guidance": "Write concise review findings titled `<Subject> - Agile Review Findings`.\nState whether blocking findings exist. Zero findings is represented only by a concise non-blocking verdict; do not add an empty section or `none` placeholder.\nEach actual finding records severity, location, concrete evidence, impact, and a recommendation. Optional repeatable findings and notes are descendants of Verdict so absent content leaves no empty wrapper.\nGround findings in the reviewed change, governing intent, and repository behavior. Do not invent requirements, paste raw diffs or terminal output, or report unenforced personal formatting preferences as findings.",
   "outline": [
     {
-      "key": "document-status",
+      "key": "document_status",
       "title": "Document Status",
       "guidance": "Date, the exact Target Revision and boundary that were reviewed, and optional reviewer, governing Work Item, and Delivery Record link. Omit unknown optional values rather than writing `none` or inventing them.",
       "children": [
@@ -22,12 +22,12 @@
           "guidance": "Date of the review, YYYY-MM-DD."
         },
         {
-          "key": "target-revision-and-boundary",
+          "key": "target_revision_and_boundary",
           "title": "Target Revision and Boundary",
           "guidance": "The persisted reviewed revision manifest: stable revision id, full base commit SHA, optional permitted-boundary description, and sorted boundary-file entries when dirty. Each entry contains its repository-relative path and content identity. Include the reviewed branch or range when relevant."
         },
         {
-          "key": "governing-work-item",
+          "key": "governing_work_item",
           "title": "Governing Work Item",
           "guidance": "Title of the work item, spec, or plan that bounded the change. Omit when none was provided; do not invent one or write a placeholder.",
           "cardinality": {
@@ -36,7 +36,7 @@
           }
         },
         {
-          "key": "delivery-record",
+          "key": "delivery_record",
           "title": "Delivery Record",
           "guidance": "Optional title or link to the Delivery Record for the reviewed change. Omit when unavailable.",
           "cardinality": {
@@ -53,8 +53,8 @@
       "children": [
         {
           "key": "finding",
-          "title": "Finding",
-          "guidance": "Title each instance with a short name for the defect or risk, not \"Finding\". Omit every instance when the review found nothing. Every actual instance fills severity, location, evidence, impact, and recommendation; the children are schema-optional only because the repeatable instance itself is optional.",
+          "title": "Finding: {summary}",
+          "guidance": "Replace {summary} with a short name for the defect or risk. Omit every instance when the review found nothing. Every actual instance fills severity, location, evidence, impact, and recommendation; the children are schema-optional only because the repeatable instance itself is optional.",
           "cardinality": {
             "min": 0,
             "max": null
@@ -109,8 +109,8 @@
         },
         {
           "key": "note",
-          "title": "Note",
-          "guidance": "Title each instance with a concise non-blocking observation that is not a finding, such as recognition of a clear approach. Omit all instances when there are no notes; do not write `none`. A personal formatting preference does not belong here.",
+          "title": "Note: {observation}",
+          "guidance": "Replace {observation} with a concise non-blocking observation that is not a finding, such as recognition of a clear approach. Omit all instances when there are no notes; do not write `none`. A personal formatting preference does not belong here.",
           "cardinality": {
             "min": 0,
             "max": null

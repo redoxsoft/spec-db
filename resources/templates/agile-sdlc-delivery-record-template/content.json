@@ -3,17 +3,17 @@
   "guidance": "Write the human-skimmable canonical delivery history for a change under the single Delivery Record root, produced as `<Subject> - Agile Delivery Record`.\nAlways write Document Status and a concise Implementation Summary. Link claims to stable event ids only when evidence events exist. An early blocked or needs_input outcome before checks instead cites its Governing Work Item decision or Originating Request and omits all Target Revision and Delivery Event instances. Implementation Outcome uses exactly done, failed, needs_input, or blocked and remains separate from later optional evidence. Preserve every prior event and Target Revision when adding evidence.\nStore each deterministic Target Revision once. Delivery Event instances reference its stable revision id instead of repeating the manifest. Each event keeps only dependable evidence: stable id, source, date, revision id, command or concrete action, result, and concise result details. Add implementation, resolution, criterion, artifact, or limitation fields only when they apply. Do not paste raw logs or claim an unobserved pass.",
   "outline": [
     {
-      "key": "delivery-record",
+      "key": "delivery_record",
       "title": "Delivery Record",
       "guidance": "The canonical delivery history. Document Status and Implementation Summary are required, making this root useful even for a zero-event blocked or needs_input outcome. Omit every optional history module that has no instance.",
       "children": [
         {
-      "key": "document-status",
+      "key": "document_status",
       "title": "Document Status",
       "guidance": "Stable record identity and implementation completion.",
       "children": [
         {
-          "key": "governing-work-item",
+          "key": "governing_work_item",
           "title": "Governing Work Item",
           "guidance": "Title of the durable Work Item that bounded implementation. Omit for an approved trivial fast path that used a compact execution contract.",
           "cardinality": {
@@ -22,7 +22,7 @@
           }
         },
         {
-          "key": "originating-request",
+          "key": "originating_request",
           "title": "Originating Request",
           "guidance": "Durable request, ticket, commit, notes, or supplied-input reference. Required for a trivial fast path when Governing Work Item is omitted; otherwise include only when useful.",
           "cardinality": {
@@ -31,29 +31,29 @@
           }
         },
         {
-          "key": "implementation-outcome",
+          "key": "implementation_outcome",
           "title": "Implementation Outcome",
           "guidance": "Exactly one of done, failed, needs_input, or blocked."
         },
         {
-          "key": "implementation-outcome-reason",
+          "key": "implementation_outcome_reason",
           "title": "Implementation Outcome Reason",
           "guidance": "One line explaining the implementation outcome."
         }
       ]
     },
     {
-      "key": "implementation-summary",
+      "key": "implementation_summary",
       "title": "Implementation Summary",
       "guidance": "Concise reader-first summary of the implementation outcome and reason, changed areas, acceptance result, and limitations or next action. End claims with supporting Delivery Event ids only when evidence events exist. For an early blocked or needs_input outcome before checks, cite the durable Work Item decision or Originating Request instead and omit unsupported fields. Optional pipelines do not invent or rewrite this summary.",
       "children": [
         {
-          "key": "outcome-and-reason",
+          "key": "outcome_and_reason",
           "title": "Outcome and Reason",
           "guidance": "One or two reader-first lines stating what happened and why. Cite supporting event ids when events exist; otherwise an early blocked or needs_input outcome cites its durable Work Item decision or Originating Request."
         },
         {
-          "key": "changed-areas",
+          "key": "changed_areas",
           "title": "Changed Areas",
           "guidance": "Concise areas and important files changed, followed by supporting event ids when evidence events exist. Omit when no implementation change is recorded.",
           "cardinality": {
@@ -62,7 +62,7 @@
           }
         },
         {
-          "key": "acceptance-result",
+          "key": "acceptance_result",
           "title": "Acceptance Result",
           "guidance": "Concise result across the acceptance criteria, followed by supporting event ids when evidence events exist. Omit when no criterion was evaluated.",
           "cardinality": {
@@ -71,7 +71,7 @@
           }
         },
         {
-          "key": "limitations-and-next-action",
+          "key": "limitations_and_next_action",
           "title": "Limitations and Next Action",
           "guidance": "Only material limitations and the next action, with supporting event ids where evidence exists. Omit when neither exists.",
           "cardinality": {
@@ -82,16 +82,16 @@
       ]
     },
     {
-          "key": "target-revision",
-          "title": "Target Revision",
-          "guidance": "Optional repeatable manifest. Title each instance with its stable revision id and omit all instances when no repository identity exists. Every actual revision fills Revision ID and Base Commit SHA. A clean revision has no boundary-file entries and represents that exact full commit SHA. For a dirty revision, Base Commit SHA is ancestry context: current HEAD must equal or descend from it, every listed identity must match, and no additional changed path inside the persisted permitted boundary may exist relative to that base. Include tracked changes, untracked files, and missing paths in that boundary, sorted by repository-relative path. Store each manifest once, refer to it from events by Revision ID, and never overwrite an earlier dirty manifest when a later clean bridge is added.",
+          "key": "target_revision",
+          "title": "Target Revision: {revision_id}",
+          "guidance": "Optional repeatable manifest. Replace {revision_id} with its stable revision id and omit all instances when no repository identity exists. Every actual revision fills Revision ID and Base Commit SHA. A clean revision has no boundary-file entries and represents that exact full commit SHA. For a dirty revision, Base Commit SHA is ancestry context: current HEAD must equal or descend from it, every listed identity must match, and no additional changed path inside the persisted permitted boundary may exist relative to that base. Include tracked changes, untracked files, and missing paths in that boundary, sorted by repository-relative path. Store each manifest once, refer to it from events by Revision ID, and never overwrite an earlier dirty manifest when a later clean bridge is added.",
           "cardinality": {
             "min": 0,
             "max": null
           },
           "children": [
             {
-              "key": "revision-id",
+              "key": "revision_id",
               "title": "Revision ID",
               "guidance": "Stable identifier unique within this record, such as REV-001. Never renumber or reuse an earlier id.",
               "cardinality": {
@@ -100,7 +100,7 @@
               }
             },
             {
-              "key": "base-commit-sha",
+              "key": "base_commit_sha",
               "title": "Base Commit SHA",
               "guidance": "Full commit SHA. It is the exact represented commit for a clean revision and ancestry context for a dirty revision.",
               "cardinality": {
@@ -109,7 +109,7 @@
               }
             },
             {
-              "key": "derived-from-revision-id",
+              "key": "derived_from_revision_id",
               "title": "Derived From Revision ID",
               "guidance": "For an optional clean bridge created after the exact dirty implementation was committed, identify the original dirty Revision ID. Omit otherwise. Append the clean manifest; never overwrite the original.",
               "cardinality": {
@@ -118,7 +118,7 @@
               }
             },
             {
-              "key": "permitted-boundary-description",
+              "key": "permitted_boundary_description",
               "title": "Permitted Boundary Description",
               "guidance": "Optional concise description of the approved implementation boundary. Omit when the boundary-file entries and governing contract are sufficient.",
               "cardinality": {
@@ -127,16 +127,16 @@
               }
             },
             {
-              "key": "boundary-file",
-              "title": "Boundary File",
-              "guidance": "Title each instance with its repository-relative path. Fill Path and Content Identity. Sort instances by Path. Omit all instances for a clean revision represented by Base Commit SHA alone.",
+              "key": "boundary_file",
+              "title": "Boundary File: {path}",
+              "guidance": "Replace {path} with its repository-relative path. Fill Path and Content Identity. Sort instances by Path. Omit all instances for a clean revision represented by Base Commit SHA alone.",
               "cardinality": {
                 "min": 0,
                 "max": null
               },
               "children": [
                 {
-                  "key": "boundary-file-path",
+                  "key": "boundary_file_path",
                   "title": "Path",
                   "guidance": "Repository-relative path.",
                   "cardinality": {
@@ -145,7 +145,7 @@
                   }
                 },
                 {
-                  "key": "boundary-file-content-identity",
+                  "key": "boundary_file_content_identity",
                   "title": "Content Identity",
                   "guidance": "SHA-256 of current regular-file bytes; SHA-256 of symlink target bytes for a symlink; `gitlink:<commit>` for a submodule; or `MISSING` when the path does not exist.",
                   "cardinality": {
@@ -158,16 +158,16 @@
           ]
     },
     {
-          "key": "delivery-event",
-          "title": "Delivery Event",
-          "guidance": "Optional repeatable evidence event. Omit all instances when no event exists. Preserve every prior event exactly. Append one for each implementation or extended-verification action and one separate event immediately after each sync target update; a zero-target sync appends one no-op event. Title each instance concisely. Every actual event fills Event ID, Source, Date, Revision ID, Action or Command, Event Result, and Result Details. Fill other fields only when applicable. Use a new stable event id for each append; never reuse or edit an earlier event.",
+          "key": "delivery_event",
+          "title": "Delivery Event: {summary}",
+          "guidance": "Optional repeatable evidence event. Omit all instances when no event exists. Preserve every prior event exactly. Append one for each implementation or extended-verification action and one separate event immediately after each sync target update; a zero-target sync appends one no-op event. Replace {summary} with a concise description of the event. Every actual event fills Event ID, Source, Date, Revision ID, Action or Command, Event Result, and Result Details. Fill other fields only when applicable. Use a new stable event id for each append; never reuse or edit an earlier event.",
           "cardinality": {
             "min": 0,
             "max": null
           },
           "children": [
             {
-              "key": "event-id",
+              "key": "event_id",
               "title": "Event ID",
               "guidance": "Stable identifier unique within this record, such as EVT-001. Never renumber earlier events.",
               "cardinality": {
@@ -194,7 +194,7 @@
               }
             },
             {
-              "key": "revision-id-reference",
+              "key": "revision_id_reference",
               "title": "Revision ID",
               "guidance": "Stable Revision ID from a Target Revision instance that identifies the repository state evaluated by this event.",
               "cardinality": {
@@ -203,7 +203,7 @@
               }
             },
             {
-              "key": "target-branch",
+              "key": "target_branch",
               "title": "Target Branch",
               "guidance": "Branch containing the evaluated implementation. Include on the first implementation event when useful; omit from later events and optional-pipeline events when it adds no distinct evidence.",
               "cardinality": {
@@ -212,7 +212,7 @@
               }
             },
             {
-              "key": "changed-areas-and-files",
+              "key": "changed_areas_and_files",
               "title": "Changed Areas and Files",
               "guidance": "Concise areas and exact files changed by implementation. Include on the first relevant implementation event and link the summary to it; do not repeat on every check. Omit for events that did not change repository files.",
               "cardinality": {
@@ -221,7 +221,7 @@
               }
             },
             {
-              "key": "action-or-command",
+              "key": "action_or_command",
               "title": "Action or Command",
               "guidance": "The exact command, or a concrete action/manual observation including relevant preconditions. Do not paste raw output.",
               "cardinality": {
@@ -230,7 +230,7 @@
               }
             },
             {
-              "key": "event-result",
+              "key": "event_result",
               "title": "Event Result",
               "guidance": "Exactly one of passed, failed, not-applicable, or blocked. A failed check is failed. Use not-applicable only with a concise reason in Result Details.",
               "cardinality": {
@@ -239,7 +239,7 @@
               }
             },
             {
-              "key": "result-details",
+              "key": "result_details",
               "title": "Result Details",
               "guidance": "Useful passed, failed, skipped, or total counts when available; otherwise a concise concrete observation. State limitations without raw logs.",
               "cardinality": {
@@ -248,7 +248,7 @@
               }
             },
             {
-              "key": "acceptance-criteria",
+              "key": "acceptance_criteria",
               "title": "Acceptance Criteria",
               "guidance": "Acceptance-criterion ids evaluated by this event. Omit when the action does not evaluate a criterion.",
               "cardinality": {
@@ -257,7 +257,7 @@
               }
             },
             {
-              "key": "verification-requirement",
+              "key": "verification_requirement",
               "title": "Verification Requirement",
               "guidance": "Exactly required, optional, or not-applicable. Include when needed to decide a verification gate or explain a no-suite/sync event; otherwise omit. A required failed event remains unresolved until later passing required evidence in the same revision lineage explicitly links to it; a clean manifest linked by Derived From Revision ID remains in that lineage.",
               "cardinality": {
@@ -266,7 +266,7 @@
               }
             },
             {
-              "key": "related-event-ids",
+              "key": "related_event_ids",
               "title": "Related Event IDs",
               "guidance": "Ids of prior events this event supersedes or resolves. Omit when there are none. Never edit the prior events.",
               "cardinality": {
@@ -275,7 +275,7 @@
               }
             },
             {
-              "key": "artifact-pointer",
+              "key": "artifact_pointer",
               "title": "Artifact Pointer",
               "guidance": "Optional link or path to an external report or artifact. Do not paste the artifact or log.",
               "cardinality": {
@@ -284,7 +284,7 @@
               }
             },
             {
-              "key": "advisories-and-limitations",
+              "key": "advisories_and_limitations",
               "title": "Advisories and Limitations",
               "guidance": "Concise non-blocking risks, limitations, or follow-ups specific to this event. Omit when none.",
               "cardinality": {
@@ -295,18 +295,18 @@
           ]
     },
     {
-          "key": "decision-shipped",
-          "title": "Decision Shipped",
-          "guidance": "Optional repeatable shipped decision. Title each instance with the decision, not \"Decision Shipped\". State the decision, Target Revision, governing evidence, and affected acceptance criteria or artifacts. Omit every instance when no shipped decision is recorded. Append new decisions; never delete or rewrite earlier ones.",
+          "key": "decision_shipped",
+          "title": "Decision Shipped: {decision}",
+          "guidance": "Optional repeatable shipped decision. Replace {decision} with the decision. State the decision, Target Revision, governing evidence, and affected acceptance criteria or artifacts. Omit every instance when no shipped decision is recorded. Append new decisions; never delete or rewrite earlier ones.",
           "cardinality": {
             "min": 0,
             "max": null
           }
     },
     {
-          "key": "related-artifact",
-          "title": "Related Artifact",
-          "guidance": "Optional repeatable link to a finding, specification, plan, or report. Title each instance with the artifact title, not \"Related Artifact\". State its relationship to this delivery history. Omit every instance when none is needed. Append links without replacing earlier entries.",
+          "key": "related_artifact",
+          "title": "Related Artifact: {title}",
+          "guidance": "Optional repeatable link to a finding, specification, plan, or report. Replace {title} with the artifact title. State its relationship to this delivery history. Omit every instance when none is needed. Append links without replacing earlier entries.",
           "cardinality": {
             "min": 0,
             "max": null

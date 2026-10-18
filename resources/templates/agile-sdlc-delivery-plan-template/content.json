@@ -3,12 +3,12 @@
   "guidance": "Write a delivery plan under the single Delivery Plan root. Test Plan mode uses `<Subject> - Agile Test Plan`; Implementation Plan mode uses `<Subject> - Agile Implementation Plan`.\nAlways state the objective. Use actual repository boundaries, commands, environments, data conventions, and established design. Omit optional modules that are irrelevant or unsupported. Test Plan mode may omit execution increments. Implementation Plan mode may omit a dedicated scenario inventory when checks attached to the increments are sufficient. Do not invent modules, commands, dependencies, or release constraints.",
   "outline": [
     {
-      "key": "delivery-plan",
+      "key": "delivery_plan",
       "title": "Delivery Plan",
       "guidance": "The complete test or implementation plan. Objective and Scope is required and contains a required Objective, so this root is always meaningful; every other module can be omitted as a whole.",
       "children": [
         {
-      "key": "objective-and-scope",
+      "key": "objective_and_scope",
       "title": "Objective and Scope",
       "guidance": "The delivery objective and its supported boundary.",
       "children": [
@@ -39,8 +39,8 @@
       "children": [
         {
           "key": "prerequisite",
-          "title": "Prerequisite",
-          "guidance": "Title each instance with the concrete prerequisite. State how its availability is established.",
+          "title": "Prerequisite: {prerequisite}",
+          "guidance": "Replace {prerequisite} with the concrete prerequisite. State how its availability is established.",
           "cardinality": {
             "min": 0,
             "max": null
@@ -50,7 +50,7 @@
       ]
     },
     {
-      "key": "strategy-and-risks",
+      "key": "strategy_and_risks",
       "title": "Strategy and Risks",
       "guidance": "The repository-grounded approach and material delivery or verification risks. Omit this module when no separate strategy or risk content is useful.",
       "cardinality": {
@@ -69,8 +69,8 @@
         },
         {
           "key": "risk",
-          "title": "Risk",
-          "guidance": "Title each instance with the concrete risk. State its impact and supported mitigation.",
+          "title": "Risk: {risk}",
+          "guidance": "Replace {risk} with the concrete risk. State its impact and supported mitigation.",
           "cardinality": {
             "min": 0,
             "max": null
@@ -80,7 +80,7 @@
       ]
     },
     {
-      "key": "execution-increments",
+      "key": "execution_increments",
       "title": "Execution Increments",
       "guidance": "Ordered, independently checkable increments when sequencing adds value. Test Plan mode may omit this module.",
       "cardinality": {
@@ -89,9 +89,9 @@
       },
       "children": [
         {
-          "key": "execution-increment",
-          "title": "Execution Increment",
-          "guidance": "Title each instance with the result it establishes. State relevant target areas, dependencies, work, and checks supported by the repository.",
+          "key": "execution_increment",
+          "title": "Execution Increment: {result}",
+          "guidance": "Replace {result} with the result it establishes. State relevant target areas, dependencies, work, and checks supported by the repository.",
           "cardinality": {
             "min": 0,
             "max": null
@@ -101,7 +101,7 @@
       ]
     },
     {
-      "key": "verification-scenarios",
+      "key": "verification_scenarios",
       "title": "Verification Scenarios",
       "guidance": "Scenarios that need a dedicated inventory. Implementation Plan mode may omit this module when increment checks provide sufficient coverage.",
       "cardinality": {
@@ -110,9 +110,9 @@
       },
       "children": [
         {
-          "key": "verification-scenario",
-          "title": "Verification Scenario",
-          "guidance": "Title each instance with the behavior or condition evaluated. State preconditions, action, expected observation, and applicable verification level without inventing implementation detail.",
+          "key": "verification_scenario",
+          "title": "Verification Scenario: {behavior}",
+          "guidance": "Replace {behavior} with the behavior or condition evaluated. State preconditions, action, expected observation, and applicable verification level without inventing implementation detail.",
           "cardinality": {
             "min": 0,
             "max": null
@@ -122,7 +122,7 @@
       ]
     },
     {
-      "key": "environment-and-data",
+      "key": "environment_and_data",
       "title": "Environment and Data",
       "guidance": "Environment or data needs established by the repository. Omit this module when neither applies.",
       "cardinality": {
@@ -151,7 +151,7 @@
       ]
     },
     {
-      "key": "recovery-and-rollback",
+      "key": "recovery_and_rollback",
       "title": "Recovery and Rollback",
       "guidance": "Recovery or rollback considerations that materially apply. Omit this module when neither applies.",
       "cardinality": {
@@ -190,8 +190,8 @@
       "children": [
         {
           "key": "decision",
-          "title": "Decision",
-          "guidance": "Title each instance with the decision. State its status, evidence or rationale, effect on the plan, and unresolved options when applicable.",
+          "title": "Decision: {decision}",
+          "guidance": "Replace {decision} with the decision. State its status, evidence or rationale, effect on the plan, and unresolved options when applicable.",
           "cardinality": {
             "min": 0,
             "max": null

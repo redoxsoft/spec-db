@@ -96,7 +96,7 @@ Every resource needs a `metadata.json`. Validate against [`schemas/metadata.sche
       "guidance": "Per-section authoring hint.",
       "children": [
         {
-          "key": "the-problem",
+          "key": "the_problem",
           "title": "The Problem",
           "guidance": "State the core user pain in 2–4 sentences."
         }
@@ -104,8 +104,8 @@ Every resource needs a `metadata.json`. Validate against [`schemas/metadata.sche
     },
     {
       "key": "scenario",
-      "title": "Scenario",
-      "guidance": "Title each instance with the user goal.",
+      "title": "Scenario: {goal}",
+      "guidance": "Replace {goal} with the user goal.",
       "cardinality": { "min": 1, "max": null },
       "children": []
     }
@@ -116,10 +116,11 @@ Every resource needs a `metadata.json`. Validate against [`schemas/metadata.sche
 **Rules**
 
 - Root `guidance` is required (longer importable instructions). Keep `metadata.summary` short for cards.
-- Outline `key` values must be **unique tree-wide**.
+- Outline `key` values must be **unique tree-wide** and snake_case: lowercase letters, digits, and underscores, starting and ending with a letter or digit (`acceptance_criteria`, not `acceptance-criteria`). Hyphens are rejected.
+- A node's `title` has a `{placeholder}` **if and only if** it is **repeatable** (`cardinality.max` null or above 1), e.g. `Requirement: {summary}`, so each instance gets its own title. Optional (`0..1`) and exactly-one (`1..1`) nodes use a fixed literal title with no `{…}`.
 - Omit `cardinality` for fixed sections (defaults to `{ "min": 1, "max": 1 }`). Use `"max": null` for unbounded repeats.
 - Outline must pass **SpecX-aligned structure invariants** (below). `npm run check` fails otherwise.
-- See `resources/templates/agile-sdlc-work-item-template/`: `exclusions` is an optional leaf (Pattern A); `risk-or-advisory` is an optional list (Pattern B).
+- See `resources/templates/agile-sdlc-work-item-template/`: `exclusions` is an optional leaf (Pattern A); `risk_or_advisory` is an optional list (Pattern B).
 
 ### Template outline invariants (required)
 
@@ -130,7 +131,7 @@ These match SpecX import rules. Hosts reject outlines that violate them.
 3. **Max depth 4** (root = depth 1).
 4. **Keys unique** tree-wide.
 5. **Preferred shape:** fixed wrapper → repeatable instance → fixed (or optional **leaf**) children.
-6. **Repeatable titles:** In `guidance`, tell authors/AI to title instances concretely (e.g. “Title each instance with the scenario name, not `Scenario`”).
+6. **Repeatable titles:** Placeholders only on repeatable nodes (optional and single nodes keep fixed titles). Give every repeatable node a `{placeholder}` title (e.g. `Scenario: {name}`) and, in `guidance`, tell authors/AI what to replace it with (e.g. “Replace {name} with the scenario name”). Instances keep the literal text and replace each `{…}` with specific text.
 
 Cardinality cheat sheet:
 
@@ -171,9 +172,9 @@ Cardinality cheat sheet:
   "guidance": "Wrapper always present; may contain zero shout-outs.",
   "children": [
     {
-      "key": "shout-out",
-      "title": "Shout-out",
-      "guidance": "Title with person/team name. Write recognition in this section body.",
+      "key": "shout_out",
+      "title": "Shout-out: {name}",
+      "guidance": "Replace {name} with the person or team name. Write recognition in this section body.",
       "cardinality": { "min": 0, "max": null },
       "children": []
     }
@@ -190,19 +191,19 @@ Cardinality cheat sheet:
   "guidance": "Fixed wrapper for common issues.",
   "children": [
     {
-      "key": "common-issue",
-      "title": "Common Issue",
-      "guidance": "Title with the symptom.",
+      "key": "common_issue",
+      "title": "Common Issue: {symptom}",
+      "guidance": "Replace {symptom} with the symptom.",
       "cardinality": { "min": 0, "max": null },
       "children": [
         {
-          "key": "the-problem",
+          "key": "the_problem",
           "title": "The Problem",
           "guidance": "What the user sees.",
           "cardinality": { "min": 0, "max": 1 }
         },
         {
-          "key": "the-solution",
+          "key": "the_solution",
           "title": "The Solution",
           "guidance": "How to fix it.",
           "cardinality": { "min": 0, "max": 1 }

@@ -137,14 +137,67 @@ export type OutlineNode = {
   children?: OutlineNode[]
 }
 
+const OUTLINE_KEY_MESSAGE =
+  'key must use lowercase letters, digits, and underscores, starting and ending with a letter or digit, e.g. "acceptance_criteria" (no hyphens)'
+
+/** Outline node key: snake_case (lowercase letters, digits, underscores). */
+export const outlineKeySchema = z
+  .string()
+  .regex(/^[a-z0-9](?:[a-z0-9_]*[a-z0-9])?$/, OUTLINE_KEY_MESSAGE)
+  .describe(OUTLINE_KEY_MESSAGE)
+
+export const OUTLINE_TITLE_DESCRIPTION =
+  'Section title. A repeatable node (cardinality.max null or above 1) needs a {placeholder}, e.g. "Requirement: {summary}", so each instance gets its own title.'
+
+export const outlineTitleSchema = z
+  .string()
+  .min(1)
+  .describe(OUTLINE_TITLE_DESCRIPTION)
+
+/**
+ * Placeholders belong to repeatable nodes only: a title has a real `{name}` (non-empty after trim)
+ * if and only if `cardinality.max !== 1`. An empty `{}` is malformed on any node.
+ */
+export function checkRepeatableTitle(
+  node: { title: string; cardinality: { max: number | null } },
+  ctx: z.RefinementCtx,
+): void {
+  if (/\{\s*\}/.test(node.title)) {
+    ctx.addIssue({
+      code: 'custom',
+      path: ['title'],
+      message: 'Placeholder names must be non-empty',
+    })
+  }
+  const hasPlaceholder = [...node.title.matchAll(/\{([^{}]+)\}/g)].some(
+    (m) => m[1].trim().length > 0,
+  )
+  if (node.cardinality.max !== 1 && !hasPlaceholder) {
+    ctx.addIssue({
+      code: 'custom',
+      path: ['title'],
+      message: `Repeatable section "${node.title}" needs a {placeholder} in its title so each instance gets its own title, e.g. "${node.title}: {summary}"; or set cardinality.max to 1.`,
+    })
+  }
+  if (node.cardinality.max === 1 && hasPlaceholder) {
+    ctx.addIssue({
+      code: 'custom',
+      path: ['title'],
+      message: `Only repeatable sections use {placeholders}. Remove the {…} from "${node.title}", or make the section repeatable (cardinality.max null or above 1).`,
+    })
+  }
+}
+
 export const outlineNodeSchema: z.ZodType<OutlineNode> = z.lazy(() =>
-  z.object({
-    key: z.string().min(1),
-    title: z.string().min(1),
-    guidance: z.string(),
-    cardinality: outlineCardinalitySchema.default({ min: 1, max: 1 }),
-    children: z.array(outlineNodeSchema).optional(),
-  }),
+  z
+    .object({
+      key: outlineKeySchema,
+      title: outlineTitleSchema,
+      guidance: z.string(),
+      cardinality: outlineCardinalitySchema.default({ min: 1, max: 1 }),
+      children: z.array(outlineNodeSchema).optional(),
+    })
+    .superRefine((node, ctx) => checkRepeatableTitle(node, ctx)),
 )
 
 export const templateContentSchema = z.object({

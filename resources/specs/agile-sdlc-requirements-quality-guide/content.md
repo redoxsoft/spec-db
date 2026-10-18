@@ -23,30 +23,25 @@ A requirement is valid when an independent reviewer can determine whether it pas
 
 ### User Outcomes and Requirement Grain <!-- key: requirement-hierarchy -->
 
-A requirement states what user capability or system guarantee is achieved, and why it is needed. It does not dictate internal language constructs, local function signatures, or private variable names, unless those names are an external contract.
+A requirement states the capability or system guarantee. The problem and intended outcome belong in the Product Spec Template's `Context & Scope`; a requirement need not repeat them. A requirement does not dictate internal language constructs, local function signatures, or private variable names unless those names are an external contract.
 
 #### Requirements and Acceptance Criteria <!-- key: req-versus-ac -->
 
-`REQ-xxx` and `AC-xxx` are different grains of detail within a coherent requirements artifact.
+Requirements and acceptance criteria are different grains of detail within a coherent requirements artifact. Optional `REQ-xxx` and `AC-xxx` identifiers can make them easier to reference when needed.
 
 - **Requirements (`REQ-xxx`).** High-level capability statements. They say what user capability or system guarantee is needed. Example: `REQ-001: Bulk CSV member invitation`. They do not specify private implementation detail.
 - **Acceptance criteria (`AC-xxx`).** Concrete contracts for how a specific interaction, validation rule, or error state behaves and how that behavior is verified. Example: `AC-001: A 50-row CSV enqueues invitation jobs`.
 
-#### Four Fields of a Requirement <!-- key: macro-requirement-fields -->
+#### Requirement Content <!-- key: requirement-content -->
 
-Each substantial `REQ-xxx` has four fields:
-
-- **User outcome.** What the target persona achieves, experiences, or becomes able to do.
-- **Required behavior.** The capability or guarantee the system provides, at initiative level.
-- **Success measure.** The measurable proof that this capability is delivered.
-- **Scope notes.** Inclusions, constraints, or boundary notes for this requirement.
+Use the Product Spec Template's `Behavior & Rules` and `Acceptance Criteria` children as the core structure for each requirement. State the user problem and intended outcome in the document's `Context & Scope`; do not repeat an outcome or success measure under every requirement. Add a requirement-specific scope note only when it clarifies that requirement's boundary. Include functional and relevant quality requirements in the same structure without copying a universal checklist. A requirement does not need a `REQ-xxx` identifier unless stable references or independent tracking are useful.
 
 ### Non-Goals and the Initial Slice <!-- key: non-goals -->
 
 Undefined material boundaries invite speculative completeness. A requirements document states non-goals when they clarify the initial slice; it does not manufacture exclusions for a well-bounded request.
 
 - **Initial slice.** A requirements artifact distinguishes capabilities in the current scope from capabilities deferred to later work.
-- **Material non-goals and exclusions.** When exclusions, deferred features, unsupported configurations, or integrations materially clarify scope, record them as optional repeatable `Non-Goal` entries under the Product Spec's `Scope and Requirements` wrapper. Omit every entry when none adds a useful boundary; a dedicated `Non-Goals` or `Exclusions` wrapper is not required.
+- **Material non-goals and exclusions.** When exclusions, deferred features, unsupported configurations, or integrations materially clarify scope, record them as optional entries under `Context & Scope > Non-Goals` in the Product Spec Template. Omit the section when no exclusion adds a useful boundary; do not require IDs or detailed rationale for simple exclusions.
 
 Examples:
 
@@ -55,7 +50,7 @@ Examples:
 
 ## Acceptance Criteria <!-- key: acceptance-criteria -->
 
-Every requirement that governs delivery is bound to one or more acceptance criteria (`AC-xxx`). Each criterion uses one of the two formats below.
+Every requirement that governs delivery has one or more observable acceptance criteria. Use one of the formats below. Add `AC-xxx` identifiers only when stable references or independent tracking are useful; descriptive headings are sufficient for ordinary PRDs.
 
 ### Two Formats <!-- key: ac-formats -->
 
@@ -94,7 +89,7 @@ AC-002
 ### Anti-Patterns <!-- key: ac-anti-patterns -->
 
 - **Vague success.** "It works correctly and does not crash." The criterion cannot be verified.
-- **Coupled criteria.** Several independent assertions share one `AC-xxx` identifier. Independent assertions have separate identifiers.
+- **Coupled criteria.** Several independent assertions are combined into one criterion. Split independently verifiable outcomes; identifiers are optional unless they help reference or track the criteria.
 - **Untestable preconditions.** "Given a happy user." A subjective state cannot be verified.
 
 ### Behavior Contract Snapshot <!-- key: feature-contract -->
@@ -108,7 +103,7 @@ A coherent behavior specification can state a six-field snapshot of the operatio
 - **Idempotency.** Behavior on a repeated or concurrent invocation.
 - **Completion gate.** The deterministic condition that shows the interaction has finished.
 
-When both grains are present, each `REQ-xxx` maps to the behavior and `AC-xxx` criteria that make it observable. The mapping may be inline; a separate traceability artifact is unnecessary.
+When requirements and criteria are separately itemized, make clear which criteria verify each requirement. The mapping may be inline; identifiers and a separate traceability artifact are unnecessary unless they provide value.
 
 ## Uncertainty Tags <!-- key: uncertainty -->
 
@@ -131,11 +126,13 @@ Inline tags are reserved for content that is not yet settled.
 
 ## Identifiers <!-- key: identifiers -->
 
-These four prefixes are the identifiers for actionable items. Personas, metrics, exclusions, components, and risks use ordinary headings and lists, not formal identifiers.
+When stable identifiers are useful, these prefixes identify actionable items. Personas, metrics, exclusions, components, and risks use ordinary headings and lists, not formal identifiers.
 
 | Prefix | Entity | Where it is written | What it traces to |
 | --- | --- | --- | --- |
-| `REQ-xxx` | Business, product, or system requirement | Requirements artifact | Behavior and acceptance criteria |
-| `AC-xxx` | Acceptance criterion | Behavior specification or Work Item | Observable verification evidence |
+| `REQ-xxx` | Optional stable identifier for a business, product, or system requirement | Requirements artifact | Behavior and acceptance criteria |
+| `AC-xxx` | Optional stable identifier for an acceptance criterion | Behavior specification or Work Item | Observable verification evidence |
 | `TASK-xxx` | Execution increment | Delivery plan | The bounded work it describes |
 | `ADR-xxx` | Architecture decision | Technical design | The affected technical boundary |
+
+Identifiers are useful when items will be independently referenced, tracked, or mapped across artifacts. Do not add them to every heading by default.

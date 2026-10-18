@@ -421,11 +421,13 @@
       "properties": {
         "key": {
           "type": "string",
-          "minLength": 1
+          "pattern": "^[a-z0-9](?:[a-z0-9_]*[a-z0-9])?$",
+          "description": "key must use lowercase letters, digits, and underscores, starting and ending with a letter or digit, e.g. \"acceptance_criteria\" (no hyphens)"
         },
         "title": {
           "type": "string",
-          "minLength": 1
+          "minLength": 1,
+          "description": "Section title. A repeatable node (cardinality.max null or above 1) needs a {placeholder}, e.g. \"Requirement: {summary}\", so each instance gets its own title."
         },
         "guidance": {
           "type": "string"
@@ -556,13 +558,9 @@
                     "type": "string"
                   },
                   "language": {
-                    "anyOf": [
-                      {
-                        "type": "string"
-                      },
-                      {
-                        "type": "null"
-                      }
+                    "type": [
+                      "string",
+                      "null"
                     ]
                   }
                 },

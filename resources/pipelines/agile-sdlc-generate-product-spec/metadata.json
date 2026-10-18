@@ -2,7 +2,7 @@
   "slug": "agile-sdlc-generate-product-spec",
   "kind": "pipeline",
   "title": "Agile Generate Product Spec",
-  "summary": "Turn a brief into one PRD for an initiative or one feature spec per capability, updating the existing SpecX document when that title already exists. The pipeline recommends the mode and the person decides; a brief that bundles several capabilities is split only after the person accepts.",
+  "summary": "Preflight setup from repository evidence, ask material product discovery questions, and draft an initiative PRD or feature spec. Bundled capabilities are split only when the person accepts.",
   "tags": [
     "agile-sdlc",
     "domain.product",
@@ -11,8 +11,8 @@
   "collection": "agile-sdlc",
   "subcollection": "agile-sdlc-specify",
   "createdAt": "2026-10-02",
-  "updatedAt": "2026-10-04",
-  "sourceVersion": "1.1",
+  "updatedAt": "2026-10-07",
+  "sourceVersion": "1.2",
   "schemaVersion": "1",
   "license": "CC-BY-4.0",
   "relatedSlugs": [

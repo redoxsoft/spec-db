@@ -1,6 +1,9 @@
 import { z } from 'zod'
 import {
+  checkRepeatableTitle,
   inputVarDefinitionSchema,
+  outlineKeySchema,
+  outlineTitleSchema,
   outlineCardinalitySchema,
   schemaVersionSchema,
   type OutlineCardinality,
@@ -63,13 +66,15 @@ export type PackageOutlineNode = {
 
 export const packageOutlineNodeSchema: z.ZodType<PackageOutlineNode> = z.lazy(
   () =>
-    z.object({
-      key: z.string().min(1),
-      title: z.string().min(1),
-      guidance: z.string(),
-      cardinality: outlineCardinalitySchema,
-      children: z.array(packageOutlineNodeSchema),
-    }),
+    z
+      .object({
+        key: outlineKeySchema,
+        title: outlineTitleSchema,
+        guidance: z.string(),
+        cardinality: outlineCardinalitySchema,
+        children: z.array(packageOutlineNodeSchema),
+      })
+      .superRefine((node, ctx) => checkRepeatableTitle(node, ctx)),
 )
 
 export const templatePackageSchema = z

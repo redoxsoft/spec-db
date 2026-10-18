@@ -1,30 +1,47 @@
 {
   "schemaVersion": "1",
-  "guidance": "Write a product or feature specification under the single Product Specification root. PRD mode uses `<Subject> - Agile PRD`; Feature mode uses `<Subject> - Agile Feature Spec`.\nAlways state supported context and intent. Use bounded leeway for optional modules: infer repository-supported detail, emphasize initiative context and outcomes in PRD mode, and emphasize behavior and acceptance criteria in Feature mode. Omit optional modules that are irrelevant or unsupported. Do not add invented personas, stakeholders, metrics, traceability, requirements, or upstream documents. Preserve consequential unknowns as open decisions rather than resolving them without evidence.",
+  "guidance": "Write an initiative-level PRD or behavior-focused feature spec. PRD mode uses `<Subject> - Agile PRD`; Feature mode uses `<Subject> - Agile Feature Spec`. The document title is separate metadata; body headings begin at level 1 and do not exceed level 4. Keep the required core concise and omit unused optional sections. Give each rule and acceptance condition one authoritative home; reference it elsewhere instead of duplicating it. Use `? [NEEDS_INPUT]` for a material unresolved choice or fact, `* [PROPOSAL]` for unaccepted suggested behavior, and `! [HYPOTHESIS]` for a plausible explanation still under investigation. Never present a proposal or hypothesis as established behavior or a decision. Do not invent research, baselines, commitments, stakeholders, or quantitative measures. A success measure may be qualitative when that is the useful evidence.",
   "outline": [
     {
-      "key": "product-specification",
-      "title": "Product Specification",
-      "guidance": "The complete product or feature specification. Context and Intent is required so this root is always meaningful; omit every optional child module that lacks useful supported content.",
+      "key": "context_and_scope",
+      "title": "Context & Scope",
+      "guidance": "The required top-level context for the product or feature specification. Its required children establish the problem and outcome; requirements define included scope. Optional journeys and delivery considerations belong here only when useful.",
+      "cardinality": {
+        "min": 1,
+        "max": 1
+      },
       "children": [
         {
-          "key": "context-and-intent",
-          "title": "Context and Intent",
-          "guidance": "State the supported current condition, why the subject matters, and the outcome or behavior this document intends to establish. Keep the detail appropriate to the selected mode and do not prescribe unsupported implementation detail."
+          "key": "problem_and_users",
+          "title": "Problem & Users",
+          "guidance": "Describe the problem, affected users or systems, and relevant current behavior. Do not invent personas or claim facts without evidence.",
+          "cardinality": {
+            "min": 1,
+            "max": 1
+          }
         },
         {
-          "key": "users-and-stakeholders",
-          "title": "Users and Stakeholders",
-          "guidance": "People or systems materially affected by the subject. Omit this module when no useful user or stakeholder information is established.",
+          "key": "outcomes_and_success_measures",
+          "title": "Outcomes & Success Measures",
+          "guidance": "State the intended outcome and how it could be observed. Distinguish an outcome from a measured baseline or existing telemetry. Propose a target only when useful and label it `* [PROPOSAL]`; do not imply new instrumentation is in scope. Do not repeat a separate success measure under every requirement.",
+          "cardinality": {
+            "min": 1,
+            "max": 1
+          }
+        },
+        {
+          "key": "non_goals",
+          "title": "Non-Goals",
+          "guidance": "Optional collection of exclusions that materially clarify the boundary. Do not require IDs or detailed rationale for simple exclusions.",
           "cardinality": {
             "min": 0,
             "max": 1
           },
           "children": [
             {
-              "key": "user-or-stakeholder",
-              "title": "User or Stakeholder",
-              "guidance": "Title each instance with the concrete user, stakeholder, or affected system. State only the supported need, responsibility, or impact.",
+              "key": "non_goal_item",
+              "title": "Excluded Capability or Scope: {exclusion}",
+              "guidance": "State the exclusion and its useful boundary or rationale. Replace {exclusion} with a descriptive name for the exclusion; omit exclusions that add no clarity.",
               "cardinality": {
                 "min": 0,
                 "max": null
@@ -33,131 +50,153 @@
           ]
         },
         {
-          "key": "outcomes-and-success-evidence",
-          "title": "Outcomes and Success Evidence",
-          "guidance": "Desired outcomes and evidence that would demonstrate them. PRD mode may emphasize this module. Omit it when no separate outcome or evidence entry is useful.",
+          "key": "requirements",
+          "title": "Requirements",
+          "guidance": "The authoritative collection of included capabilities and constraints. Include functional and relevant quality requirements. Requirements define included scope; add a separate scope summary only when the boundary would otherwise be unclear.",
           "cardinality": {
-            "min": 0,
+            "min": 1,
             "max": 1
           },
           "children": [
             {
-              "key": "outcome-or-success-evidence",
-              "title": "Outcome or Success Evidence",
-              "guidance": "Title each instance with the concrete desired outcome or evidence. Distinguish a desired result from an established measurement source, and include quantitative measures only when supplied or evidenced.",
+              "key": "requirement",
+              "title": "Requirement: {summary}",
+          "guidance": "Replace {summary} with a descriptive name for one coherent capability or constraint. Split independently valuable or deferrable capabilities, not every step or rule. A requirement need not use a user-story sentence or REQ-xxx identifier; add stable identifiers only when useful for reference or tracking.",
               "cardinality": {
-                "min": 0,
+                "min": 1,
                 "max": null
-              }
+              },
+              "children": [
+                {
+                  "key": "behavior_and_rules",
+                  "title": "Behavior & Rules",
+                  "guidance": "Describe the required behavior, triggers, actors, applicable conditions, state changes, observable outcomes, and relevant exceptions where they apply. Include design references and constraints where they explain this requirement. Keep each rule in one authoritative place.",
+                  "cardinality": {
+                    "min": 1,
+                    "max": 1
+                  }
+                },
+                {
+                  "key": "acceptance_criteria",
+                  "title": "Acceptance Criteria",
+                  "guidance": "State observable pass/fail conditions that verify the behavior, including relevant edge cases. Use Given / When / Then for interactions, transitions, or flows; use concise Target and Constraint fields for other observable checks. Add Violation only when the failure response is part of the contract. Do not merely restate the requirement title. Prefix proposals with `* [PROPOSAL]` and unresolved criteria with `? [NEEDS_INPUT]`. Use `AC-xxx` identifiers only when stable references or independent tracking are useful.",
+                  "cardinality": {
+                    "min": 1,
+                    "max": 1
+                  }
+                }
+              ]
             }
           ]
         },
         {
-          "key": "scope-and-requirements",
-          "title": "Scope and Requirements",
-          "guidance": "Supported scope boundaries, requirements, and material exclusions. Omit this module when Context and Intent already states the complete bounded subject.",
+          "key": "user_journeys",
+          "title": "User Journeys",
+          "guidance": "Optional end-to-end scenarios. Include journeys when they clarify multi-step behavior that is not captured as well by individual requirements. Refer to requirements instead of restating their rules or acceptance criteria.",
           "cardinality": {
             "min": 0,
             "max": 1
           },
           "children": [
             {
-              "key": "scope-item-or-requirement",
-              "title": "Scope Item or Requirement",
-              "guidance": "Title each instance with the capability, constraint, or boundary. State the required result and relevant conditions without inventing detail. Use identifiers only when they help the document or already govern the work.",
+              "key": "journey",
+              "title": "Journey: {name}",
+              "guidance": "Replace {name} with a descriptive name for one meaningful journey. Each instance must contain a flow and preconditions.",
               "cardinality": {
                 "min": 0,
                 "max": null
-              }
+              },
+              "children": [
+                {
+                  "key": "flow_and_preconditions",
+                  "title": "Flow & Preconditions",
+                  "guidance": "Describe the trigger, starting conditions, and important sequence. Include relevant design references and links to requirements.",
+                  "cardinality": {
+                    "min": 0,
+                    "max": 1
+                  }
+                },
+                {
+                  "key": "end_to_end_acceptance_criteria",
+                  "title": "End-to-End Acceptance Criteria",
+                  "guidance": "Optional criteria owned by this end-to-end journey. Do not repeat requirement-level criteria.",
+                  "cardinality": {
+                    "min": 0,
+                    "max": 1
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "key": "risks_dependencies_and_open_decisions",
+          "title": "Risks, Dependencies & Open Decisions",
+          "guidance": "Optional delivery considerations. Include populated collections only. An unknown fact is not automatically a product decision; identify whether it needs verification or a choice.",
+          "cardinality": {
+            "min": 0,
+            "max": 1
+          },
+          "children": [
+            {
+              "key": "risks",
+              "title": "Risks",
+              "guidance": "Optional collection of material uncertain adverse outcomes and their mitigations or next actions.",
+              "cardinality": {
+                "min": 0,
+                "max": 1
+              },
+              "children": [
+                {
+                  "key": "risk",
+                  "title": "Risk: {risk}",
+                  "guidance": "Describe the uncertainty, likely impact, and known mitigation or next action.",
+                  "cardinality": {
+                    "min": 0,
+                    "max": null
+                  }
+                }
+              ]
             },
             {
-              "key": "non-goal",
-              "title": "Non-Goal",
-              "guidance": "Title each instance with an excluded capability, behavior, audience, configuration, or integration that materially clarifies scope, and state why it is outside this document. Omit all instances when none adds a useful boundary.",
+              "key": "dependencies",
+              "title": "Dependencies",
+              "guidance": "Optional collection of external inputs or conditions needed for delivery.",
               "cardinality": {
                 "min": 0,
-                "max": null
-              }
-            }
-          ]
-        },
-        {
-          "key": "behaviors-and-journeys",
-          "title": "Behaviors and Journeys",
-          "guidance": "Observable behavior or meaningful journeys. Feature mode may emphasize this module. Omit it when behavior or journey detail is not relevant.",
-          "cardinality": {
-            "min": 0,
-            "max": 1
-          },
-          "children": [
+                "max": 1
+              },
+              "children": [
+                {
+                  "key": "dependency",
+                  "title": "Dependency: {dependency}",
+                  "guidance": "Describe what is needed and any relevant condition, owner, or impact when known.",
+                  "cardinality": {
+                    "min": 0,
+                    "max": null
+                  }
+                }
+              ]
+            },
             {
-              "key": "behavior-or-journey",
-              "title": "Behavior or Journey",
-              "guidance": "Title each instance with the observable behavior or journey goal. Describe supported preconditions, interactions, rules, states, outcomes, or recovery where they matter.",
+              "key": "open_decisions",
+              "title": "Open Decisions",
+              "guidance": "Optional collection of consequential unresolved product choices. Include known options, evidence, trade-offs, and what depends on resolution.",
               "cardinality": {
                 "min": 0,
-                "max": null
-              }
-            }
-          ]
-        },
-        {
-          "key": "acceptance-criteria",
-          "title": "Acceptance Criteria",
-          "guidance": "Observable completion conditions. Feature mode may emphasize this module. Omit it when acceptance criteria are not established by the source.",
-          "cardinality": {
-            "min": 0,
-            "max": 1
-          },
-          "children": [
-            {
-              "key": "acceptance-criterion",
-              "title": "Acceptance Criterion",
-              "guidance": "Title each instance with the behavior being evaluated. Use Given / When / Then for an interaction, transition, or flow. For any other observable check, use concise declarative Target and Constraint fields. Add Violation only when a failure response or failure behavior is part of the contract.",
-              "cardinality": {
-                "min": 0,
-                "max": null
-              }
-            }
-          ]
-        },
-        {
-          "key": "risks-and-dependencies",
-          "title": "Risks and Dependencies",
-          "guidance": "Material uncertainty, constraints, and external dependencies. Omit this module when none needs recording.",
-          "cardinality": {
-            "min": 0,
-            "max": 1
-          },
-          "children": [
-            {
-              "key": "risk-or-dependency",
-              "title": "Risk or Dependency",
-              "guidance": "Title each instance with the concrete concern. State its relevance, likely impact, and known mitigation or dependency condition.",
-              "cardinality": {
-                "min": 0,
-                "max": null
-              }
-            }
-          ]
-        },
-        {
-          "key": "open-decisions",
-          "title": "Open Decisions",
-          "guidance": "Unresolved consequential choices. Omit this module when none exists; do not turn unsupported guesses into settled content.",
-          "cardinality": {
-            "min": 0,
-            "max": 1
-          },
-          "children": [
-            {
-              "key": "open-decision",
-              "title": "Open Decision",
-              "guidance": "Title each instance with the decision needed. State the known options, evidence, trade-offs, and what depends on resolution.",
-              "cardinality": {
-                "min": 0,
-                "max": null
-              }
+                "max": 1
+              },
+              "children": [
+                {
+                  "key": "open_decision",
+                  "title": "Decision Needed: {question}",
+                  "guidance": "Replace {question} with the open question. Describe the choice, viable options, a recommendation when one is defensible, and what depends on the answer. Mark the unresolved behavior `? [NEEDS_INPUT]` rather than presenting it as settled.",
+                  "cardinality": {
+                    "min": 0,
+                    "max": null
+                  }
+                }
+              ]
             }
           ]
         }

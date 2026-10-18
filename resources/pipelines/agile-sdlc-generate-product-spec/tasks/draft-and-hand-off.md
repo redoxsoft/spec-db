@@ -1,23 +1,26 @@
-**Goal:** Draft or update each approved `<Subject> - Agile PRD` or `<Subject> - Agile Feature Spec` from the shared product spec template, then hand off in at most five lines.
+**Goal:** Draft or update each approved PRD or feature spec from the Agile Product Spec Template, then hand off in at most five lines.
 
-**Scope:** This task writes each approved product spec in place from the confirmed brief. PRD mode emphasizes initiative context, outcomes, supported scope, and success evidence. Feature mode emphasizes behavior, journeys, acceptance criteria, and supported boundaries. It must not invent requirements, personas, stakeholders, metrics, traceability, or an upstream artifact; modify application source code; start another pipeline; or continue when this run is not approved.
+**Scope:** Use the persisted discovery contract. PRDs emphasize initiative context, outcomes, requirements, and supported success evidence. Feature specs emphasize behavior, requirements, and acceptance criteria; include journeys when useful. Do not invent facts or commitments, modify application source code, start another pipeline, or repeat resolved questions.
 
-**Verification / Definition of Done:**
-- [ ] The approved drafting contract and each separate output placement were reloaded completely.
-- [ ] Each separate persisted placement was consumed without recomputation. An update was reread by its artifact id and written onto that same document, which stays in its current folder. A create used the persisted folder path, the approved title, and the Agile Product Spec template, with one new idempotency key reused if that create is retried.
-- [ ] The draft followed the approved mode.
-- [ ] When requirement quality needed external guidance, the mapped knowledge guide was read once.
-- [ ] Unresolved items are tagged `? [NEEDS_INPUT]` and proposals `* [PROPOSAL]`. No requirement, metric, or schema was invented to fill the outline.
-- [ ] Application source code was not modified, and no other pipeline was started.
-- [ ] The handoff is at most five lines: outcome, decision needed, document written, evidence, and next action.
-- [ ] The draft was self-checked against this definition of done.
+**Definition of Done:**
+- [ ] The approved contract, discovery decisions, unresolved items, and each output placement were reloaded.
+- [ ] Each artifact was written in its persisted location with the approved title and template.
+- [ ] The draft follows the template, distinguishes proposals and unresolved items, and contains no invented facts.
+- [ ] A brief quality check found no unresolved duplication, unclear behavior, untestable criteria, or material contradiction.
+- [ ] The handoff is at most five lines and truthfully reports outcome, decision, artifact, evidence, and next action.
 
-**Instructions:**
+## 1. Write
 
-1. Expose concise state while working: `drafting`, `waiting` for a newly discovered consequential decision, or `blocked` when a required dependency is unavailable.
-2. Reload the complete Task 1 **Persisted handoff**, including the approved mode and each separate output placement. For each artifact, name every missing field of that disposition and stop `blocked`: an update needs the artifact id, current folder id, and informational folder path; a create needs the approved folder path. Stop unless status is approved. Do not reconstruct state from conversation or re-ask an approved choice.
-3. For each output, load only its own persisted placement; never recompute, share placements, list folders, or relocate. For an update, read the existing document by the persisted id, then write the draft onto that same document so it stays in its current folder. If the folder id you read differs from the one that was stored, include a concise advisory and still write there. For a create, create the document from the Agile Product Spec Template, using the approved title and the stored folder path (folder names from the root), not a folder id. Use one new idempotency key for that create, and reuse the same key if the create is retried. If the template or the create cannot be completed, stop `blocked`.
-4. When the draft contains substantial requirements or acceptance criteria whose quality is not already established by the source, read "Agile Requirements Quality Guide" (`agile-sdlc-requirements-quality-guide`) once. Do not read the routing guide again or reference another spec.
-5. Fill the template from the stored source and decisions. In PRD mode, emphasize context, intended outcomes, supported success evidence, scope, risks, dependencies, and open decisions. In Feature mode, emphasize observable behaviors, meaningful journeys, business rules, supported scope, acceptance criteria, risks, dependencies, and open decisions, and name a governing artifact only when the stored source establishes one. Record each material non-goal as an optional `Non-Goal` instance under `Scope and Requirements`; omit all such instances when none adds a useful boundary. Tag unresolved items `? [NEEDS_INPUT]` and proposals `* [PROPOSAL]`; do not silently promote either. Omit irrelevant descendants and do not invent unsupported content.
-6. Self-check the draft against this definition of done and correct it without a separate verification pass.
-7. Emit at most five lines labeled Outcome, Decision, Artifact, Evidence, and Next action. Use `done`, `failed`, `needs_input`, or `blocked` truthfully. Artifact names each exact document and informational folder path; include a persisted placement advisory only when present. Evidence concisely names the source and repository facts used and gives provenance only for material decisions or assumptions. Do not modify application source code or create another artifact.
+1. Set state to `drafting`. Reload Task 1's complete **Persisted handoff**. Stop `blocked` unless its status is `approved`. For each output, an update must include artifact id, current folder id, and informational folder path; a create must include its approved folder path. Do not reconstruct missing state from conversation.
+2. Use each output's own saved placement; never recompute placement, list folders, or relocate an existing artifact. For updates, reread and write by artifact id, keeping the document in its current folder; if its folder changed since scoping, note an advisory and still write there. For creates, use the Agile Product Spec Template, approved title, and saved folder path (folder names from the root). Use one idempotency key per create and reuse it if retried. If the template or create is unavailable, stop `blocked`.
+3. Read "Agile Requirements Quality Guide" (`agile-sdlc-requirements-quality-guide`) once only when requirements or criteria are substantial and their quality is not established by the source. Do not reread the routing guide or load another spec.
+4. Fill the template from the source, answers, and accepted decisions. Include the required problem/users, outcome, requirements, behavior/rules, and acceptance criteria. Omit optional sections with no useful content. Put material exclusions under `Context & Scope > Non-Goals`. Give every rule one authoritative home; journeys add end-to-end understanding and reference requirements instead of repeating their criteria.
+5. Keep facts, accepted decisions, proposals, hypotheses, and unknowns distinct. Mark unaccepted product behavior or targets `* [PROPOSAL]`; mark consequential unresolved facts or choices `? [NEEDS_INPUT]`; use `! [HYPOTHESIS]` only for an explanation still under investigation. Never silently promote a proposal or hypothesis; require explicit acceptance or empirical verification. Do not invent research, baselines, existing behavior, telemetry, stakeholder agreement, or commitments. A proposed target does not imply instrumentation is in scope. If the user deferred a question, draft unaffected behavior and keep only the affected part unresolved.
+
+## 2. Quality check
+
+6. Review the draft briefly: Is the scope the smallest coherent version? Are relevant actors, triggers, conditions, state changes, observable outcomes, and failure behavior clear? Are acceptance criteria observable? Do requirements, journeys, exclusions, and decisions agree without duplication? Are material constraints included without a generic checklist? Fix issues within accepted decisions. If a newly discovered consequential choice blocks a useful draft, set `waiting`, explain why, and ask it once; otherwise leave a specific `? [NEEDS_INPUT]` or `* [PROPOSAL]` and continue. Do not add the review checklist to the PRD.
+
+## 3. Report
+
+7. Emit at most five lines labeled Outcome, Decision, Artifact, Evidence, and Next action. Use `done`, `failed`, `needs_input`, or `blocked` truthfully. Name each exact document and informational folder path, include a placement advisory only when needed, and briefly cite source/repository evidence and material provenance. Do not modify source code or create another artifact.

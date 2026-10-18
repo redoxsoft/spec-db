@@ -166,6 +166,13 @@ An agent should always be able to answer:
 
 Before asking a user for information, inspect the work request, repository, existing artifacts, manifests, tests, and local conventions that can answer the question.
 
+Classify questions by purpose because they have different timing and handling:
+
+- **Setup and infrastructure questions** resolve operational hygiene such as source references, artifact identity, titles, paths, workspace availability, and required tools. Shift these left: inspect and resolve them during intake or preflight, use established conventions and reversible defaults, and batch any remaining user choices before they can block later work. Ask only when evidence cannot settle a consequential choice or a true dependency is unavailable.
+- **Discovery questions** resolve product intent such as users, outcomes, scope, behavior, priorities, and acceptance. Ask them at the discovery task that needs the answer, after reviewing available evidence. Provide a recommendation and the reason when useful; ask follow-up questions when an earlier answer changes what matters next. A discovery task may need several turns to produce a good result.
+
+Do not apply one question limit or approval rule to both classes. Do not ask setup questions merely to make the user repeat repository facts. Do not skip a genuine discovery question merely to keep the interaction short. A task may ask a question earlier or later than its usual point when a dependency, newly discovered evidence, or consequential decision justifies the timing; it should state the reason and preserve the answer in the handoff. Unknown facts must remain distinct from product choices, and a recommendation is not approval.
+
 The agent should distinguish four sources of truth:
 
 - **User-stated:** requirements, constraints, and choices explicitly supplied by a person.
@@ -173,9 +180,9 @@ The agent should distinguish four sources of truth:
 - **Agent-inferred:** reversible defaults inferred from established repository patterns.
 - **Unresolved:** consequential choices that neither the user nor repository has answered.
 
-Only unresolved consequential choices require a question. Present a recommended default when one is defensible. Do not ask a user to choose a package manager, directory, test command, or coding convention that repository inspection can establish.
+Only unresolved consequential choices or necessary facts require a question. Present a recommended default when one is defensible. Do not ask a user to choose a package manager, directory, test command, or coding convention that repository inspection can establish.
 
-Inspect first, then ask once before consequential mutation. “Ask once” does not require every question to appear in the first mechanical task; it requires the pipeline to gather evidence before presenting one consolidated decision gate.
+Inspect first, then ask before consequential mutation. Consolidate setup choices into an early preflight when practical. Discovery questions may be asked in stages when each answer changes which question is useful next. Do not repeat a settled question or add a confirmation step that resolves no remaining uncertainty.
 
 ### 4.2 Expected autonomy
 
@@ -331,7 +338,7 @@ Templates should provide stable structure while leaving repository-specific deta
 The collection should converge toward a small set of generic templates:
 
 1. **Work Item:** context, outcome, acceptance criteria, exclusions, risks, and repository boundary. Optional defect details.
-2. **Product/Feature Spec:** problem, users, intended behavior, requirements, acceptance criteria, non-goals, and open decisions. Optional journeys and success measures.
+2. **Product/Feature Spec:** problem and users, outcomes and success evidence, requirements with behavior and acceptance criteria, non-goals, and material risks, dependencies, or open decisions. Optional journeys and success measures where they add useful detail.
 3. **Technical Design:** context, constraints, approach, decisions, affected boundaries, verification, rollout, and rollback. Optional API, data, migration, security, and operational modules.
 4. **Execution Plan:** ordered increments, dependencies, target areas, checks, and recovery guidance. Used only when sequencing adds value.
 5. **Delivery Record:** repeatable implementation and verification events, acceptance results, decisions, and links.
@@ -487,6 +494,7 @@ Goal-completion claims require adversarial validation of the active templates, t
 20. **Interrupted sync:** Resume after interruption between a living-spec update and its event, append only the missing truthful event, skip completed targets, and block on ambiguous partial state.
 21. **Predictable artifact placement:** Never create runtime work in an imported collection tree, including beside an existing runtime artifact there; preserve existing artifacts in place, keep separate Work Item and Delivery Record placements, and use durable artifact ids across later human folder moves without broad content scans.
 22. **Project development guidance:** A fresh or brownfield change consults only applicable guide sections. A draft leads to a forward-looking, scoped decision; an approved project section is followed or a material exception is raised. The default path still works when bootstrap has not run.
+23. **Question timing:** Resolve path, title, identity, and workspace setup from available evidence before discovery; ask the user only for setup choices evidence cannot resolve. Ask consequential product questions when discovery needs them, allow dependent follow-ups, and persist the answers without a redundant final acknowledgement.
 
 ---
 

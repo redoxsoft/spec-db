@@ -233,7 +233,7 @@ Web standards in the source number two sections as “2” and skip “5.” Ren
 | `app-builder-web-standards` | App Builder Web Standards | `standards/web-standards.md` | `scaffold-baseline`, `topology`, `data-flow`, `design-patterns`, `resilience`, `quality-baseline` |
 | `app-builder-api-standards` | App Builder API Standards | `standards/api-standards.md` | `topology`, `data-flow`, `design-patterns`, `resilience`, `quality-baseline` |
 | `app-builder-mobile-standards` | App Builder Mobile Standards | `standards/mobile-standards.md` | `topology`, `data-flow`, `design-patterns`, `resilience`, `quality-baseline` |
-| `app-builder-project-development-guide` | App Builder Project Development Guide | Authored with the Agile guide | `purpose-and-adoption`, plus the applicable code, UI, state, API, data, configuration, and test sections |
+| `app-builder-project-development-guide` | App Builder Project Development Guide | Authored with the Agile guide | `purpose_and_adoption`, plus the applicable code, UI, state, API, data, configuration, and test sections |
 
 ### 6.2 Contracts — 9
 

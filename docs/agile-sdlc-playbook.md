@@ -247,17 +247,17 @@ Specs remain compact reusable references. Routing procedure, approvals, persiste
 | `agile-sdlc-review-findings-template` | Agile Review Findings Template | `agile-sdlc-verify` | `domain.engineering`, `use-case.execution` | Actionable output written only when review runs. See 5.2.6. |
 | `agile-sdlc-project-development-guide-template` | Agile Project Development Guide Template | `agile-sdlc-standards` | `domain.engineering`, `use-case.planning` | Shape for the optional project-owned guide; the imported spec supplies its default content. |
 
-Dropped or consolidated: the separate product, feature, test, and implementation plan templates, plus `implementation-summary`, `verification-report`, `remediation-record`, `implementation-record`, `review-report`, `change-request`, `bug-spec`, `work-scope-brief`, and `delivery-summary`.
+Dropped or consolidated: the separate product, feature, test, and implementation plan templates, plus `implementation_summary`, `verification-report`, `remediation-record`, `implementation-record`, `review-report`, `change-request`, `bug-spec`, `work-scope-brief`, and `delivery-summary`.
 
 #### 5.2.1 Work Item outline
 
-Fixed top-level nodes are `document-status`, `intended-outcome`, `acceptance-criteria`, `repository-boundary`, and `verification-approach`. Optional detail is nested under the relevant required section so it disappears without leaving a dedicated empty wrapper.
+Fixed top-level nodes are `document_status`, `intended_outcome`, `acceptance_criteria`, `repository_boundary`, and `verification_approach`. Optional detail is nested under the relevant required section so it disappears without leaving a dedicated empty wrapper.
 
-- `document-status` children: `status`, `work-type` (`change`, `defect`, or `task`), `last-updated`, optional `originating-evidence`, and optional repeatable `decision-or-assumption`; no owner is required.
-- `intended-outcome` may contain one optional compact `defect-evidence` child. Omit it for non-defects and when no dependable defect evidence exists; tag an unconfirmed cause `! [HYPOTHESIS]`.
-- `acceptance-criteria` is inherently required and has one repeatable child `acceptance-criterion` at `{ "min": 1, "max": null }`; guidance tells the author to title each instance with the behavior, not "Acceptance Criterion".
-- `repository-boundary` names permitted areas and exact files where known, with optional `exclusions` and repeatable `risk-or-advisory` children.
-- `verification-approach` has optional leaves for automated commands, concrete manual observations, and an explicit not-applicable reason.
+- `document_status` children: `status`, `work_type` (`change`, `defect`, or `task`), `last_updated`, optional `originating_evidence`, and optional repeatable `decision_or_assumption`; no owner is required.
+- `intended_outcome` may contain one optional compact `defect_evidence` child. Omit it for non-defects and when no dependable defect evidence exists; tag an unconfirmed cause `! [HYPOTHESIS]`.
+- `acceptance_criteria` is inherently required and has one repeatable child `acceptance_criterion` at `{ "min": 1, "max": null }`; guidance tells the author to title each instance with the behavior, not "Acceptance Criterion".
+- `repository_boundary` names permitted areas and exact files where known, with optional `exclusions` and repeatable `risk_or_advisory` children.
+- `verification_approach` has optional leaves for automated commands, concrete manual observations, and an explicit not-applicable reason.
 - Risks, decisions, and assumptions appear only when material. Provenance applies to material decisions and assumptions, not routine repository facts.
 
 #### 5.2.2 Product Spec outline
@@ -273,7 +273,7 @@ The single fixed top-level node is `product-specification`. Its required `contex
 
 #### 5.2.3 Technical Design outline
 
-The single fixed top-level node is `technical-design`. Its required `technical-approach` child contains a required `approach-overview`, making the root meaningful.
+The single fixed top-level node is `technical_design`. Its required `technical_approach` child contains a required `approach_overview`, making the root meaningful.
 
 - Optional named descendants preserve context and constraints, decisions, affected boundaries, verification, API and interfaces, data, migration, security, operations, rollout, and rollback without mandatory isolation zones, stack assumptions, workflow detail, or invented architecture.
 - Omit an irrelevant module as a whole; never render it as an empty section.
@@ -281,7 +281,7 @@ The single fixed top-level node is `technical-design`. Its required `technical-a
 
 #### 5.2.4 Delivery Plan outline
 
-The single fixed top-level node is `delivery-plan`. Its required `objective-and-scope` child contains a required `objective`, making the root meaningful.
+The single fixed top-level node is `delivery_plan`. Its required `objective_and_scope` child contains a required `objective`, making the root meaningful.
 
 - Optional named descendants preserve prerequisites, strategy and risks, execution increments, verification scenarios, environment and data, recovery and rollback, and decisions. Root guidance requires repository inspection and omission of irrelevant modules as whole sections.
 - Test Plan mode may omit the Execution Increments module. Implementation Plan mode may omit the Verification Scenarios module when checks attached to increments provide sufficient coverage.
@@ -290,21 +290,21 @@ The single fixed top-level node is `delivery-plan`. Its required `objective-and-
 
 #### 5.2.5 Delivery Record outline
 
-The single fixed top-level node is `delivery-record`. Its required `document-status` and `implementation-summary` children make the root useful for every outcome, including an early zero-event `blocked` or `needs_input` result.
+The single fixed top-level node is `delivery_record`. Its required `document_status` and `implementation_summary` children make the root useful for every outcome, including an early zero-event `blocked` or `needs_input` result.
 
-- `document-status` contains required `implementation-outcome` and `implementation-outcome-reason`, plus optional Governing Work Item and Originating Request. A fast-path record omits Governing Work Item and retains its request reference. Only `implement` writes outcome fields.
-- `implementation-summary` requires a concise reader-first outcome/reason and adds changed areas, acceptance result, and limitations/next action only when established. It cites supporting event ids when evidence exists; an early blocked or needs_input outcome before checks instead cites its Work Item decision or Originating Request and omits revision and event modules. Optional pipelines do not invent or rewrite it.
-- Optional repeatable `target-revision` descendants store manifests once. A clean manifest is an exact full commit SHA; a dirty manifest uses its base SHA as ancestry context plus exact boundary identities and complete changed-path coverage. Optional clean bridges carry `derived-from-revision-id`. Optional repeatable `delivery-event` descendants require stable id, source, date, revision-id reference, exact command or concrete action, result (`passed`, `failed`, `not-applicable`, or `blocked`), and concise result details.
+- `document_status` contains required `implementation_outcome` and `implementation_outcome_reason`, plus optional Governing Work Item and Originating Request. A fast-path record omits Governing Work Item and retains its request reference. Only `implement` writes outcome fields.
+- `implementation_summary` requires a concise reader-first outcome/reason and adds changed areas, acceptance result, and limitations/next action only when established. It cites supporting event ids when evidence exists; an early blocked or needs_input outcome before checks instead cites its Work Item decision or Originating Request and omits revision and event modules. Optional pipelines do not invent or rewrite it.
+- Optional repeatable `target_revision` descendants store manifests once. A clean manifest is an exact full commit SHA; a dirty manifest uses its base SHA as ancestry context plus exact boundary identities and complete changed-path coverage. Optional clean bridges carry `derived_from_revision_id`. Optional repeatable `delivery_event` descendants require stable id, source, date, revision-id reference, exact command or concrete action, result (`passed`, `failed`, `not-applicable`, or `blocked`), and concise result details.
 - Events are append-only. Only later passing required evidence in the same revision lineage may resolve a prior required failed event by linking its id; not-applicable never resolves a required failure.
-- Optional repeatable `decision-shipped` and `related-artifact` descendants exist only for shipped decisions and useful links. No grouping wrapper or placeholder is required.
+- Optional repeatable `decision_shipped` and `related_artifact` descendants exist only for shipped decisions and useful links. No grouping wrapper or placeholder is required.
 
 No record-profile node, no cycle-count node, no child-orchestration node.
 
 #### 5.2.6 Review Findings outline
 
-Top-level, all fixed: `document-status`, `verdict`.
+Top-level, all fixed: `document_status`, `verdict`.
 
-- `document-status` children: `reviewer`, `date`, `target-revision-and-boundary`, `governing-work-item`, and an optional Delivery Record link.
+- `document_status` children: `reviewer`, `date`, `target_revision_and_boundary`, `governing_work_item`, and an optional Delivery Record link.
 - `verdict`: blocking findings exist, or none do, in one or two sentences. Its optional repeatable `finding` children each carry `location`, `severity` (`blocking` or `non-blocking`), `evidence`, `impact`, and `recommendation`; every actual finding fills all five. Optional repeatable `note` children hold useful observations that are not findings.
 - Zero findings is represented only by the concise non-blocking verdict. It creates no finding or note instance, empty section, or `none` placeholder.
 
